@@ -29,6 +29,10 @@ md("""
 """)
 code("""
 # keep
+# 설명: 설정 셀이다. 매 차시 첫 셀로 실행하고, 출력이 없는 것이 정상이다.
+# 설명: 실행 전에 오른쪽 위 커널이 .venv인지 함께 본다.
+# 설명: 폰트 이름을 font_name에 담아 두는 것은 1)에서 이 이름을 다시 쓰기 때문이다.
+# 설명: ModuleNotFoundError가 나오면 코드가 아니라 커널부터 확인한다.
 import platform
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -47,6 +51,10 @@ md("""
 """)
 code("""
 # keep
+# 설명: 출력 (300, 12)는 학생 300명, 열 12개라는 뜻이다. 이 표 하나로 끝까지 그린다.
+# 설명: 경로의 ..은 한 단계 위 폴더다. 노트북이 06_분포 폴더 안에 있어서 붙인다.
+# 설명: FileNotFoundError가 나오면 압축을 시각화실습 폴더 안에 풀었는지, data 폴더가 있는지 본다.
+# 설명: sleep_hours는 15개가 비어 있다. 2)에서 다시 쓰는 숫자이니 말해 둔다.
 students = pd.read_csv('../data/students.csv')
 print(students.shape)
 """)
@@ -60,6 +68,10 @@ md("""
 * 직접 확인한다. 1강 방식으로 폰트를 넣은 뒤 아무 인자 없이 set_theme을 부르고, 앞뒤의 폰트 설정을 출력한다.
 """)
 code("""
+# 설명: 설정 셀에서 맞춰 둔 폰트를 일부러 망가뜨리는 셀이라고 먼저 말한다.
+# 설명: 가운데 sns.set_theme() 한 줄을 보게 한다. 인자가 없는 이 줄이 폰트를 바꾼다.
+# 설명: 출력은 ['Malgun Gothic']에서 ['sans-serif']로 바뀐다. Mac은 첫 줄이 ['AppleGothic']이다.
+# 설명: 이제 한글이 깨지는 상태다. 다음 셀에서 그대로 확인하고 그다음에 고친다.
 plt.rcParams['font.family'] = font_name
 print('set_theme 전:', plt.rcParams['font.family'])
 sns.set_theme()
@@ -72,6 +84,10 @@ md("""
   * 아래 셀은 일부러 깨지게 만든 것이다. 한글이 네모(□)로 나오고, 'Glyph … missing from font(s) Arial' 경고가 찍힌다. Arial에 한글 글자가 없다는 뜻이다.
 """)
 code("""
+# 설명: 실행 후 제목의 □와 함께 바탕이 회색으로 바뀐 것을 짚는다. 인자 없는 set_theme의 기본 테마다.
+# 설명: 막대와 숫자, study_hours·Count는 멀쩡하다. 코드가 틀린 것이 아니고 한글만 문제다.
+# 설명: 경고는 글자마다 한 줄씩 길게 나온다. 전부 읽지 말고 줄 끝 font(s) Arial까지만 읽어 준다.
+# 설명: 1차시에 본 □ 경고와 폰트 이름만 다르고 원인은 같다.
 fig, ax = plt.subplots()
 sns.histplot(data=students, x='study_hours', ax=ax)
 ax.set_title('주간 공부 시간 분포')
@@ -85,6 +101,10 @@ md("""
 * 설정 셀과 같은 줄이다. 그래프가 깨지면 설정 셀을 다시 실행하면 된다.
 """)
 code("""
+# 설명: 그래프 없이 글자만 나오는 셀이다. 설정이 돌아왔는지 출력으로 확인한다.
+# 설명: 기대 출력은 ['Malgun Gothic'] False다. Mac은 ['AppleGothic'] False다.
+# 설명: style='whitegrid'도 들어 있어 회색 바탕도 함께 바뀐다. 다음 셀에서 눈으로 본다.
+# 설명: 뒤에서 □가 다시 나오면 어딘가에서 인자 없는 set_theme을 부른 것이다.
 sns.set_theme(style='whitegrid', font=font_name, rc={'axes.unicode_minus': False})
 print(plt.rcParams['font.family'], plt.rcParams['axes.unicode_minus'])
 """)
@@ -96,6 +116,9 @@ md("""
   * 제목·축 이름은 3강처럼 <b>ax.set_title</b>·<b>ax.set_xlabel</b>·<b>ax.set_ylabel</b>로 단다.
 """)
 code("""
+# 설명: 깨졌던 셀과 코드가 거의 같다. result =와 print 한 줄만 더했다.
+# 설명: is는 값이 같은지가 아니라 같은 객체인지 묻는다. 출력 True를 먼저 짚는다.
+# 설명: 그래프는 깨진 셀과 비교한다. 바탕이 흰색이 되고, 제목이 한글로 나오고, 경고가 사라졌다.
 fig, ax = plt.subplots()
 result = sns.histplot(data=students, x='study_hours', ax=ax)
 print(result is ax)
@@ -110,6 +133,10 @@ md("""
   * 열 이름 그대로는 읽기 어려우므로 한글 축 이름으로 바꾼다.
 """)
 code("""
+# 설명: 앞 셀에서 같은 칸임을 확인했으니 result 없이 ax로 바로 이름을 단다.
+# 설명: set_xlabel·set_ylabel은 Seaborn이 붙인 이름을 덮어쓴다. 앞 셀과 달라진 곳은 축 이름 둘뿐이다.
+# 설명: 평균은 12.61시간, 중앙값은 11.00시간으로 평균이 더 크다. 오른쪽 꼬리 때문이다.
+# 설명: 중앙값은 4)에서 자세히 다루므로 여기서는 숫자만 말하고 넘어간다.
 fig, ax = plt.subplots()
 sns.histplot(data=students, x='study_hours', ax=ax)
 ax.set_title('주간 공부 시간 분포')
@@ -140,6 +167,10 @@ md("""
   * 구간 수를 4강과 똑같이 <b>bins=20</b>으로 맞춘다.
 """)
 code("""
+# 설명: sharey=True로 y축을 함께 쓰므로 왼쪽 눈금 하나로 두 칸의 막대 높이를 비교한다.
+# 설명: 실행 후 오른쪽 칸에만 x축 이름 sleep_hours가 있는 것을 짚는다. ax.hist는 이름을 달지 않는다.
+# 설명: 오른쪽 칸의 Count는 이 그림에 나오지 않는다. sharey로 y축 눈금을 숨겼기 때문이다. 혼자 그리면 붙는다.
+# 설명: 오른쪽 막대가 옅은 것은 색 표현의 차이다. 값이 다른 것이 아니다.
 sleep = students['sleep_hours'].dropna()
 
 fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharey=True, layout='constrained')
@@ -160,6 +191,9 @@ md("""
   * <b>sum(p.get_height() for p in ax.patches)</b>: 막대를 하나씩 꺼내 높이(get_height)를 더한다. 5강 리스트 문법에서 대괄호만 뺀 모양이다.
 """)
 code("""
+# 설명: 그래프가 나오지 않는 셀이라고 먼저 말한다. plt.close로 닫고 숫자만 본다.
+# 설명: 출력 285는 300명에서 빈 값 15개를 뺀 수다. dropna 없이도 빠졌다는 증거다.
+# 설명: sum 안쪽이 낯설면 for부터 읽게 한다. 막대 p를 하나씩 꺼내 높이를 구하는 것이다.
 fig, ax = plt.subplots()
 sns.histplot(data=students, x='sleep_hours', bins=20, ax=ax)
 print(sum(p.get_height() for p in ax.patches))
@@ -172,6 +206,9 @@ md("""
   * 이 곡선을 <b>밀도 곡선</b>(KDE)이라고 한다. 막대 높이에 맞춰 그려지므로 곡선 꼭대기가 막대 근처에 온다.
 """)
 code("""
+# 설명: 앞 셀과 달리 bins가 없다. 막대가 20개에서 몇 개로 바뀌는지 보자고 예고한다.
+# 설명: 곡선은 kde=True 인자 하나로 얹힌다. 함수를 따로 부르지 않는다.
+# 설명: y축은 학생 수 그대로다. 곡선도 이 눈금에 맞춰 늘린 것이다. 다음 셀의 y축과 비교할 지점이다.
 fig, ax = plt.subplots()
 sns.histplot(data=students, x='sleep_hours', kde=True, ax=ax)
 ax.set_title('수면 시간 분포')
@@ -189,6 +226,10 @@ md("""
   * 그래서 y축 숫자는 학생 수가 아니다. 어디가 높고 낮은지, 모양을 읽는다.
 """)
 code("""
+# 설명: 앞 셀에서 막대를 걷어 낸 그림이라고 예고한다. 곡선 모양은 같고 y축 눈금이 달라진다.
+# 설명: set_ylabel을 쓰지 않아 y축은 Density로 남는다. 학생 수로 읽지 않게 한다.
+# 설명: 수면 시간은 평균 6.55, 중앙값 6.60으로 거의 같아 좌우가 고르다. 꼬리가 길던 공부 시간과 비교한다.
+# 설명: 곡선 양 끝이 어디까지 가는지 짚어 둔다. 데이터 범위 4.3~8.6시간보다 넓다.
 fig, ax = plt.subplots()
 sns.kdeplot(data=students, x='sleep_hours', ax=ax)
 ax.set_title('수면 시간 밀도 곡선')
@@ -210,6 +251,10 @@ md("""
   * 범례 제목은 열 이름 그대로 'housing'이다.
 """)
 code("""
+# 설명: 앞의 히스토그램 코드에 hue= 하나만 늘었다. 실행 전에 어느 집단의 통학 시간이 길지 물어본다.
+# 설명: 왼쪽 첫 막대의 어두운 색은 네 번째 집단이 아니다. 기숙사와 자취가 겹친 색이고 범례에는 없다.
+# 설명: 주거별 범위는 기숙사 5~15분, 자취 6~30분, 통학 30~114분이고 180분 1명이 따로 있다.
+# 설명: 180분 막대는 1명 높이라 작다. 화면을 키워 함께 찾는다.
 fig, ax = plt.subplots(figsize=(8, 4))
 sns.histplot(data=students, x='commute_minutes', hue='housing', ax=ax)
 ax.set_title('주거 형태별 통학 시간 분포')
@@ -230,6 +275,10 @@ md("""
 * 세 가지를 1×3 칸에 나란히 그려 비교한다.
 """)
 code("""
+# 설명: 세 줄의 코드가 같고 multiple 값과 axes 번호만 다르다. 그 두 곳만 읽게 한다.
+# 설명: sharey=True라 y축이 stack 칸에 맞춰 늘어난다. 왼쪽 칸 막대가 낮아 보여도 값은 앞 셀과 같다.
+# 설명: 실행 후 왼쪽부터 겹침, 쌓임, 나란히 순서로 첫 구간을 짚는다.
+# 설명: 코드를 고쳐 볼 때 ax=를 빼면 마지막 칸에 겹쳐 그려진다.
 fig, axes = plt.subplots(1, 3, figsize=(15, 4), sharey=True, layout='constrained')
 sns.histplot(data=students, x='commute_minutes', hue='housing', multiple='layer', ax=axes[0])
 axes[0].set_title("multiple='layer'")
@@ -247,6 +296,10 @@ md("""
   * 왼쪽은 기본값, 오른쪽은 <b>cut=0</b>을 넣었다. cut=0은 곡선을 데이터가 있는 범위에서 자른다.
 """)
 code("""
+# 설명: 왼쪽과 오른쪽의 코드 차이는 cut=0 하나다. x축 이름은 칸마다 따로 달아서 두 줄이다.
+# 설명: 실행 후 x축 끝을 비교한다. 왼쪽은 200분까지 가고, 오른쪽은 180분 근처에서 끝난다.
+# 설명: 오른쪽 곡선 끝이 바닥에 닿지 않고 끊긴다. 오류가 아니라 데이터가 끝나는 자리에서 자른 것이다.
+# 설명: 기숙사 곡선이 가장 높지만 인원은 자취 115명이 가장 많다. 높이는 좁게 몰린 정도로 읽는다.
 fig, axes = plt.subplots(1, 2, figsize=(12, 4), sharey=True, layout='constrained')
 sns.kdeplot(data=students, x='commute_minutes', hue='housing', ax=axes[0])
 axes[0].set_title('기본값')
@@ -280,6 +333,10 @@ md("""
   * 그대로 그리면 전공이 표에 처음 나온 순서로 놓인다. <b>order=</b>에 순서 리스트를 넘겨 중앙값이 큰 전공부터 놓는다.
 """)
 code("""
+# 설명: major_order를 변수로 둔 것은 마지막 셀에서 다시 쓰기 때문이다.
+# 설명: 실행 후 상자 안 가로선부터 왼쪽에서 오른쪽으로 따라간다.
+# 설명: 상자 크기는 인원이 아니다. 공학 80명, 예체능 40명이어도 상자 폭은 같고 길이만 퍼짐을 뜻한다.
+# 설명: 전공별 평균 18.16·13.62·11.59·9.42·6.28은 중앙값보다 모두 조금 크다. 큰 값 쪽 꼬리 때문이다.
 major_order = ['공학', '자연과학', '사회과학', '인문', '예체능']
 
 fig, ax = plt.subplots(figsize=(8, 4))
@@ -306,6 +363,10 @@ md("""
   * 위쪽 경계 = Q3 + 1.5 × (Q3 - Q1). 이보다 큰 값이 점으로 찍힌다.
 """)
 code("""
+# 설명: 출력이 셋이다. 그래프, print 한 줄, 표 순서로 나온다고 미리 말한다.
+# 설명: print는 Q1 91.25, Q3 180.0, 경계 313.125다. 180 + 1.5 × 88.75로 함께 계산해 본다.
+# 설명: 표는 마지막 줄이라 print 없이 나온다. 크기순이 아닌 행 순서라 S026이 첫 줄, 320분은 세 줄로 나뉜다.
+# 설명: 빈 값 6개는 boxplot도 quantile도 빼고 계산한다. 그래서 294명 기준이다.
 fig, ax = plt.subplots(figsize=(8, 3))
 sns.boxplot(data=students, x='sns_minutes', ax=ax)
 ax.set_title('하루 SNS 사용 시간')
@@ -327,6 +388,10 @@ md("""
 * 다음은 통학 시간을 주거 형태별로 본다.
 """)
 code("""
+# 설명: 다시 x에 범주 열, y에 수치 열을 넘긴다. 앞 셀의 가로 상자와 비교해 짚어 준다.
+# 설명: 실행 전에 말한다. 학생 전체로 계산하면 경계가 108.50분이라 180분과 114분이 둘 다 넘는다.
+# 설명: 실행 후 통학 상자의 점은 180분 하나다. 공학 40시간처럼 기준이 그 집단이라서 114분은 수염 안에 든다.
+# 설명: 기숙사 상자가 납작한 것은 5~15분에 모여 있고 y축이 180분까지 늘어났기 때문이다.
 fig, ax = plt.subplots(figsize=(8, 4))
 sns.boxplot(data=students, x='housing', y='commute_minutes', ax=ax)
 ax.set_title('주거 형태별 편도 통학 시간')
@@ -349,6 +414,10 @@ md("""
 * 5강의 1×2 칸에 박스플롯과 바이올린을 나란히 놓는다. 그리는 칸은 ax=axes[0], ax=axes[1]로 정한다.
 """)
 code("""
+# 설명: 왼쪽은 앞서 본 전공별 박스플롯이다. major_order를 다시 쓰므로 NameError가 나오면 그 셀부터 실행한다.
+# 설명: 칸 제목은 set_title, 두 칸 위의 전체 제목은 fig.suptitle이다.
+# 설명: 실행 후 왼쪽의 점과 오른쪽 꼬리를 짝지어 본다. 자연과학 40.0은 위로 가늘게 뻗은 끝부분이다.
+# 설명: 예체능 바닥이 평평한 것은 cut=0 때문이다. x축의 major는 x축 이름을 바꾸지 않아서 남아 있다.
 fig, axes = plt.subplots(1, 2, figsize=(14, 4), sharey=True, layout='constrained')
 sns.boxplot(data=students, x='major', y='study_hours', order=major_order, ax=axes[0])
 axes[0].set_title('박스플롯')

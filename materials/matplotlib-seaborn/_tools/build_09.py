@@ -31,6 +31,9 @@ md("""
 """)
 code("""
 # keep
+# 설명: 출력이 없는 것이 정상이다. 설정만 바꾸는 셀이라 실행 번호가 붙으면 끝난 것이다.
+# 설명: 히트맵 색 막대에 -1.00 같은 음수 눈금이 나오므로 마이너스 설정도 여기서 함께 챙긴다.
+# 설명: 커널을 다시 시작했으면 이 셀부터 다시 실행해야 한다고 말해 둔다.
 import platform
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -51,6 +54,10 @@ md("""
 """)
 code("""
 # keep
+# 설명: 출력 (300, 12) (365, 14)로 두 파일이 모두 읽혔는지 본다. students는 1)·3)·4), cafe는 2)에서 쓴다.
+# 설명: 리스트 셋은 출력이 없다. major_order는 3)의 catplot, weekday_order는 2)의 피벗 표에서 쓴다.
+# 설명: period_order는 이 노트북의 코드 셀에서 쓰지 않는다. 7강과 같이 만들어 두기만 한다.
+# 설명: 뒤 셀에서 NameError가 나면 이 셀을 건너뛴 것이니 여기로 돌아오게 한다.
 students = pd.read_csv('../data/students.csv')
 cafe = pd.read_csv('../data/cafe_sales.csv', parse_dates=['date'])
 print(students.shape, cafe.shape)
@@ -71,6 +78,10 @@ md("""
 * 수치 열만 고르는 다른 방법으로 <b>select_dtypes('number')</b>가 있다. 어떤 열이 남는지 먼저 확인한다.
 """)
 code("""
+# 설명: 실행 전에 묻는다. students 12열 가운데 어떤 열이 빠질지 말해 보게 한다.
+# 설명: 출력은 표가 아니라 열 이름 리스트다. select_dtypes가 수치 열만 고르고 columns.tolist()가 이름만 꺼낸다.
+# 설명: 실행 후 student_id·major·housing 세 글자 열이 빠진 것을 확인한다.
+# 설명: 확인만 하는 셀이다. 결과를 변수에 담지 않으며 다음 셀은 numeric_only=True로 계산한다.
 students.select_dtypes('number').columns.tolist()
 """)
 
@@ -79,6 +90,10 @@ md("""
 * 상관행렬을 만든다. 8강처럼 <b>round(2)</b>로 소수 둘째 자리까지 반올림한다.
 """)
 code("""
+# 설명: 앞 셀의 열 9개가 행과 열에 그대로 들어가 9×9 표가 된다. student_corr에 담아 히트맵 두 개에서 다시 쓴다.
+# 설명: numeric_only=True를 빠뜨리면 위 마크다운의 ValueError가 난다. 그 오류를 만나면 이 인자부터 보게 한다.
+# 설명: study_hours-commute_minutes 칸의 -0.00을 짚는다. 아주 작은 음수가 반올림된 것으로 사실상 0이다.
+# 설명: 결측이 있는 sleep_hours(15개)·sns_minutes(6개)도 값이 나온다. 결측을 빼고 계산하기 때문이다.
 student_corr = students.corr(numeric_only=True).round(2)
 student_corr
 """)
@@ -94,6 +109,9 @@ md("""
 * 먼저 색 설정 없이 그려 본다.
 """)
 code("""
+# 설명: 실행 전에 예고한다. 색을 지정하지 않고 일부러 기본값으로 그려 본다. 문제가 보이면 다음 셀에서 고친다.
+# 설명: data·x·y를 따로 주지 않는다. 표를 통째로 넘기면 행 이름이 y축, 열 이름이 x축이 된다.
+# 설명: 실행 후 오른쪽 색 막대를 먼저 본다. 막대에서 0이 어디인지 찾아보게 한 뒤 칸의 색과 맞춰 본다.
 fig, ax = plt.subplots(figsize=(9, 7))
 sns.heatmap(student_corr, annot=True, fmt='.2f', ax=ax)
 ax.set_title('학생 데이터 상관계수 (기본 색)')
@@ -109,6 +127,9 @@ md("""
   * <b>center=0</b>: 0을 가운데 색에 맞춘다.
 """)
 code("""
+# 설명: 앞 셀과 표는 같다. 달라진 곳은 cmap·vmin·vmax·center와 제목뿐이라 칸의 숫자는 그대로이고 색만 바뀐다.
+# 설명: 실행 후 색 막대가 -1.00~1.00으로 바뀐 것을 먼저 보여 준다. 가운데 0.00이 연한 회색이다.
+# 설명: -0.36 칸이 막대 끝의 진한 파랑까지 가지 않는 것을 짚는다. 색 범위를 고정해서 값의 크기만큼만 진해진다.
 fig, ax = plt.subplots(figsize=(9, 7))
 sns.heatmap(student_corr, annot=True, fmt='.2f', cmap='coolwarm', vmin=-1, vmax=1, center=0, ax=ax)
 ax.set_title('학생 데이터 상관계수')
@@ -134,6 +155,9 @@ md("""
   * <b>values</b>: 칸에 넣을 값(customers), <b>aggfunc</b>: 묶은 값을 하나로 줄이는 방법. 'mean'(평균)이 기본값이고, 'sum'·'count'도 쓸 수 있다.
 """)
 code("""
+# 설명: 표를 바로 보지 않고 열 이름부터 꺼내는 이유를 말한다. 요일 순서가 맞는지 먼저 보기 위해서다.
+# 설명: 실행 전에 묻는다. 열이 월요일부터 나올까?
+# 설명: 출력이 금으로 시작하는 것을 보여 준다. 오류가 아니며 다음 셀에서 바로잡는다.
 customers_pivot = cafe.pivot_table(index='year_month', columns='weekday', values='customers', aggfunc='mean')
 customers_pivot.columns.tolist()
 """)
@@ -144,6 +168,9 @@ md("""
   * 열 순서를 바꿀 때는 <b>reindex(columns=순서 리스트)</b>처럼 columns=를 붙인다.
 """)
 code("""
+# 설명: customers_pivot을 같은 이름으로 덮어쓴다. 순서를 맞춘 이 표를 뒤의 히트맵까지 쓴다.
+# 설명: columns=를 빠뜨리면 행을 기준으로 맞추게 되어 표가 NaN으로 채워진다. 학생이 막히기 쉬운 곳이다.
+# 설명: 실행 후 열이 월~일로 바뀌었는지 보고 2025-03 수요일 칸의 528.00을 찾아 둔다. 히트맵에서 다시 짚는다.
 customers_pivot = customers_pivot.reindex(columns=weekday_order).round(2)
 customers_pivot
 """)
@@ -153,6 +180,9 @@ md("""
 * 7강의 <b>groupby(두 열) + unstack()</b>으로도 같은 표가 나온다. 확인해 본다.
 """)
 code("""
+# 설명: 첫 줄이 길지만 왼쪽부터 읽어 준다. 묶기, 평균, unstack으로 펼치기, 요일 순서, 반올림 차례다.
+# 설명: same == customers_pivot은 칸마다 True/False가 든 표다. 첫 all()은 열마다, 둘째 all()은 전체를 확인해 값 하나만 남긴다.
+# 설명: same은 이 확인에만 쓴다. 뒤 셀은 계속 customers_pivot을 쓴다.
 same = cafe.groupby(['year_month', 'weekday'])['customers'].mean().unstack().reindex(columns=weekday_order).round(2)
 print((same == customers_pivot).all().all())
 """)
@@ -165,6 +195,10 @@ md("""
   * <b>cbar_kws={'label': '…'}</b>: 오른쪽 색 막대(colorbar)에 이름을 단다.
 """)
 code("""
+# 설명: 상관 히트맵과 달리 vmin·vmax·center가 없다. 손님 수는 0을 가운데 둘 이유가 없는 값이다.
+# 설명: 표에는 소수 둘째 자리까지 있지만 칸에는 정수만 쓴다. 528.00이 528로 보인다.
+# 설명: 제목에 결론까지 적었다. 실행 후 학기 평일이 가장 붐빈다는 제목이 맞는지 그림에서 확인하게 한다.
+# 설명: 가장 진한 칸은 2025-03 수요일 528이다. 가장 연한 칸은 2025-07 일과 2026-02 일이 75.00 동률이라 하나를 묻지 않는다.
 fig, ax = plt.subplots(figsize=(8, 6))
 sns.heatmap(customers_pivot, annot=True, fmt='.0f', cmap='YlOrRd',
             cbar_kws={'label': '평균 손님 수(명)'}, ax=ax)
@@ -198,6 +232,10 @@ md("""
 * 주거 형태(housing)마다 공부 시간-점수 산점도를 칸 하나씩 그린다. 칸 제목·축 이름은 8강 lmplot과 같은 방법으로 단다.
 """)
 code("""
+# 설명: 앞 히트맵과 달리 fig, ax를 만들지 않고 ax=도 없다. relplot이 Figure와 칸을 스스로 만든다.
+# 설명: 크기는 figsize가 아니라 height로 칸 하나의 높이를 정한다. 여기서는 3.5다.
+# 설명: s와 alpha는 칸 안의 scatterplot에 그대로 전달된다. 작고 흐린 점으로 그려 겹친 곳을 읽게 한다.
+# 설명: 그래프 아래 <class 'seaborn.axisgrid.FacetGrid'>를 짚는다. 8강 lmplot이 돌려준 것과 같은 종류다.
 g = sns.relplot(data=students, x='study_hours', y='exam_score', col='housing', kind='scatter',
                 height=3.5, s=15, alpha=0.6)
 g.set_titles('{col_name}')
@@ -214,6 +252,9 @@ md("""
 * 주거 형태가 달라도 관계 모양은 비슷하다. 숫자로 확인한다.
 """)
 code("""
+# 설명: 반복문이 낯선 학생을 위해 한 바퀴만 따라간다. housing이 기숙사일 때 part는 85행짜리 표가 된다.
+# 설명: 출력의 가운데 숫자는 학생 수다. 85 + 115 + 100 = 300으로 전체와 맞는다.
+# 설명: 오른쪽 숫자가 r이다. 값의 차이가 작으므로 어느 주거 형태가 가장 높은지 순위를 묻지 않는다.
 for housing in ['기숙사', '자취', '통학']:
     part = students[students['housing'] == housing]
     print(housing, len(part), round(part['study_hours'].corr(part['exam_score']), 2))
@@ -229,6 +270,10 @@ md("""
   * <b>g.set_titles('{col_name}학년')</b>: {col_name} 자리에 1·2·3·4가 들어간다.
 """)
 code("""
+# 설명: 칸을 나누는 인자는 앞의 relplot과 같다. 바뀐 것은 함수 이름과 kind이고 그래프 종류만 달라진다.
+# 설명: order=는 칸 안의 상자 순서이고, 앞에서 말한 col_order=는 칸의 순서다. 둘을 헷갈리지 않게 구분해 준다.
+# 설명: 실행 후 위 줄 칸에 전공 이름이 없는 것을 짚는다. x축을 공유해 아래 줄에만 적힌 것이고 오류가 아니다.
+# 설명: 전체 평균은 공학 18.16, 예체능 6.28이다. 그 차이가 학년 칸마다 유지되는지 공학과 예체능 상자를 차례로 짚는다.
 g = sns.catplot(data=students, x='major', y='study_hours', col='grade', col_wrap=2, kind='box',
                 order=major_order, height=3, aspect=1.5)
 g.set_titles('{col_name}학년')
@@ -246,6 +291,10 @@ md("""
 * 분포를 비교할 때는 <b>row=</b>로 칸을 위아래로 쌓으면 x축이 한 줄로 맞아 비교하기 쉽다.
 """)
 code("""
+# 설명: 지금까지는 한 번에 그렸고 여기서는 두 단계다. 첫 줄은 빈 칸만 만들고 둘째 줄이 그린다.
+# 설명: sns.histplot에 괄호를 붙이지 않는다. 함수 이름만 넘겨 칸마다 실행하게 하는 것이다. 학생이 막히기 쉬운 곳이다.
+# 설명: binwidth=5는 막대 하나의 폭이 5분이라는 뜻이다. aspect=3으로 칸을 가로로 길게 만든다.
+# 설명: 실행 후 통학 칸 오른쪽 끝을 화면에서 짚어 준다. 막대가 작아 놓치기 쉽고, 그다음 큰 값이 114분이라 사이가 비어 있다.
 g = sns.FacetGrid(students, row='housing', height=2, aspect=3)
 g.map_dataframe(sns.histplot, x='commute_minutes', binwidth=5)
 g.set_titles('{row_name}')
@@ -269,6 +318,10 @@ md("""
   * sns_minutes는 900분 이상치(2강) 하나 때문에 축이 늘어나 점이 한쪽에 몰려서 뺐다.
 """)
 code("""
+# 설명: pair_cols를 변수로 둔 이유는 다음 셀에서 같은 열을 또 쓰기 때문이다.
+# 설명: 실행 전에 예고한다. 칸이 25개라 앞 그래프보다 시간이 더 걸릴 수 있으니 끝날 때까지 기다린다.
+# 설명: 축 이름을 따로 달지 않아 열 이름이 그대로 나온다. 칸을 읽을 때 맨 왼쪽과 맨 아래의 이름을 본다.
+# 설명: part_time_hours 줄의 0 위치에 점이 한 줄로 깔린 것을 짚는다. 그래프 아래 출력은 FacetGrid가 아니라 PairGrid다.
 pair_cols = ['study_hours', 'exam_score', 'gpa', 'sleep_hours', 'part_time_hours']
 
 g = sns.pairplot(students, vars=pair_cols, height=2)
@@ -288,6 +341,10 @@ md("""
   * <b>plot_kws={'s': 10, 'alpha': 0.5}</b>: 산점도 칸에만 줄 설정을 사전으로 넘긴다(8강 scatter_kws와 같은 생각).
 """)
 code("""
+# 설명: 앞 셀과 같은 pair_cols에 hue·corner·plot_kws만 더했다.
+# 설명: 실행 후 위쪽 삼각형이 사라지고 오른쪽에 housing 범례가 생긴 것을 보여 준다.
+# 설명: part_time_hours 곡선이 0 왼쪽까지 이어져도 음수 시간이 있는 것이 아니다. 곡선을 부드럽게 이어서 생긴 모양이다.
+# 설명: 1) 히트맵에서 가장 진했던 exam_score-gpa(0.72)를 gpa 줄에서 찾아 숫자와 점 모양을 연결해 준다.
 g = sns.pairplot(students, vars=pair_cols, hue='housing', corner=True, height=2,
                  plot_kws={'s': 10, 'alpha': 0.5})
 plt.show()

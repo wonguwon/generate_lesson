@@ -29,6 +29,9 @@ md("""
 """)
 code("""
 # keep
+# 설명: 6강에서 정한 설정 셀 그대로라 새로 설명할 것이 없다. 실행하고 넘어간다. 출력은 없다.
+# 설명: 노트북을 새로 열면 커널이 비어 있으니 이 셀부터 실행해야 한다고 짚는다.
+# 설명: 이후 셀에서 sns나 plt가 없다는 NameError가 나면 이 셀을 건너뛴 것이다.
 import platform
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -49,6 +52,10 @@ md("""
 """)
 code("""
 # keep
+# 설명: 출력 (300, 12) (365, 14)로 두 표가 제대로 읽혔는지만 확인한다. 300명, 365일이다.
+# 설명: parse_dates=['date']가 있어야 date가 날짜로 읽힌다. 4)의 일별 lineplot x축에서 쓰인다.
+# 설명: major_order, period_order는 뒤 셀의 hue_order, col_order에 쓰인다. 출력은 없다.
+# 설명: FileNotFoundError가 나면 ../data 경로가 안 맞는 것이다. 노트북 위치부터 확인하게 한다.
 students = pd.read_csv('../data/students.csv')
 cafe = pd.read_csv('../data/cafe_sales.csv', parse_dates=['date'])
 print(students.shape, cafe.shape)
@@ -69,6 +76,10 @@ md("""
 * 두 방법을 1×2 칸에 나란히 그려 비교한다.
 """)
 code("""
+# 설명: 코드 두 줄을 비교하게 한다. ax.scatter는 값을 꺼내 넘기고, sns.scatterplot은 표와 열 이름만 넘긴다.
+# 설명: 실행 후 두 칸의 점 위치가 같은 것을 확인한다. 오른쪽 점이 조금 작고 연해 보이는 것은 Seaborn 기본 테두리가 흰색이라서다.
+# 설명: 왼쪽은 축 이름이 없고 오른쪽은 x축에 study_hours가 붙었다.
+# 설명: 오른쪽 y축 이름은 보이지 않는다. sharey=True로 왼쪽 눈금을 같이 쓰는 칸이라 Seaborn이 숨긴 것이다.
 fig, axes = plt.subplots(1, 2, figsize=(12, 4), sharey=True, layout='constrained')
 axes[0].scatter(students['study_hours'], students['exam_score'], s=15, alpha=0.5)
 axes[0].set_title('ax.scatter')
@@ -84,6 +95,9 @@ md("""
   * <b>hue_order=major_order</b>: 범례와 색을 공학 → 예체능 순서로 놓는다. 빼면 표에 처음 나온 순서다.
 """)
 code("""
+# 설명: 앞 셀의 산점도에 hue와 hue_order를 더한 것이 핵심이다. 범례는 따로 부르지 않아도 저절로 생긴다.
+# 설명: s를 뺐으므로 점이 앞 셀보다 크다. 범례는 점이 적은 오른쪽 아래에 놓인다.
+# 설명: 실행 후 전공 평균을 곁들여 읽는다. 공부 시간 평균은 공학 18.16시간, 예체능 6.28시간이다.
 fig, ax = plt.subplots(figsize=(8, 5))
 sns.scatterplot(data=students, x='study_hours', y='exam_score',
                 hue='major', hue_order=major_order, alpha=0.7, ax=ax)
@@ -101,6 +115,10 @@ md("""
   * 범례가 전공 다섯 줄과 크기 여섯 줄로 길어진다. <b>sns.move_legend(ax, 'upper left', bbox_to_anchor=(1, 1))</b>로 범례를 그래프 바깥 오른쪽 위로 옮겨 점을 가리지 않게 한다.
 """)
 code("""
+# 설명: 앞 셀과 달라진 핵심은 size='part_time_hours'와 move_legend 한 줄이다.
+# 설명: move_legend의 'upper left'는 범례의 어느 모서리를 맞출지, (1, 1)은 그 모서리를 둘 축의 오른쪽 위다. 둘을 헷갈리기 쉽다.
+# 설명: 실행 후 범례 part_time_hours 쪽을 읽는다. 0시간도 사라지지 않고 작은 점으로 찍힌다.
+# 설명: 아르바이트 0시간 학생이 112명(37.3%)이라 작은 점이 많다.
 fig, ax = plt.subplots(figsize=(9, 5))
 sns.scatterplot(data=students, x='study_hours', y='exam_score',
                 hue='major', hue_order=major_order, size='part_time_hours', alpha=0.6, ax=ax)
@@ -123,6 +141,10 @@ md("""
   * period가 1학기·2학기이고(<b>isin</b>) 요일이 토·일이 아닌(<b>~</b>, 조건 뒤집기) 날만 '학기 평일'로 바꾼다.
 """)
 code("""
+# 설명: 두 단계로 읽어 준다. 첫 줄은 모든 행을 같은 값으로 채우고, 둘째 줄은 조건에 맞는 행만 덮어쓴다.
+# 설명: .loc[조건, 열] = 값 형태다. 쉼표 앞이 고를 행, 뒤가 바꿀 열이다.
+# 설명: 마지막 줄이 값이라 print 없이 출력된다. 205와 160을 더하면 365가 되는지 본다.
+# 설명: 이 셀을 건너뛰면 뒤 셀들이 day_type 열을 찾지 못해 오류가 난다.
 cafe['day_type'] = '주말·방학'
 cafe.loc[cafe['period'].isin(['1학기', '2학기']) & ~cafe['weekday'].isin(['토', '일']), 'day_type'] = '학기 평일'
 day_type_order = ['학기 평일', '주말·방학']
@@ -135,6 +157,10 @@ md("""
 * hue를 period로 준 그래프와 day_type으로 준 그래프를 1×2로 나란히 그려, 어느 열이 두 갈래를 나누는지 비교한다.
 """)
 code("""
+# 설명: 실행 전에 묻는다. 어느 쪽 칸에서 위 갈래와 아래 갈래가 한 색씩 나뉠까.
+# 설명: 왼쪽 칸은 방학 색부터 본다. 겨울방학은 왼쪽 아래, 여름방학은 오른쪽 아래 갈래에 모여 있다.
+# 설명: 오른쪽 칸에서 바닥 0의 점을 찾게 한다. 15~18°C 근처에 넷, 1~3°C 근처에 셋이다.
+# 설명: set_ylabel은 axes[0]에만 준다. sharey=True라 오른쪽 칸 y축 이름은 어차피 보이지 않는다.
 fig, axes = plt.subplots(1, 2, figsize=(12, 4), sharey=True, layout='constrained')
 sns.scatterplot(data=cafe, x='avg_temp', y='ade', hue='period', hue_order=period_order,
                 s=15, alpha=0.6, ax=axes[0])
@@ -166,6 +192,10 @@ md("""
   * 점 모양은 <b>scatter_kws={'s': 15, 'alpha': 0.5}</b>처럼 사전(dict)으로 넘긴다. 점과 선 두 가지를 그리는 함수라서 점에만 줄 설정을 따로 묶는다.
 """)
 code("""
+# 설명: scatter_kws로 묶는 이유를 실행 전에 말한다. regplot에 s=15를 바로 넣으면 TypeError가 난다.
+# 설명: 실행 후 선 양 끝을 짚는다. 0시간 쪽은 약 60점이고 40시간 쪽은 100점을 넘는다.
+# 설명: exam_score 최댓값은 100이다. 직선은 상한을 모르므로 선이 넘어간다. 실제 점수가 아니다.
+# 설명: 학생 화면의 띠가 강사 화면과 조금 달라도 오류가 아니다. 선은 같다.
 fig, ax = plt.subplots(figsize=(8, 5))
 sns.regplot(data=students, x='study_hours', y='exam_score', scatter_kws={'s': 15, 'alpha': 0.5}, ax=ax)
 ax.set_title('공부 시간과 시험 점수 (회귀선)')
@@ -183,6 +213,10 @@ md("""
   * <b>열1.corr(열2)</b>: 두 열의 상관계수를 구한다. 빈 값이 있는 행은 빼고 계산한다.
 """)
 code("""
+# 설명: 실행 전에 예고한다. 네 줄은 공부-점수, 점수-평점, SNS-수면, 아르바이트-공부 순서다.
+# 설명: 출력 0.65, 0.72, -0.36, -0.28을 부호 먼저, 0에서 먼 정도를 다음으로 읽는다.
+# 설명: 셋째 줄은 sleep_hours 15명, sns_minutes 6명이 비어 있어 279명으로 계산된 값이다.
+# 설명: SNS 900분인 학생 한 명을 빼도 -0.34다. 이상치를 묻는 질문이 나오면 답한다.
 print(round(students['study_hours'].corr(students['exam_score']), 2))
 print(round(students['exam_score'].corr(students['gpa']), 2))
 print(round(students['sns_minutes'].corr(students['sleep_hours']), 2))
@@ -205,6 +239,10 @@ md("""
   * 칸 제목은 <b>g.set_titles('{col_name}')</b>로 단다. 글자 안의 {col_name} 자리에 그 칸의 값(공학 등)이 들어간다. 축 이름은 <b>g.set_axis_labels('x 이름', 'y 이름')</b>으로 모든 칸에 한 번에 단다.
 """)
 code("""
+# 설명: 첫 줄이 fig, ax =가 아니라 g =로 시작하는 것부터 보여 준다. 칸을 미리 만들지 않는다.
+# 설명: g에 담아 두는 이유는 다음 셀에서 칸을 꺼내 쓰기 위해서다.
+# 설명: 실행 후 맨 아래 <class 'seaborn.axisgrid.FacetGrid'>를 읽어 준다. Axes가 아니라 칸 묶음이다.
+# 설명: 공학 선은 오른쪽 끝이 100을 넘고, 예체능 선은 23시간쯤에서 끝난다. 선은 그 전공의 점이 있는 구간까지만 그어진다.
 g = sns.lmplot(data=students, x='study_hours', y='exam_score', col='major', col_order=major_order,
                height=3, scatter_kws={'s': 10, 'alpha': 0.5})
 g.set_titles('{col_name}')
@@ -221,6 +259,10 @@ md("""
   * 칸의 첫 번째 선(<b>lines[0]</b>)이 회귀선이다. 선 양 끝의 높이 차이를 가로 길이로 나누면 기울기다.
 """)
 code("""
+# 설명: 회귀선은 직선이라 양 끝 두 점만 있으면 기울기가 나온다. get_data()로 그 좌표를 꺼낸다.
+# 설명: g는 바로 앞 셀의 FacetGrid다. 뒤의 g = 셀을 실행한 다음 이 셀을 다시 돌리면 칸이 하나뿐이라 오류가 난다.
+# 설명: 출력은 큰 순서가 아니라 major_order 순서다. 공학 1.51 다음에 자연과학 0.83이 나온다.
+# 설명: 예체능 0.5는 0.50이 끝의 0 없이 출력된 것이다.
 for i in range(5):
     x, y = g.axes[0, i].lines[0].get_data()
     print(major_order[i], round((y[-1] - y[0]) / (x[-1] - x[0]), 2))
@@ -241,6 +283,10 @@ md("""
   * regplot은 Axes에 그리는 함수라서 1×2 칸에 나눠 그릴 수 있다. lmplot은 칸을 스스로 만들기 때문에 이렇게 남의 칸에 넣을 수 없다.
 """)
 code("""
+# 설명: 앞의 lmplot과 달리 칸을 먼저 만들고 regplot에 ax=로 넘긴다. 코드 구조의 차이를 짚는다.
+# 설명: 왼쪽 에이드 선을 본다. 선이 위 갈래와 아래 갈래 사이를 지나서 어느 무리도 잘 나타내지 못한다.
+# 설명: 출력 0.51 -0.25를 선 방향과 맞춘다. 라떼 -0.25는 휴무일 7일을 포함한 365일 값이다. 휴무일을 빼면 -0.26이다.
+# 설명: avg_temp, ade, latte는 축 이름을 주지 않아 열 이름이 그대로 붙은 것이다.
 fig, axes = plt.subplots(1, 2, figsize=(12, 4), layout='constrained')
 sns.regplot(data=cafe, x='avg_temp', y='ade', scatter_kws={'s': 10, 'alpha': 0.4}, ax=axes[0])
 axes[0].set_title('기온과 에이드')
@@ -257,6 +303,10 @@ md("""
   * lmplot에서 hue는 점 색과 회귀선을 함께 나눈다. 칸은 하나이므로 <b>g.ax</b>로 그 칸을 꺼내 제목을 단다.
 """)
 code("""
+# 설명: 앞 셀 왼쪽 그래프를 hue='day_type'으로 다시 그린 것이다. 선 하나가 둘로 나뉜다고 예고한다.
+# 설명: 칸이 하나뿐이라 g.axes[0, i] 대신 g.ax로 꺼낸다. 앞의 전공별 코드와 비교하게 한다.
+# 설명: lines[0]이 학기 평일, lines[1]이 주말·방학 선이다. 출력 3.8과 1.41도 day_type_order 순서다.
+# 설명: 두 선이 왼쪽 끝에서는 가깝고 오른쪽으로 갈수록 벌어지는 모양을 보여 준다.
 g = sns.lmplot(data=cafe, x='avg_temp', y='ade', hue='day_type', hue_order=day_type_order,
                height=4, aspect=1.5, scatter_kws={'s': 10, 'alpha': 0.5})
 g.set_axis_labels('일 평균 기온(°C)', '에이드 판매량(잔)')
@@ -276,6 +326,9 @@ md("""
 * 무리를 나누면 상관계수도 달라진다. 무리마다 r을 구한다.
 """)
 code("""
+# 설명: 출력 한 줄의 앞 숫자가 에이드, 뒤 숫자가 라떼다. for가 무리마다 part를 바꿔 같은 계산을 한다.
+# 설명: 앞 셀 기울기와 나란히 놓는다. 에이드 기울기는 학기 평일이 크고(3.80, 1.41), r은 주말·방학이 크다(0.72, 0.82).
+# 설명: 기울기와 r을 같은 것으로 여기기 쉽다. 기울기는 1°C당 몇 잔인지, r은 점이 직선에 얼마나 모여 있는지다.
 for day in day_type_order:
     part = cafe[cafe['day_type'] == day]
     print(day, round(part['avg_temp'].corr(part['ade']), 2), round(part['avg_temp'].corr(part['latte']), 2))
@@ -288,6 +341,9 @@ md("""
   * <b>혼자 해 보기</b>: 위 에이드 lmplot 코드에서 y를 latte로 바꾸고 제목·축 이름을 고쳐 본다.
 """)
 code("""
+# 설명: 학생이 에이드 셀을 먼저 고쳐 보게 한 뒤 이 셀을 실행한다. 고칠 곳은 y, y축 이름, 제목 세 군데다.
+# 설명: 에이드 그래프를 떠올리게 한다. y만 바꿨는데 두 선 모두 방향이 반대로 내려간다.
+# 설명: 이 셀은 기울기를 출력하지 않는다. 기울기 차이는 눈으로만 읽는다.
 g = sns.lmplot(data=cafe, x='avg_temp', y='latte', hue='day_type', hue_order=day_type_order,
                height=4, aspect=1.5, scatter_kws={'s': 10, 'alpha': 0.5})
 g.set_axis_labels('일 평균 기온(°C)', '라떼 판매량(잔)')
@@ -302,6 +358,9 @@ md("""
 * 에이드와 아메리카노 판매량의 상관계수를 구해 본다.
 """)
 code("""
+# 설명: 실행 전에 묻는다. 에이드가 많이 팔린 날 아메리카노도 많이 팔릴까, 그렇다면 왜일까.
+# 설명: 출력 세 줄은 에이드-아메리카노, 에이드-손님, 아메리카노-손님 순서다. 0.8은 0.80이다.
+# 설명: 기온 때문이라는 답이 나오면 기온-아메리카노 r이 영업일 기준 0.04임을 알려 준다. 기온으로는 설명되지 않는다.
 print(round(cafe['ade'].corr(cafe['americano']), 2))
 print(round(cafe['ade'].corr(cafe['customers']), 2))
 print(round(cafe['americano'].corr(cafe['customers']), 2))
@@ -326,6 +385,10 @@ md("""
 * 두 방법을 위아래 2×1 칸에 그려 비교한다. 월 글자 12개가 겹치지 않게 가로를 넓게 잡는다(3강).
 """)
 code("""
+# 설명: 위 칸은 groupby 후 ax.plot 두 단계, 아래 칸은 lineplot 한 줄이다. 같은 선이 나오는지 보는 셀이다.
+# 설명: axes[1].lines[0]은 아래 칸의 선이다. 앞에서 회귀선을 꺼낸 것과 같은 방법이다.
+# 설명: 출력은 2025-03부터 차례다. 첫 값 344.은 344.00이 끝의 0 없이 나온 것이다.
+# 설명: 2025-10의 309.45와 2026-02의 125.79에는 휴무일의 0이 들어 있다. 10월 4일, 2월 3일이다.
 customers_by_month = cafe.groupby('year_month')['customers'].mean().round(2)
 
 fig, axes = plt.subplots(2, 1, figsize=(10, 7), sharey=True, layout='constrained')
@@ -354,6 +417,10 @@ md("""
   * 끝의 <b>round(2)</b>는 2강처럼 소수 둘째 자리까지 반올림한다.
 """)
 code("""
+# 설명: 실행 전에 예고한다. 위 6행은 NaN으로 나온다. 오류가 아니다.
+# 설명: 3/7에서 3/8로 넘어가는 두 줄을 비교한다. 3/1의 169가 빠지고 3/8의 158이 들어와 359.86이 358.29가 된다.
+# 설명: rolling은 위쪽 행을 쓰므로 표가 날짜순이어야 뜻이 맞다. cafe는 날짜순이다.
+# 설명: customers_7d를 열로 저장하는 이유는 다음 두 셀에서 쓰기 때문이다.
 cafe['customers_7d'] = cafe['customers'].rolling(7).mean().round(2)
 cafe[['date', 'weekday', 'customers', 'customers_7d']].head(8)
 """)
@@ -364,6 +431,10 @@ md("""
   * lineplot은 빈 값을 건너뛰고 그리므로 처음 6일은 이동평균 선이 없다.
 """)
 code("""
+# 설명: 같은 ax로 lineplot을 두 번 부르면 선이 겹쳐 그려진다. 일별 선을 먼저, 이동평균 선을 나중에 그린다.
+# 설명: 범례는 label=을 줘서 생겼다. 앞 셀을 건너뛰면 customers_7d가 없어 이 셀에서 오류가 난다.
+# 설명: 일별 선이 바닥 0에 닿는 두 곳을 찾게 한다. 10월 초와 2월 중순이고 이동평균도 같은 자리에서 꺼진다.
+# 설명: 이동평균 봉우리 네 개를 왼쪽부터 짚는다. 가장 높은 곳이 6월 중순인 것을 눈으로 본 뒤 다음 셀로 간다.
 fig, ax = plt.subplots(figsize=(10, 4))
 sns.lineplot(data=cafe, x='date', y='customers', alpha=0.3, label='일별', ax=ax)
 sns.lineplot(data=cafe, x='date', y='customers_7d', label='7일 이동평균', ax=ax)
@@ -382,6 +453,10 @@ md("""
 * 이동평균이 가장 높은 날과 가장 낮은 날을 2강의 <b>sort_values</b>로 확인한다. 빈 값은 정렬 맨 뒤로 간다.
 """)
 code("""
+# 설명: 앞 그래프에서 눈으로 찾은 가장 높은 곳과 낮은 곳을 숫자로 맞춰 본다.
+# 설명: 위 표의 세 날은 6/13~6/15로 이어져 있다. 창이 하루씩만 밀리므로 이웃한 날의 값이 비슷하다.
+# 설명: 아래 표의 2/18, 2/22, 2/21은 모두 휴무일 2/16~2/18 세 날이 7일 안에 다 들어가는 날이다.
+# 설명: 왼쪽 106, 354는 원래 행 번호다. 정렬해도 index는 행을 따라간다.
 print(cafe.sort_values('customers_7d', ascending=False)[['date', 'customers_7d']].head(3))
 print(cafe.sort_values('customers_7d')[['date', 'customers_7d']].head(3))
 """)

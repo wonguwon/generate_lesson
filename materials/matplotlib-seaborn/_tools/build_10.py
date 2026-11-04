@@ -32,6 +32,9 @@ md("""
 """)
 code("""
 # keep
+# 설명: 설정 셀이라 출력이 없다. 오류 없이 끝나면 된다. 오른쪽 위 커널이 .venv인지 먼저 함께 본다.
+# 설명: 1~9차시에서 쓴 세 라이브러리를 이번에는 한 노트북에서 모두 쓴다. 그래서 설정도 처음에 한 번 정리한다.
+# 설명: 커널을 다시 시작하고 이 셀을 건너뛰면 뒤 그래프 제목이 □로 나온다고 말해 둔다.
 import platform
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -52,6 +55,9 @@ md("""
 """)
 code("""
 # keep
+# 설명: 출력 (300, 12) (365, 14)부터 본다. 행과 열 수가 맞으면 두 파일을 제대로 읽은 것이다.
+# 설명: 경로의 ../는 노트북 폴더의 한 칸 위를 뜻한다. data 폴더가 10_미니프로젝트와 나란히 있어야 한다.
+# 설명: major_order는 질문 ②에서 전공을 돌 때 쓴다. 뒤 출력과 범례의 전공 순서도 이 리스트가 정한다.
 students = pd.read_csv('../data/students.csv')
 cafe = pd.read_csv('../data/cafe_sales.csv', parse_dates=['date'])
 print(students.shape, cafe.shape)
@@ -76,6 +82,10 @@ md("""
   * 그래서 <b>학기 중(1학기·2학기) 영업일</b>만 고르고, 그 안에서 시험 주간(exam_week 1)과 평소(exam_week 0)를 비교한다.
 """)
 code("""
+# 설명: 실행 전에 365일 가운데 며칠이 남을지 물어본다.
+# 설명: 조건 두 개를 &로 잇고 비교식에는 괄호를 친다. and로 쓰면 Series 관련 ValueError가 난다.
+# 설명: 출력 218은 1학기 112일과 2학기 110일을 더한 222일에서 추석 휴무 4일이 빠진 값이다.
+# 설명: 표의 count 190과 28을 더하면 218이 되는 것을 짚는다. 필터가 맞게 걸렸는지 보는 습관이다.
 semester_days = cafe[cafe['period'].isin(['1학기', '2학기']) & (cafe['customers'] > 0)]
 print(len(semester_days))
 
@@ -88,6 +98,10 @@ md("""
   * Series에서 <b>[0]</b>·<b>[1]</b>은 순서가 아니라 index 이름(exam_week 값 0·1)으로 값을 꺼낸다.
 """)
 code("""
+# 설명: 앞 셀은 표를 보기만 했고, 여기서 평균만 변수에 담는다. 뒤의 막대 그래프가 모두 이 변수를 쓴다.
+# 설명: 나눗셈은 시험 주간 [1]이 위, 평소 [0]이 아래다. 출력 1.34가 그래프 제목의 '약 1.3배'가 된다고 예고한다.
+# 설명: 필터 없이 cafe 전체로 계산하면 평소가 252.40으로 낮아져 1.80배가 된다.
+# 설명: 같은 데이터도 비교 기준에 따라 답이 달라진다는 점을 말한다.
 customers_by_exam = semester_days.groupby('exam_week')['customers'].mean().round(2)
 print(customers_by_exam)
 print(round(customers_by_exam[1] / customers_by_exam[0], 2))
@@ -101,6 +115,9 @@ md("""
   * 결과를 <b>사전(dict)</b>에 담았다가 <b>pd.Series(사전)</b>로 바꾸면, 키는 index·값은 값인 Series가 된다.
 """)
 code("""
+# 설명: corr_by_major는 사전으로 시작해 Series로 다시 덮어쓴다. 이름이 같아 헷갈리기 쉬우니 짚고 간다.
+# 설명: 출력은 r 크기순이 아니라 major_order 순서다. 사회과학 0.41이 인문 0.49보다 위에 있는 이유다.
+# 설명: 전체 300명의 r은 0.65 하나뿐이다. 전공으로 나누니 0.18에서 0.83까지 벌어지는 것을 보여 준다.
 corr_by_major = {}
 for major in major_order:
     part = students[students['major'] == major]
@@ -119,6 +136,10 @@ md("""
   * sleep_hours에는 빈 값 15개가 있다(2강). <b>count</b>는 빈 값을 뺀 응답 수다.
 """)
 code("""
+# 설명: 질문별 표의 마지막이다. 이번에는 값 하나가 아니라 count, mean, median 세 열을 함께 만든다.
+# 설명: count를 더하면 83 + 110 + 92 = 285다. 300명에서 빈 값 15개가 빠진 수와 맞는다.
+# 설명: 주거별 학생 수 85, 115, 100과 견주면 빠진 응답은 2, 5, 8명이다.
+# 설명: 실행 후 답을 정하지 않는다. 숫자의 차이가 큰지 묻고 다음 그래프로 넘긴다.
 sleep_by_housing = students.groupby('housing')['sleep_hours'].agg(['count', 'mean', 'median']).round(2)
 sleep_by_housing
 """)
@@ -144,6 +165,10 @@ md("""
   * 막대는 길이로 비교하므로 y축이 0에서 시작해야 한다. ax.bar는 기본으로 0에서 시작한다.
 """)
 code("""
+# 설명: 1)에서 만든 customers_by_exam을 그대로 쓴다. .values는 index 0, 1을 빼고 숫자만 넘긴다.
+# 설명: 글자, 값, 색의 순서가 모두 평소 먼저다. 어긋나면 막대 이름과 값이 뒤바뀐다.
+# 설명: 실행 후 y축 눈금이 0부터인지 함께 본다. 제목의 '약 1.3배'는 앞에서 구한 1.34에서 왔다.
+# 설명: 4)에서 같은 숫자를 일부러 덜 다듬어 그린 그래프와 비교한다고 예고한다.
 fig, ax = plt.subplots(figsize=(5, 4))
 ax.bar(['평소', '시험 주간'], customers_by_exam.values, color=['lightgray', '#d62728'])
 ax.set_title('시험 주간 손님은 평소의 약 1.3배')
@@ -162,6 +187,10 @@ md("""
   * <b>label=major</b>: 범례 이름. 색은 부를 때마다 다음 기본 색이 된다.
 """)
 code("""
+# 설명: fig를 만드는 줄이 for 밖에 있는 것을 짚는다. 칸 하나에 다섯 번 그리기 때문이다.
+# 설명: label은 이름만 정한다. 범례는 마지막의 ax.legend 줄이 있어야 나온다.
+# 설명: 실행 후 범례에서 공학과 예체능 색부터 찾아 선을 따라간다. 기울기는 1.51과 0.50점/시간이다.
+# 설명: 기울기와 r은 다른 숫자다. 인문은 기울기 1.01에 r 0.49이니 가운데 전공은 순위를 말하지 않는다.
 fig, ax = plt.subplots(figsize=(6, 4))
 for major in major_order:
     part = students[students['major'] == major]
@@ -184,6 +213,10 @@ md("""
   * 빈 값은 Seaborn이 알아서 뺀다(6강).
 """)
 code("""
+# 설명: 막대는 평균 표로 그렸지만 박스플롯에는 원본 students를 넘긴다. 분포를 그리려면 값 전체가 필요하다.
+# 설명: 실행 전에 앞 표의 평균 차이 약 0.2시간을 떠올리게 하고, 상자가 겹칠지 물어본다.
+# 설명: 실행 후 상자끼리 겹치는 범위부터 본다. 가운데 가로선의 작은 차이보다 겹침이 훨씬 크다.
+# 설명: 빨강이 없는 것도 짚는다. 강조할 차이가 없으니 색도 쓰지 않았다.
 fig, ax = plt.subplots(figsize=(5, 4))
 sns.boxplot(data=students, x='housing', y='sleep_hours', color='lightgray', ax=ax)
 ax.set_title('주거 형태가 달라도 수면 시간은 비슷')
@@ -210,6 +243,9 @@ md("""
 * 그림 전체 제목은 <b>fig.suptitle</b>, 저장은 <b>fig.savefig</b>를 <b>plt.show() 앞</b>에 둔다(5강). 저장 폴더 <b>output</b>을 먼저 만든다.
 """)
 code("""
+# 설명: 출력이 없는 셀이다. 실행 후 탐색기의 10_미니프로젝트 안에 output 폴더가 생긴 것을 보여 준다.
+# 설명: exist_ok=True가 있어 다시 실행해도 오류가 나지 않는다.
+# 설명: 이 폴더가 없으면 다음 셀의 savefig에서 FileNotFoundError가 난다. 그래서 저장보다 먼저 만든다.
 import os
 
 os.makedirs('output', exist_ok=True)
@@ -219,6 +255,9 @@ md("""
 * 2)의 세 코드를 칸만 바꿔 한 셀에 모은다.
 """)
 code("""
+# 설명: 코드는 길지만 새 내용은 적다. 2)의 세 코드에서 ax가 axes[0], axes[1], axes[2]로 바뀐 곳을 따라간다.
+# 설명: figsize=(15, 4.5)는 칸 세 개를 가로로 놓는 크기다. layout='constrained'로 칸끼리 글자가 겹치지 않게 한다.
+# 설명: 실행 후 칸 제목을 ①②③ 순서로 읽어 준다. 제목만으로 답 세 개가 전해지는지 확인한다.
 fig, axes = plt.subplots(1, 3, figsize=(15, 4.5), layout='constrained')
 
 axes[0].bar(['평소', '시험 주간'], customers_by_exam.values, color=['lightgray', '#d62728'])
@@ -226,8 +265,10 @@ axes[0].set_title('① 시험 주간 손님은 평소의 약 1.3배')
 axes[0].set_xlabel('학기 중 영업일')
 axes[0].set_ylabel('하루 평균 손님 수(명)')
 
+# 설명: 가운데 칸은 regplot이다. lmplot은 figure 수준 함수라 칸에 넣을 수 없다.
 for major in major_order:
     part = students[students['major'] == major]
+    # 설명: 2)와 달라진 곳이다. 공학만 빨강과 범례 이름을 주고, 나머지 네 전공은 회색에 label=None을 준다.
     if major == '공학':
         sns.regplot(data=part, x='study_hours', y='exam_score', scatter=False, ci=None,
                     color='#d62728', label='공학', ax=axes[1])
@@ -245,6 +286,7 @@ axes[2].set_xlabel('주거 형태')
 axes[2].set_ylabel('하루 수면 시간(시간)')
 
 fig.suptitle('캠퍼스 카페와 학생 설문: 질문 세 개에 그래프로 답하기')
+# 설명: 저장 줄이 plt.show() 앞에 있다. 뒤로 옮기면 summary.png가 흰 그림이 된다.
 fig.savefig('output/summary.png', dpi=200, bbox_inches='tight')
 plt.show()
 """)
@@ -254,6 +296,10 @@ md("""
 * 저장된 파일을 확인한다(5강). VS Code 탐색기의 10_미니프로젝트 › output › summary.png를 열어 봐도 된다.
 """)
 code("""
+# 설명: 화면에 그림이 나온 것과 파일이 저장된 것은 별개라 따로 확인한다.
+# 설명: 출력 ['summary.png']로 파일이 있는 것을 보고, (923, 3023, 4)를 읽는다.
+# 설명: shape는 세로가 먼저, 가로가 그다음이다. 마지막 4는 픽셀마다 값이 네 개라는 뜻이다.
+# 설명: 그림 크기 15×4.5인치에 dpi 200을 곱한 가로 3,000, 세로 900과 견주어 본다.
 print(os.listdir('output'))
 print(plt.imread('output/summary.png').shape)
 """)
@@ -275,6 +321,10 @@ md("""
 * 아래는 질문 ①을 <b>일부러 덜 다듬어</b> 그린 그래프다. 다섯 가지로 점검해 본다.
 """)
 code("""
+# 설명: 데이터는 앞과 같은 customers_by_exam이다. 숫자는 틀리지 않았다고 먼저 말한다.
+# 설명: 실행 후 답을 바로 말하지 않는다. 다섯 가지 중 어디에 걸리는지 학생이 먼저 찾게 한다.
+# 설명: 막대 길이만 보면 몇 배로 보이는지 물어본다. set_ylim(300, 470)이 그렇게 만든 것이다.
+# 설명: 제목의 '별' 글자가 제대로 나오는 것도 본다. 다섯 가지 중 한글·마이너스만 통과한다.
 fig, ax = plt.subplots(figsize=(5, 4))
 ax.bar(['0', '1'], customers_by_exam.values, color=['tab:blue', 'tab:orange'])
 ax.set_ylim(300, 470)
@@ -292,6 +342,10 @@ md("""
 * 고치는 방법은 2)에서 이미 썼다. 같은 데이터로 고치기 전·후를 나란히 놓아 비교한다.
 """)
 code("""
+# 설명: 같은 표를 두 칸에 그린다. 왼쪽은 앞 셀, 오른쪽은 2) 질문 ①의 코드다.
+# 설명: set_ylim은 axes[0]에만 있다. 오른쪽까지 옮기면 고친 뒤에도 y축이 300부터 시작한다.
+# 설명: 실행 후 두 칸의 y축 눈금을 비교한다. 왼쪽은 300 위로 약 40 대 155, 오른쪽은 약 340 대 455다.
+# 설명: 이 과정의 마지막 코드 셀이다. 같은 순서를 자기 CSV 하나에 적용해 보라고 권한다.
 fig, axes = plt.subplots(1, 2, figsize=(10, 4), layout='constrained')
 
 axes[0].bar(['0', '1'], customers_by_exam.values, color=['tab:blue', 'tab:orange'])

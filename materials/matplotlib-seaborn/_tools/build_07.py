@@ -29,6 +29,9 @@ md("""
 """)
 code("""
 # keep
+# 설명: 첫 실행이니 커널이 .venv인지 먼저 함께 본다.
+# 설명: 이 셀은 출력이 없다. 아무것도 안 나와도 정상이고, 셀 번호가 붙었으면 끝난 것이다.
+# 설명: 6강과 같은 셀이므로 한 줄씩 읽지 않고 넘어간다. 글자가 깨지면 돌아올 곳만 기억시킨다.
 import platform
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -49,6 +52,9 @@ md("""
 """)
 code("""
 # keep
+# 설명: 출력 (300, 12) (365, 14)를 짚는다. students 300행 12열, cafe 365행 14열이면 파일을 제대로 읽은 것이다.
+# 설명: cafe만 parse_dates가 붙는 것은 date 열이 날짜이기 때문이다. students에는 날짜 열이 없다.
+# 설명: 아래 순서 리스트 세 개는 뒤 셀들이 계속 쓴다. 이 셀을 건너뛰면 NameError: name 'weekday_order' is not defined가 난다.
 students = pd.read_csv('../data/students.csv')
 cafe = pd.read_csv('../data/cafe_sales.csv', parse_dates=['date'])
 print(students.shape, cafe.shape)
@@ -68,6 +74,10 @@ md("""
 * 두 방법을 1×2 칸에 나란히 그려 비교한다.
 """)
 code("""
+# 설명: 실행 전에 예고한다. 두 칸의 높이는 같고 순서만 다를 것이니 순서를 눈여겨보게 한다.
+# 설명: sharey=True로 y축을 맞췄으므로 두 칸의 높이를 눈으로 바로 비교할 수 있다.
+# 설명: 실행 후 코드 길이를 비교한다. 왼쪽은 표를 만든 뒤 그렸고, 오른쪽은 원래 표 students를 그대로 넘겼다.
+# 설명: 축 이름은 오른쪽 칸에만 x축 major가 붙는다. 왼쪽은 ax.bar라 저절로 붙지 않는다.
 major_count = students['major'].value_counts()
 
 fig, axes = plt.subplots(1, 2, figsize=(12, 4), sharey=True, layout='constrained')
@@ -88,6 +98,10 @@ md("""
 * <b>order=</b>: 범주를 놓을 순서 리스트. 많은 순서로 놓으려면 major_count.index(value_counts 결과의 순서)를 그대로 넘긴다.
 """)
 code("""
+# 설명: 앞 셀과 달라진 곳은 order=major_count.index 하나다. 앞 셀에서 만든 major_count를 다시 쓴다.
+# 설명: 실행 후 왼쪽부터 공학 80, 사회과학 70, 자연과학 55, 인문 55, 예체능 40을 읽는다.
+# 설명: 자연과학과 인문의 높이가 같은 것은 오류가 아니다. 둘 다 55명이다.
+# 설명: countplot은 세는 그래프라 x만 넘긴다. y까지 넘기면 TypeError가 난다.
 fig, ax = plt.subplots(figsize=(8, 4))
 sns.countplot(data=students, x='major', order=major_count.index, ax=ax)
 ax.set_title('전공별 학생 수')
@@ -103,6 +117,9 @@ md("""
   * 주거 형태 순서는 표에 처음 나온 순서(기숙사·자취·통학)다. 바꾸려면 <b>hue_order=</b>에 리스트를 넘긴다.
 """)
 code("""
+# 설명: 앞 셀에 hue='housing'만 더했다. 그림 폭은 막대가 늘어나므로 8에서 10으로 넓혔다.
+# 설명: 실행 후 막대가 5개에서 15개로 늘어난 것과 범례 제목이 housing인 것을 보여 준다.
+# 설명: 한 전공만 다른 모양이 있으니 찾아보게 한다. 공학의 통학 막대가 그 전공에서 가장 높다.
 fig, ax = plt.subplots(figsize=(10, 4))
 sns.countplot(data=students, x='major', hue='housing', order=major_count.index, ax=ax)
 ax.set_title('전공별·주거 형태별 학생 수')
@@ -118,6 +135,10 @@ md("""
 * 2강의 groupby로 같은 숫자를 표로 볼 수 있다. <b>size()</b>는 묶음마다 행 수를 세고, <b>unstack()</b>은 안쪽 묶음(housing)을 열로 펼친다.
 """)
 code("""
+# 설명: 메서드가 네 개 이어져 있으니 왼쪽부터 끊어 읽는다. 묶고, 세고, 펼치고, 순서를 맞춘다.
+# 설명: reindex(major_count.index)가 있어야 행 순서가 앞 그래프의 막대 순서와 같아진다.
+# 설명: 출력 첫 행 공학 22·24·34를 앞 그래프의 막대 셋과 맞춰 본다. 합치면 공학 80명이다.
+# 설명: 표의 열은 기숙사·자취·통학 순서로 범례 순서와 같다.
 students.groupby(['major', 'housing']).size().unstack().reindex(major_count.index)
 """)
 
@@ -129,6 +150,9 @@ md("""
   * 2강의 study_by_major와 같은 방법이다. 열만 exam_score로 바꾸고, 순서는 reindex(major_order)로 맞춘다.
 """)
 code("""
+# 설명: 그래프 전에 표부터 만드는 이유는 다음 셀에서 barplot의 막대 높이와 맞춰 보기 위해서다.
+# 설명: 셀 마지막 줄 score_by_major는 변수 이름만 적어 값을 출력하는 것이다.
+# 설명: 출력의 공학 79.62와 예체능 66.50을 기억해 두게 한다. 이 다섯 숫자가 다음 셀의 정답이다.
 score_by_major = students.groupby('major')['exam_score'].mean().round(2).reindex(major_order)
 score_by_major
 """)
@@ -141,6 +165,10 @@ md("""
 * 막대 높이가 위 표와 같은지 확인한다. 6강처럼 <b>ax.patches</b>로 막대를 꺼내 높이를 출력한다.
 """)
 code("""
+# 설명: data에 score_by_major가 아니라 students를 넘기는 것을 먼저 짚는다. 평균은 barplot이 계산한다.
+# 설명: 그래프 아래 출력 [79.62, 74.07, 72.9, 71.09, 66.5]를 앞 셀의 표와 하나씩 맞춘다.
+# 설명: 72.9는 표의 72.90과 같은 값이다. 끝자리 0만 안 찍힌 것이다.
+# 설명: 실행 후 막대 끝의 검은 선을 가리키기만 하고 뜻은 바로 아래에서 설명한다고 말한다.
 fig, ax = plt.subplots(figsize=(8, 4))
 sns.barplot(data=students, x='major', y='exam_score', order=major_order, ax=ax)
 ax.set_title('전공별 평균 시험 점수')
@@ -171,12 +199,17 @@ md("""
   * 그래프 확인이 목적이 아니므로 <b>plt.close(fig)</b>로 화면에 그리지 않고 닫는다.
 """)
 code("""
+# 설명: 실행 전에 예고한다. 그래프는 나오지 않고 숫자 네 줄만 나온다. plt.close가 그림을 닫기 때문이다.
+# 설명: 반복문 두 개의 차이는 seed=0이 있는지뿐이다. 각각 두 번씩 같은 그래프를 그린다.
+# 설명: 괄호 안 두 숫자는 공학 오차 막대의 아래 끝과 위 끝이다.
 for i in range(2):
     fig, ax = plt.subplots()
     sns.barplot(data=students, x='major', y='exam_score', order=major_order, ax=ax)
     print('seed 없음:', ax.lines[0].get_ydata().round(2))
     plt.close(fig)
 
+# 설명: 출력의 seed 없음 두 줄은 76·83 근처에서 서로 조금 다르다. 다시 실행해 값이 바뀌는 것을 보여 줘도 좋다.
+# 설명: 저장된 값과 달라도 틀린 것이 아니다. 반면 seed=0 두 줄은 [75.9 83.08]로 서로 같다.
 for i in range(2):
     fig, ax = plt.subplots()
     sns.barplot(data=students, x='major', y='exam_score', order=major_order, seed=0, ax=ax)
@@ -194,6 +227,10 @@ md("""
 * 세 가지를 1×3 칸에 나란히 그린다. sharey=True로 세 칸의 y축 눈금을 맞춘다.
 """)
 code("""
+# 설명: 세 줄의 barplot에서 errorbar 값만 다르다. 앞의 seed 실험과 달리 이번에는 그림을 그대로 본다.
+# 설명: 'sd'는 따옴표를 쓰고 None은 쓰지 않는다. 'None'으로 쓰거나 'std'로 쓰면 ValueError가 난다.
+# 설명: 제목 문자열에 큰따옴표를 쓴 이유는 제목 안에 작은따옴표가 들어 있기 때문이다.
+# 설명: 가운데 공학 선은 평균 79.62에서 표준편차 16.67을 빼고 더한 범위다. 왼쪽 선과 길이를 비교하게 한다.
 fig, axes = plt.subplots(1, 3, figsize=(15, 4), sharey=True, layout='constrained')
 sns.barplot(data=students, x='major', y='exam_score', order=major_order, ax=axes[0])
 axes[0].set_title("errorbar=('ci', 95) 기본값")
@@ -213,6 +250,10 @@ md("""
 * 선 길이는 무엇으로 정해질까? 전공별 학생 수(count)와 표준편차(std)를 함께 본다.
 """)
 code("""
+# 설명: 앞 그래프의 왼쪽 칸을 띄워 둔 채로 이 표를 본다. 선 길이의 이유를 숫자에서 찾는 셀이다.
+# 설명: agg에 리스트를 넘기면 계산을 여러 개 한 번에 한다. count는 학생 수, std는 표준편차다.
+# 설명: 짚을 곳은 공학 80·16.67, 인문 55·10.46, 예체능 40·12.37 세 행이다.
+# 설명: 학생이 많다고 선이 짧다고 단정하기 쉽다. 공학이 학생 수만으로는 설명되지 않는 예다.
 students.groupby('major')['exam_score'].agg(['count', 'std']).round(2).reindex(major_order)
 """)
 
@@ -237,6 +278,10 @@ md("""
 * jitter=False와 기본값을 1×2로 비교한다. 6강의 공부 시간을 그대로 쓴다.
 """)
 code("""
+# 설명: 두 줄의 차이는 jitter=False뿐이다. 왼쪽은 끈 것, 오른쪽은 기본값이다.
+# 설명: 지금까지와 달리 묶거나 평균 내지 않는다. 공학 80명이면 점도 80개다.
+# 설명: 점의 좌우 위치에는 뜻이 없다. 값은 세로 위치로만 읽는다고 말한다.
+# 설명: 다시 실행하면 오른쪽 점의 좌우만 바뀌고 높이는 그대로인 것을 보여 줘도 좋다.
 fig, axes = plt.subplots(1, 2, figsize=(12, 4), sharey=True, layout='constrained')
 sns.stripplot(data=students, x='major', y='study_hours', order=major_order, jitter=False, ax=axes[0])
 axes[0].set_title('jitter=False')
@@ -254,6 +299,10 @@ md("""
   * strip 점은 <b>color='black'</b>, <b>size=3</b>(점 크기, 기본 5), <b>alpha=0.5</b>로 작고 흐리게 해서 상자를 가리지 않게 한다.
 """)
 code("""
+# 설명: 두 그래프를 같은 ax에 차례로 그린다. 두 함수에 같은 x, y, order를 줘야 점이 제 상자 위에 놓인다.
+# 설명: stripplot 호출은 길어서 두 줄로 나눴지만 함수는 하나다.
+# 설명: 실행 후 공학 칸과 예체능 칸을 비교한다. 상자 크기와 달리 점의 양은 80개와 40개로 다르다.
+# 설명: showfliers=False를 빼면 상자 밖 값에 점이 두 개씩 겹친다. 상자 밖 값이 검은 점으로만 찍힌 것을 확인한다.
 fig, ax = plt.subplots(figsize=(8, 4))
 sns.boxplot(data=students, x='major', y='study_hours', order=major_order, showfliers=False, ax=ax)
 sns.stripplot(data=students, x='major', y='study_hours', order=major_order,
@@ -282,6 +331,10 @@ md("""
 * 먼저 order 없이 그리고, 다음에 weekday_order를 넘겨 비교한다.
 """)
 code("""
+# 설명: 여기부터 data가 students에서 cafe로 바뀐다. 한 점이 학생이 아니라 요일별 평균이다.
+# 설명: 실행 전에 왼쪽 칸이 무슨 요일부터 시작할지 물어본다. 월요일이 아니라 토요일이다.
+# 설명: 실행 후 오른쪽 칸을 짚는다. 수요일 약 374명이 꼭대기, 일요일 약 114명이 바닥이다.
+# 설명: 여기서 만든 axes를 다음 셀이 그대로 쓰므로 다음 셀보다 먼저 실행한다.
 fig, axes = plt.subplots(1, 2, figsize=(12, 4), sharey=True, layout='constrained')
 sns.pointplot(data=cafe, x='weekday', y='customers', ax=axes[0])
 axes[0].set_title('order 없음')
@@ -299,6 +352,10 @@ md("""
   * 이 평균에는 2강에서 본 휴무일의 0이 섞여 있다. groupby도 pointplot도 같은 365일로 계산한다.
 """)
 code("""
+# 설명: 그래프는 나오지 않고 숫자 두 줄만 나온다. 첫 줄은 groupby 평균, 둘째 줄은 앞 셀 오른쪽 칸 점의 높이다.
+# 설명: axes[1]은 앞 셀에서 그린 오른쪽 칸이다. 그래서 앞 셀을 먼저 실행해 두어야 한다.
+# 설명: 두 줄 모두 327.5 346.21 374.1 311.38 267.42 137.74 113.79로 같은 것을 하나씩 맞춘다.
+# 설명: 수요일 374.1은 휴무일 0이 2일 포함된 값이다. 휴무일을 빼면 389.06이다.
 customers_by_weekday = cafe.groupby('weekday')['customers'].mean().round(2).reindex(weekday_order)
 print(customers_by_weekday.values)
 print(axes[1].lines[0].get_ydata().round(2))
@@ -312,6 +369,10 @@ md("""
   * <b>dodge=True</b>: 같은 요일의 점을 좌우로 조금 벌려 놓는다. 넣지 않으면 네 기간의 신뢰구간 선이 한 자리에 겹친다.
 """)
 code("""
+# 설명: 앞 pointplot에 hue, hue_order, dodge 세 개를 더했다. 선이 하나에서 네 개로 늘어난다.
+# 설명: 실행 전에 어느 기간 선이 위에 있을지 물어본다. 평균 손님은 1학기 364.00, 2학기 332.91, 여름방학 149.11, 겨울방학 136.30이다.
+# 설명: 실행 후 범례 순서가 hue_order와 같은지 보고, 세로선이 유난히 긴 칸을 찾게 한다.
+# 설명: 이 셀로 네 그래프가 끝난다. 다음 차시는 관계와 추세 그래프로 넘어간다.
 fig, ax = plt.subplots(figsize=(10, 4))
 sns.pointplot(data=cafe, x='weekday', y='customers', order=weekday_order,
               hue='period', hue_order=period_order, dodge=True, ax=ax)
