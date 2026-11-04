@@ -21,19 +21,19 @@
 
 ## 배포(압축)
 
-`_배포/NN_주제_실습.zip`이 차시별 배포 파일입니다. zip 하나에는 그 차시 학생용 노트북과 `data/` 폴더가 들어 있습니다. 학생이 프로젝트 폴더(`시각화실습/`, 1차시에 만듦)에 풀면 노트북의 `../data/` 경로가 그대로 맞습니다.
+`_배포/NN_주제_실습.zip`이 차시별 배포 파일입니다. zip 하나에는 그 차시 학생용 노트북, `data/` 폴더, `requirements.txt`가 들어 있습니다. 학생이 프로젝트 폴더(`시각화실습/`, 1차시에 만듦)에 풀면 노트북의 `../data/` 경로가 그대로 맞습니다.
 
 - 강사용 노트북과 `05_꾸미기/output/`·`10_미니프로젝트/output/`(저장 실습 결과)은 넣지 않습니다.
 - 노트북을 다시 만들었으면 `_tools/make_zips.py`로 zip을 다시 만듭니다.
 
 ## 다시 만들기
 
-실행 환경은 `_tools/.venv`(Python 3.11, matplotlib 3.11.2, seaborn 0.13.2, pandas 3.1.0)입니다. git에는 올라가지 않으니 없으면 새로 만듭니다.
+실행 환경은 `_tools/.venv`(Python 3.11)이고, 패키지 버전은 `requirements.txt`에 있습니다. 학생도 같은 파일로 설치합니다. `.venv`는 git에 올라가지 않으니 없으면 새로 만듭니다.
 
 ```bash
 cd _tools
 python -m venv .venv
-.venv/Scripts/python -m pip install matplotlib==3.11.2 seaborn==0.13.2 pandas==3.1.0 nbformat nbconvert ipykernel
+.venv/Scripts/python -m pip install -r ../requirements.txt nbformat nbconvert
 ```
 
 - 데이터: `make_data.py`로 만들고(시드 고정), `check_data.py`로 의도한 특징을 확인한 뒤 `data_facts.md`를 다시 씁니다.

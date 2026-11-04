@@ -1,7 +1,7 @@
 """차시별 학생 배포 zip을 만든다.
 
-zip 하나 = 그 차시 학생용 노트북 + data/ 폴더.
-학생이 프로젝트 폴더(시각화실습/)에 풀면 `NN_주제/NN_주제_학생용.ipynb`와 `data/`가 생기고,
+zip 하나 = 그 차시 학생용 노트북 + data/ 폴더 + requirements.txt.
+학생이 프로젝트 폴더(시각화실습/)에 풀면 `NN_주제/NN_주제_학생용.ipynb`, `data/`, `requirements.txt`가 생기고,
 노트북의 `../data/파일.csv` 경로가 그대로 맞는다.
 강사용 노트북과 output/ 폴더(5·10차시 저장 결과)는 넣지 않는다.
 
@@ -24,6 +24,7 @@ def main():
             z.write(student, f'{lesson.name}/{student.name}')
             for f in data_files:
                 z.write(f, f'data/{f.name}')
+            z.write(ROOT / 'requirements.txt', 'requirements.txt')
         with zipfile.ZipFile(zip_path) as z:
             names = z.namelist()
         print(zip_path.name, names)
