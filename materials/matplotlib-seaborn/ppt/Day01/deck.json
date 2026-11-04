@@ -1,0 +1,295 @@
+{
+  "course": "Matplotlib·Seaborn 데이터 시각화",
+  "course_short": "Matplotlib·Seaborn",
+  "organization": "한양대학교 ERICA",
+  "instructor": "최지원",
+  "day": "Day 01",
+  "slides": [
+    {
+      "archetype": "cover",
+      "title": "Matplotlib·Seaborn\n데이터 시각화",
+      "subtitle": "개발 환경과 첫 그래프",
+      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 첫 번째 시간입니다. 담당 강사 최지원입니다. 이번 시간에는 과정이 어떻게 흘러가는지 보고, 내 PC에 그래프를 그릴 바탕까지 만들어 보겠습니다.",
+      "meta": "한양대학교 ERICA | 최지원"
+    },
+    {
+      "archetype": "agenda_with_goals",
+      "title": "이번 시간 흐름",
+      "goal_icon": "target",
+      "goal_title": "과정 학습목표",
+      "items": [
+        {
+          "title": "과정 소개와 데이터 시각화",
+          "desc": "10차시 흐름, 표와 그래프의 차이"
+        },
+        {
+          "title": "세 라이브러리",
+          "desc": "pandas · Matplotlib · Seaborn"
+        },
+        {
+          "title": "실습 환경과 한글 폰트",
+          "desc": "가상환경 · 커널 · 폰트 설정"
+        },
+        {
+          "title": "실습과 정리",
+          "desc": "첫 그래프 그리기, 매 시간의 설정 셀"
+        }
+      ],
+      "goals": [
+        "시각화 환경을 만들고\n그래프에 넣을 표 만들기",
+        "Matplotlib로 기본 그래프를\n그리고 다듬어 저장",
+        "Seaborn으로 질문에 맞는\n그래프로 답하기"
+      ],
+      "notes": "순서부터 보겠습니다. 과정 소개와 데이터 시각화가 무엇인지 먼저 보고, 이 과정에서 쓰는 세 라이브러리를 봅니다. 그다음 실습 환경과 한글 폰트 이야기를 하고, 실습을 마친 뒤 정리합니다.\n과정 전체의 학습목표는 세 가지입니다. 하나, 내 PC에 시각화 환경을 만들고, 데이터를 읽어 그래프에 넣을 표를 만들 수 있다. 둘, Matplotlib로 기본 그래프를 그리고, 읽기 쉽게 다듬어 저장할 수 있다. 셋, Seaborn으로 분포·비교·관계를 그리고, 질문에 맞는 그래프로 답할 수 있다. 결국 끝에 가면 질문을 받았을 때 그래프로 답할 수 있으면 되는 거죠. 이번 시간은 첫 번째 목표의 앞부분, 환경을 만드는 시간입니다."
+    },
+    {
+      "archetype": "section_divider",
+      "phase": "도입",
+      "title": "과정 소개",
+      "intro": "파이썬으로 데이터를 그래프로 바꾸는 법을 10차시에 걸쳐 익힌다",
+      "notes": "그럼 이 과정이 어떤 과정인지부터 보겠습니다. 한마디로 데이터를 그래프로 바꾸는 법을 익히는 과정입니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "10차시 과정 흐름",
+      "image": "images/12_course_intro.png",
+      "explain_title": "과정 안내",
+      "bullets": [
+        "파이썬 기초 문법은 전제",
+        "표 만들기부터 그래프 고르기까지",
+        "10차시 미니 프로젝트로 마무리"
+      ],
+      "notes": "전체 흐름은 네 덩어리입니다. 1, 2차시에서 환경을 만들고 표를 준비합니다. 3차시부터 5차시까지는 Matplotlib으로 기본 그래프를 그리고 다듬습니다. 6차시부터 9차시까지는 Seaborn으로 분포, 비교, 관계를 그립니다. 마지막 10차시는 미니 프로젝트입니다.\n파이썬 기초 문법은 알고 있다고 보고 시작합니다. 변수나 리스트 같은 말이 낯설지 않으면 따라오실 수 있습니다. 표를 만드는 법부터 질문에 맞는 그래프를 고르는 법까지 차례로 갑니다. 표를 먼저 다루는 건 그래프에 넣을 값이 먼저 있어야 하기 때문입니다. 그럼 그래프는 왜 그릴까요?"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "데이터 시각화란",
+      "intro": "표는 숫자를 보여 주고, 그래프는 차이를 보여 준다",
+      "notes": "표도 있는데 왜 굳이 그래프를 그릴까요? 같은 데이터로 비교해 보겠습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "같은 데이터, 표와 그래프",
+      "image": "images/13_what_is_viz.png",
+      "explain_title": "데이터 시각화",
+      "bullets": [
+        "숫자를 그래프·그림으로 변환",
+        "차이·흐름·관계를 눈으로 확인"
+      ],
+      "tip": "그래프는 꾸민 표가 아니라\n질문에 답하는 그림",
+      "notes": "요일별 손님 수입니다. 왼쪽 표에서 주말에 손님이 줄었다는 걸 찾으려면 어떻게 해야 할까요? 위에서부터 숫자를 하나씩 읽고 머리로 비교해야 하죠. 오른쪽 그래프는 어떤가요? 토요일, 일요일 막대가 낮은 게 바로 보입니다.\n이렇게 숫자로 된 데이터를 그래프나 그림으로 바꿔서 차이, 흐름, 관계를 눈으로 보게 하는 일을 데이터 시각화라고 합니다. 그래프를 예쁘게 꾸민 표라고 생각하기 쉬운데, 그렇지 않습니다. 그래프는 질문에 답하는 그림입니다. 무엇을 묻느냐에 따라 모양도 달라집니다."
+    },
+    {
+      "archetype": "two_column_versus",
+      "title": "표와 그래프의 차이",
+      "left": {
+        "title": "표",
+        "bullets": [
+          "정확한 숫자 하나하나가 보임",
+          "칸을 하나씩 읽고 머리로 비교",
+          "값을 그대로 찾아볼 때"
+        ]
+      },
+      "right": {
+        "title": "그래프",
+        "bullets": [
+          "차이·흐름·튀는 값이 보임",
+          "모양을 한눈에 보고 비교",
+          "질문에 답을 보여 줄 때"
+        ]
+      },
+      "notes": "그렇다고 표가 나쁜 건 아닙니다. 둘은 쓰임이 다릅니다. 금요일 손님이 정확히 몇 명인지 찾을 때는 표가 낫습니다. 반대로 어느 요일이 유독 적은지, 튀는 값이 있는지 볼 때는 그래프가 낫죠.\n그래서 그래프를 그리기 전에 먼저 정할 게 있습니다. 무엇을 비교할지입니다. 질문이 정해져야 어떤 모양으로 그릴지도 정해집니다. 앞으로 그래프를 그릴 때마다 무엇을 비교하려는지 먼저 떠올려 보시면 좋겠습니다. 요일별 손님 수라면 어느 요일이 적은지가 질문이 되겠죠. 그럼 실제로 그릴 때는 무엇을 쓸까요?"
+    },
+    {
+      "archetype": "section_divider",
+      "phase": "본론",
+      "title": "세 라이브러리",
+      "intro": "표는 pandas로 만들고, 그림은 Matplotlib과 Seaborn으로 그린다",
+      "notes": "이 과정에서는 세 라이브러리를 씁니다. 하나씩 무엇을 하는지 보겠습니다."
+    },
+    {
+      "archetype": "three_column_card_compare",
+      "title": "라이브러리별 역할",
+      "columns": [
+        {
+          "icon": "table-2",
+          "title": "pandas",
+          "desc": "CSV 등 표를 읽고·고르고·묶음"
+        },
+        {
+          "icon": "chart-no-axes-column",
+          "title": "Matplotlib",
+          "desc": "바탕을 만들고 점·선·막대를 하나하나 그림"
+        },
+        {
+          "icon": "chart-column-decreasing",
+          "title": "Seaborn",
+          "desc": "표와 열 이름만 넘겨 통계 그래프를 짧게 그림"
+        }
+      ],
+      "notes": "라이브러리는 남이 만들어 둔 코드 묶음입니다. import로 불러와서 그 안의 기능을 쓰죠.\npandas는 표를 다룹니다. 그래프에 넣을 값을 준비하는 단계입니다. Matplotlib은 그림의 바탕을 만들고 점, 선, 막대를 하나하나 그립니다. 코드에서 plt라고 쓰는 게 matplotlib.pyplot의 별명입니다. Seaborn은 표와 열 이름만 넘기면 평균 같은 계산까지 대신 해서 통계 그래프를 짧은 코드로 그려 줍니다.\n정리하면 표는 pandas로 만들고, 그림은 Matplotlib과 Seaborn으로 그립니다. 하나만 고르는 게 아니라 함께 씁니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "함께 쓰는 흐름",
+      "image": "images/06_flow.png",
+      "explain_title": "셋은 이어서 쓴다",
+      "bullets": [
+        "pandas로 표를 만듦",
+        "Seaborn의 바탕은 Matplotlib",
+        "제목·축은 Matplotlib으로 고침"
+      ],
+      "notes": "그럼 Seaborn만 쓰면 Matplotlib은 필요 없을까요? 그렇지 않습니다. Seaborn은 Matplotlib 위에서 동작합니다. 그래서 Seaborn이 그린 그래프도 제목이나 축은 Matplotlib으로 고칩니다. 그림으로 보면 왼쪽에서 pandas가 표를 준비하고, Seaborn이 그리고, Matplotlib이 마무리합니다. 흐름이 왼쪽에서 오른쪽으로 이어지죠. 코드로 보겠습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "함께 쓰는 코드",
+      "code": "students = pd.read_csv(\n    '../data/students.csv')\nsns.barplot(data=students,\n            x='major', y='study_hours')\nplt.title('전공별 평균 공부 시간')\nplt.show()",
+      "explain_title": "한 줄씩 역할",
+      "bullets": [
+        "read_csv: pandas로 표 읽기",
+        "barplot: Seaborn으로 그리기",
+        "title: Matplotlib으로 다듬기"
+      ],
+      "tip": "표 → 그림 → 다듬기 순서로 읽기",
+      "notes": "네 줄인데 세 라이브러리가 다 나옵니다. 첫 줄은 pandas가 CSV 파일을 읽어 표로 만듭니다. 둘째 줄은 Seaborn입니다. 표를 넘기고 x축은 전공, y축은 공부 시간 열이라고 이름만 알려 주면 전공별 평균을 계산해 막대를 그려 줍니다. 평균을 직접 구한 적이 없는데 말이죠. 이렇게 계산을 대신 해 주는 게 Seaborn의 장점입니다. 셋째 줄은 Matplotlib으로 제목을 붙이는 다듬기 단계입니다. 마지막 줄로 화면에 보여 줍니다.\n지금 코드를 외우실 필요는 없습니다. 표를 만들고, 그리고, 다듬는다. 이 순서만 기억하시면 됩니다. 이제 이 코드를 돌릴 환경이 필요하겠죠?"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습 환경",
+      "intro": "노트북은 내가 고른 커널의 파이썬으로 실행된다",
+      "notes": "이번 시간 실습의 핵심이 바로 이 문장입니다. 도구부터 보겠습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "Python과 VS Code",
+      "image": "images/07_python_vscode.png",
+      "explain_title": "두 가지 도구",
+      "bullets": [
+        "Python: 코드 실행 프로그램",
+        "3.11 이상이면 충분",
+        "VS Code: 코드를 쓰고 결과를 보는 무료 편집기"
+      ],
+      "notes": "도구는 두 개입니다. Python은 코드를 읽고 실행하는 프로그램이고, VS Code는 코드를 쓰고 결과를 보는 무료 편집기입니다. 실행하는 쪽과 쓰는 쪽이 따로라고 보시면 됩니다. 버전은 3.11 이상이면 됩니다. 설치가 끝나면 터미널에 명령 한 줄을 넣어 확인하는데, 버전이 나오면 컴퓨터가 Python을 찾은 겁니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "가상환경과 커널",
+      "image": "images/08_venv_kernel.png",
+      "explain_title": "세 가지 용어",
+      "bullets": [
+        "가상환경: 프로젝트 전용 서랍",
+        "패키지: 설치하는 라이브러리",
+        "커널: 코드를 실행하는 파이썬"
+      ],
+      "tip": "설치했는데 못 찾으면 커널부터 확인",
+      "notes": "여기가 처음에 헷갈리기 쉬운 부분입니다. 가상환경, venv는 프로젝트 전용 파이썬 서랍이라고 보시면 됩니다. 여기에 설치한 패키지는 이 프로젝트에서만 씁니다. 패키지는 pip install로 설치하는 라이브러리 묶음이고요. 프로젝트마다 필요한 패키지를 따로 담아 두는 거죠. 그래서 설치 전에는 터미널 맨 앞에 (.venv)가 보이는지 꼭 확인합니다. 없이 설치하면 컴퓨터 전체 Python에 설치됩니다.\n커널은 노트북의 코드를 실제로 실행하는 파이썬입니다. 그런데 커널을 고르지 않아도 노트북은 열립니다. 그럼 어떻게 될까요? 다른 파이썬으로 실행되면 분명히 설치한 라이브러리를 못 찾습니다. 그러니까 설치했는데 못 찾는다는 오류가 나오면, 다시 설치하기 전에 커널부터 확인하시면 됩니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "한글 폰트와 마이너스",
+      "intro": "한글은 폰트를 지정해야 보이고, 마이너스는 따로 바로잡아야 한다",
+      "notes": "환경을 만들어도 문제가 하나 더 있습니다. 그래프에 한글을 넣으면 글자가 그대로 나오지 않습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "글자가 □로 보이는 이유",
+      "image": "images/09_font_minus.png",
+      "explain_title": "두 가지 원인",
+      "bullets": [
+        "폰트에 없는 글자는 □로 표시",
+        "제목·요일: 기본 폰트에 한글 없음",
+        "음수 기호: 유니코드 마이너스가\n한글 폰트에 없음"
+      ],
+      "notes": "폰트는 글자 모양을 담은 파일입니다. 폰트에 없는 글자는 네모로 나옵니다. 왼쪽 그림을 보시면 제목과 요일이 전부 네모죠. 기본 폰트인 DejaVu Sans에 한글이 없기 때문입니다.\n그럼 한글 폰트만 지정하면 끝일까요? 가운데 그림을 보시면 한글은 나왔는데 이번에는 y축 음수 앞의 기호가 네모입니다. 눈금에 쓰는 유니코드 마이너스가 한글 폰트에 없어서 그렇습니다. 그러니까 네모가 보인다고 다 같은 문제가 아닙니다. 문제가 두 개라서 설정도 두 개 필요합니다. 다만 마이너스는 폰트에 따라 안 깨질 수도 있습니다. 두 가지를 다 고치면 오른쪽 그림처럼 나옵니다. 실습에서 이 순서 그대로 직접 보시게 됩니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "rcParams로 고치기",
+      "code": "plt.rcParams['font.family'] = \\\n    'Malgun Gothic'\nplt.rcParams['axes.unicode_minus'] = False",
+      "explain_title": "설정 두 줄",
+      "bullets": [
+        "font.family: 한글 폰트 지정",
+        "axes.unicode_minus 끄기",
+        "Mac은 'AppleGothic'"
+      ],
+      "tip": "설정은 커널이 켜져 있는 동안만 유지",
+      "notes": "rcParams는 Matplotlib의 기본 설정을 모아 둔 사전입니다. 여기를 바꾸면 이후 그래프에 적용됩니다. 첫 번째 설정이 한글 폰트 지정이고, 두 번째가 마이너스를 바로잡는 설정입니다.\n폰트 이름은 Windows는 Malgun Gothic, Mac은 AppleGothic입니다. 주의할 점이 있습니다. 이 설정은 커널이 켜져 있는 동안만 유지됩니다. 그래서 노트북을 열 때마다 첫 셀에서 다시 설정합니다. 그럼 이제 직접 해 보겠습니다."
+    },
+    {
+      "archetype": "process_steps",
+      "title": "실습 안내",
+      "steps": [
+        {
+          "title": "실습 1",
+          "desc": "Python·VS Code와 확장 2개를 설치하고 버전 확인"
+        },
+        {
+          "title": "실습 2",
+          "desc": "가상환경을 만들고 패키지 설치, 노트북 커널 고르기"
+        },
+        {
+          "title": "실습 3",
+          "desc": "폰트와 마이너스를 고쳐\n첫 그래프 완성"
+        }
+      ],
+      "notes": "실습은 세 개입니다. 앞 실습의 결과를 다음 실습에서 그대로 쓰니까 순서대로 진행합니다. 실습 1에서는 Python과 VS Code, 확장 두 개를 설치하고 버전을 확인합니다. 실습 2에서는 가상환경을 만들고 노트북 커널을 고릅니다. 실습 3에서는 일부러 깨진 그래프부터 그린 뒤, 폰트와 마이너스를 하나씩 고쳐 요일별 기온 선 그래프를 완성합니다. 설치 화면과 명령은 함께 보면서 진행하겠습니다. 막히면 앞에서 본 것처럼 커널과 (.venv)부터 확인해 보세요."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습: 첫 그래프 그리기",
+      "intro": "설치, 가상환경, 커널, 첫 그래프 순서로 이어서 만든다\n실습 환경에서 진행하겠습니다.",
+      "notes": "그럼 실습 환경으로 넘어가서 실습 1부터 차례로 진행하겠습니다.\n[화면 전환: 실습 1]"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "phase": "정리",
+      "title": "매 시간 시작하는 설정 셀",
+      "code": "import platform\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\nif platform.system() == 'Windows':\n    plt.rcParams['font.family'] = \\\n        'Malgun Gothic'\nelse:\n    plt.rcParams['font.family'] = \\\n        'AppleGothic'\nplt.rcParams['axes.unicode_minus'] = False",
+      "keywords": [
+        "import",
+        "as",
+        "if",
+        "else"
+      ],
+      "explain_title": "다음 시간부터",
+      "bullets": [
+        "platform.system(): 운영체제 확인",
+        "두 폰트 모두 운영체제 기본 포함",
+        "마이너스 설정도 함께 넣어 둠"
+      ],
+      "tip": "모든 노트북은 이 설정 셀로 시작",
+      "notes": "[화면 전환: 슬라이드로 복귀]\n실습 수고하셨습니다. 깨진 그래프가 단계마다 고쳐지는 걸 직접 보셨을 겁니다. 그래프는 나왔는데, 앞에서 말씀드렸죠? 설정은 커널이 켜져 있는 동안만 유지됩니다. 그래서 다음 시간부터 모든 노트북은 이 설정 셀로 시작합니다.\n코드는 운영체제를 확인해서 Windows면 Malgun Gothic, 아니면 AppleGothic을 넣습니다. 두 폰트 모두 운영체제에 기본으로 들어 있습니다. 마이너스 설정은 어느 쪽이든 넣어 둡니다. 환경 확인과 폰트 설정, 이 두 셀로 매 시간을 시작한다고 기억해 주세요."
+    },
+    {
+      "archetype": "summary_with_next",
+      "title": "이번 시간 정리",
+      "rows": [
+        {
+          "icon": "check",
+          "text": "그래프는 질문에 답하는 그림"
+        },
+        {
+          "icon": "check",
+          "text": "노트북은 내가 고른 커널의 파이썬으로 실행"
+        },
+        {
+          "icon": "circle-check-big",
+          "text": "한글은 폰트 지정, 매 시간 설정 셀부터 실행"
+        }
+      ],
+      "next_label": "NEXT",
+      "next_title": "다음 시간: pandas",
+      "next": [
+        "남은 불편: 리스트 직접 입력",
+        "CSV를 읽고 골라 묶기",
+        "그래프에 넣을 표 만들기"
+      ],
+      "notes": "정리하겠습니다. 그래프는 질문에 답하는 그림입니다. 질문을 정하고, 맞는 모양을 고르고, 읽히게 다듬습니다. 그리고 노트북은 내가 고른 커널의 파이썬으로 실행되고, 한글은 폰트를 지정해야 보입니다. 그래서 매 시간 설정 셀부터 실행합니다.\n그런데 불편한 점이 하나 남았죠? 그래프에 넣을 값을 리스트로 직접 적어 넣었습니다. 다음 시간에는 pandas로 CSV 파일을 읽고 골라 묶어서 그래프에 넣을 표를 만들어 보겠습니다."
+    },
+    {
+      "archetype": "closing",
+      "notes": "수고하셨습니다. 다음 시간에 뵙겠습니다. 감사합니다."
+    }
+  ]
+}

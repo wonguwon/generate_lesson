@@ -1,0 +1,1540 @@
+{
+    "meta": {
+        "name": "Hanyang ERICA Lecture Template (HY)",
+        "source_file": "hw_ppt_template_2.pptx",
+        "purpose": "강의용 PPT 자동 생성을 위한 디자인 시스템 기준서",
+        "style_keywords": [
+            "flat",
+            "clean",
+            "navy-blue",
+            "no-shadow",
+            "rounded-corner-7.2pt",
+            "academic"
+        ],
+        "unit_system": {
+            "length": "pt (1pt = 12700 EMU)",
+            "origin": "슬라이드 좌상단 (0,0)",
+            "note": "모든 x, y, w, h 값은 960 x 540pt 캔버스 기준"
+        },
+        "change_log": [
+            "내비 탭(도입·본론·정리)을 헤더 바 가운데로 이동 (nav_tab_row, header_bar, header_footer_chrome 갱신)"
+        ]
+    },
+    "slide": {
+        "aspect_ratio": "16:9",
+        "width_pt": 960,
+        "height_pt": 540,
+        "width_emu": 12192000,
+        "height_emu": 6858000,
+        "background": {
+            "default": "bg1",
+            "default_hex": "#FFFFFF",
+            "title_slide": "gradient image (hero_gradient.png, 2000x1032) 가 y=44.6pt 부터 하단까지 전면 배치"
+        },
+        "scheme_color_mapping": {
+            "bg1": "lt1",
+            "tx1": "dk1",
+            "bg2": "lt2",
+            "tx2": "dk2",
+            "accent1": "accent1",
+            "accent2": "accent2",
+            "accent3": "accent3",
+            "accent4": "accent4",
+            "accent5": "accent5",
+            "accent6": "accent6"
+        }
+    },
+    "color_palette": {
+        "theme_scheme": {
+            "dk1_tx1": "#0F172A",
+            "lt1_bg1": "#FFFFFF",
+            "dk2_tx2": "#334155",
+            "lt2_bg2": "#F1F5F9",
+            "accent1": "#0E4A84",
+            "accent2": "#2563EB",
+            "accent3": "#0A3763",
+            "accent4": "#475569",
+            "accent5": "#BFDBFE",
+            "accent6": "#EFF6FF",
+            "hyperlink": "#2563EB",
+            "followed_hyperlink": "#3B82F6"
+        },
+        "background": {
+            "slide_default": "#FFFFFF",
+            "header_band": "#F8FAFC",
+            "footer_band": "#F1F5F9",
+            "section_hero_band": "#0A3763",
+            "title_hero_gradient": {
+                "from": "#082B4F",
+                "to": "#0D4983",
+                "direction": "대각선(좌상단 어두움 → 우측 밝음)",
+                "center_sample": "#0B3A69"
+            },
+            "soft_panel": "#EFF6FF",
+            "soft_card": "#F1F5F9",
+            "code_block": "#F8FAFC"
+        },
+        "main": {
+            "primary": "#0E4A84",
+            "primary_dark": "#0A3763",
+            "usage": "아이콘 타일, 번호 타일, 강조 패널, 시간 버튼, 섹션 밴드"
+        },
+        "sub_point": {
+            "point_blue": "#2563EB",
+            "point_blue_usage": "활성 내비게이션 탭 글자·밑줄, 코드 키워드, Day 칩 배경",
+            "light_blue": "#BFDBFE",
+            "light_blue_usage": "어두운 배경 위 보조 텍스트, 미디어 프레임 테두리, Tip 패널 배경",
+            "pale_blue": "#EFF6FF",
+            "pale_blue_usage": "연한 패널 배경, 어두운 패널 위 본문 텍스트"
+        },
+        "text": {
+            "title_on_light": "#0F172A",
+            "body_on_light": "#334155",
+            "secondary_caption_on_light": "#475569",
+            "title_on_dark": "#FFFFFF",
+            "subtitle_on_dark": "#BFDBFE",
+            "body_on_dark_primary_panel": "#BFDBFE",
+            "body_on_dark_navy_panel": "#EFF6FF",
+            "label_on_dark": "#BFDBFE",
+            "inactive_nav": "#475569",
+            "active_nav": "#2563EB",
+            "logo_text": "#0E4A84",
+            "code_default": "#334155",
+            "code_keyword": "#2563EB",
+            "watermark_number": "#164A7C"
+        },
+        "shape": {
+            "fill": {
+                "primary": "#0E4A84",
+                "primary_dark": "#0A3763",
+                "point": "#2563EB",
+                "white": "#FFFFFF",
+                "white_translucent_10pct": {
+                    "hex": "#FFFFFF",
+                    "alpha_percent": 10
+                },
+                "soft_gray_card": "#F1F5F9",
+                "soft_blue_panel": "#EFF6FF",
+                "light_blue_panel": "#BFDBFE",
+                "code_block": "#F8FAFC"
+            },
+            "border": {
+                "neutral": "#CBD5E1",
+                "neutral_width_pt": 1,
+                "on_dark_frame": "#BFDBFE",
+                "on_dark_frame_width_pt": 1
+            },
+            "divider_line": {
+                "color": "#CBD5E1",
+                "width_pt": 1
+            },
+            "connector_line": {
+                "color": "#CBD5E1",
+                "width_pt": 2
+            }
+        },
+        "icon": {
+            "on_primary_or_dark_tile": "#FFFFFF",
+            "on_white_tile": "#0E4A84",
+            "format": "PNG 256x256, 단색 글리프 (흰색 또는 #0E4A84), 투명 배경"
+        }
+    },
+    "typography": {
+        "font_family": {
+            "major_heading": "Malgun Gothic",
+            "minor_body": "Malgun Gothic",
+            "korean_fallback": "맑은 고딕",
+            "code": "Courier New",
+            "latin_override": "없음 (모든 텍스트 Malgun Gothic 단일 사용)"
+        },
+        "global_text_box_rules": {
+            "inset_left_right_top_bottom_pt": 0,
+            "word_wrap": true,
+            "auto_fit": "none (텍스트는 박스에 맞춰 크기를 수동으로 지정)",
+            "default_horizontal_align": "left",
+            "letter_spacing_pt": 0,
+            "line_spacing": "single (100%, 별도 지정 없음)",
+            "paragraph_space_before_pt": 0
+        },
+        "styles": {
+            "cover_title": {
+                "size_pt": 54,
+                "weight": "Bold",
+                "color": "#FFFFFF",
+                "align": "left",
+                "vertical_anchor": "bottom"
+            },
+            "cover_subtitle": {
+                "size_pt": 24,
+                "weight": "Regular",
+                "color": "#BFDBFE",
+                "align": "left",
+                "vertical_anchor": "top"
+            },
+            "cover_meta": {
+                "size_pt": 14,
+                "weight": "Regular",
+                "color": "#BFDBFE",
+                "align": "left",
+                "vertical_anchor": "middle"
+            },
+            "section_title": {
+                "size_pt": 44,
+                "weight": "Bold",
+                "color": "#FFFFFF",
+                "align": "left",
+                "vertical_anchor": "top"
+            },
+            "section_label": {
+                "size_pt": 20,
+                "weight": "Bold",
+                "color": "#BFDBFE",
+                "align": "left",
+                "vertical_anchor": "bottom",
+                "example": "PART 01"
+            },
+            "section_intro": {
+                "size_pt": 24,
+                "weight": "Regular",
+                "color": "#334155",
+                "align": "left",
+                "vertical_anchor": "top"
+            },
+            "section_watermark_number": {
+                "size_pt": 200,
+                "weight": "Bold",
+                "color": "#164A7C",
+                "align": "right",
+                "vertical_anchor": "middle"
+            },
+            "header_slide_title": {
+                "size_pt": 36,
+                "weight": "Bold",
+                "color": "#0F172A",
+                "align": "left",
+                "vertical_anchor": "middle"
+            },
+            "sub_header_large": {
+                "size_pt": 28,
+                "weight": "Bold",
+                "color": "#0F172A",
+                "usage": "비교 카드 제목, 단계 번호"
+            },
+            "sub_header_card": {
+                "size_pt": 24,
+                "weight": "Bold",
+                "color": "#0F172A",
+                "usage": "3단 카드 제목, 코드 설명 제목, 다음 주 예고 제목, 단계 카드 제목"
+            },
+            "sub_header_medium": {
+                "size_pt": 22,
+                "weight": "Bold",
+                "color": "#0F172A",
+                "usage": "패널 제목, 활동 제목"
+            },
+            "sub_header_small": {
+                "size_pt": 20,
+                "weight": "Bold",
+                "color": "#0F172A",
+                "usage": "아젠다 항목 제목"
+            },
+            "number_in_tile": {
+                "size_pt": 18,
+                "weight": "Bold",
+                "color": "#FFFFFF",
+                "align": "center",
+                "usage": "아젠다 번호 01~04"
+            },
+            "body_large": {
+                "size_pt": 20,
+                "weight": "Regular",
+                "color": "#334155",
+                "usage": "단독 불릿 본문, 비교 카드 불릿, 요약 문장(#0F172A)"
+            },
+            "body_default": {
+                "size_pt": 18,
+                "weight": "Regular",
+                "color": "#334155",
+                "usage": "카드 설명, 코드 설명 불릿, 핵심 포인트 문장(#BFDBFE)"
+            },
+            "body_small": {
+                "size_pt": 16,
+                "weight": "Regular",
+                "color": "#334155",
+                "usage": "패널 내 불릿, 단계 설명, 활동 설명"
+            },
+            "sub_caption": {
+                "size_pt": 14,
+                "weight": "Regular",
+                "color": "#475569",
+                "usage": "아젠다 부연 설명, Tip 텍스트(#0F172A)"
+            },
+            "chip_text": {
+                "size_pt": 16,
+                "weight": "Bold",
+                "align": "center",
+                "color_on_white_chip": "#0A3763",
+                "color_on_filled_chip": "#FFFFFF"
+            },
+            "overline_label": {
+                "size_pt": 14,
+                "weight": "Bold",
+                "color": "#BFDBFE",
+                "letter_spacing_pt": 3,
+                "usage": "NEXT WEEK 같은 영문 대문자 라벨"
+            },
+            "code": {
+                "font": "Courier New",
+                "size_pt": 18,
+                "weight": "Regular",
+                "color": "#334155",
+                "keyword_weight": "Bold",
+                "keyword_color": "#2563EB",
+                "paragraph_space_after_pt": "문단 후 간격 지정(코드 줄 단위)",
+                "indent_style": "공백 4칸 단위"
+            },
+            "caption_footer": {
+                "size_pt": 12,
+                "weight": "Regular",
+                "color": "#475569",
+                "usage": "하단 바 저작권/과목명"
+            },
+            "page_number": {
+                "size_pt": 12,
+                "weight": "Regular",
+                "color": "#475569",
+                "align": "right",
+                "position": {
+                    "x": 844.6,
+                    "y": 509.8,
+                    "w": 72,
+                    "h": 30.2
+                }
+            },
+            "header_bar_logo": {
+                "size_pt": 15,
+                "weight": "Bold",
+                "color": "#0E4A84",
+                "text": "기관명"
+            },
+            "header_bar_course": {
+                "size_pt": 14,
+                "weight": "Regular",
+                "color": "#475569",
+                "align": "right",
+                "position": {
+                    "x": 640,
+                    "y": 0,
+                    "w": 276.6,
+                    "h": 44.6
+                }
+            },
+            "nav_tab_inactive": {
+                "size_pt": 14,
+                "weight": "Regular",
+                "color": "#475569",
+                "position": "헤더 바 중앙, y=0, h=41.7"
+            },
+            "nav_tab_active": {
+                "size_pt": 16,
+                "weight": "Bold",
+                "color": "#2563EB",
+                "underline_bar": {
+                    "height_pt": 2.9,
+                    "width_pt": 79.2,
+                    "color": "#2563EB",
+                    "y": 41.7
+                },
+                "position": "헤더 바 중앙, y=0, h=41.7"
+            },
+            "nav_day_label": {
+                "size_pt": 14,
+                "weight": "Regular",
+                "color": "#475569",
+                "align": "right",
+                "example": "Day 00"
+            }
+        },
+        "bullet": {
+            "character": "•",
+            "bullet_font": "Arial",
+            "bullet_size_percent": 100,
+            "bullet_color": "text color 와 동일(별도 지정 없음)",
+            "left_margin_pt": 27,
+            "hanging_indent_pt": -27,
+            "space_after_pt": 12,
+            "level_2_character": "–",
+            "level_2_left_margin_pt": 58.5
+        },
+        "korean_text_rules": {
+            "title_max_chars_per_line": 20,
+            "body_line_max_chars": 30,
+            "recommended_title_length": "한 줄(36pt, 폭 873pt) 이내",
+            "overflow_policy": "폰트 축소 대신 문장 분리 또는 항목 수 감소; 최소 폰트 14pt 유지"
+        }
+    },
+    "layout_and_spacing": {
+        "margins_pt": {
+            "left": 43.2,
+            "right": 43.4,
+            "top_header_bar_height": 44.6,
+            "bottom_footer_bar_height": 30.2,
+            "safe_area": {
+                "x": 43.2,
+                "y": 169.2,
+                "w": 873.4,
+                "h": 316.8
+            }
+        },
+        "vertical_zones": {
+            "header_bar": {
+                "y": 0,
+                "h": 44.6,
+                "fill": "#F8FAFC",
+                "content": "좌측 로고 텍스트(x=43.2) / 중앙 내비 탭(x=346.8~613.2, 헤더 영역 가운데) / 우측 과목명·담당 강사(x=640, w=276.6, 우측정렬)"
+            },
+            "nav_tab_row": {
+                "y": 0,
+                "h": 44.6,
+                "placement": "헤더 바(y=0~44.6) 안, 슬라이드 가로 중앙 정렬",
+                "tabs": [
+                    "도입",
+                    "본론",
+                    "정리"
+                ],
+                "tab_width": 79.2,
+                "tab_pitch": 93.6,
+                "tab_group_width": 266.4,
+                "tab_x": [
+                    346.8,
+                    440.4,
+                    534.0
+                ],
+                "active_underline": {
+                    "y": 41.7,
+                    "h": 2.9,
+                    "w": 79.2,
+                    "note": "헤더 바 하단 가장자리에 맞닿음"
+                },
+                "day_label": {
+                    "x": 700.6,
+                    "y": 44.6,
+                    "w": 216,
+                    "h": 33.1,
+                    "note": "탭 이동 후 이 줄에는 Day 라벨만 남는다 (위치 미정)"
+                }
+            },
+            "title_zone": {
+                "y": 93.6,
+                "h": 61.2,
+                "x": 43.2,
+                "w": 873.4
+            },
+            "gap_title_to_content": 14.4,
+            "content_zone": {
+                "y": 169.2,
+                "h": 316.8,
+                "bottom": 486
+            },
+            "gap_content_to_footer": 23.8,
+            "footer_bar": {
+                "y": 509.8,
+                "h": 30.2,
+                "fill": "#F1F5F9",
+                "text_x": 43.2,
+                "text_w": 576,
+                "page_number_right_edge": 916.6
+            }
+        },
+        "section_slide_zones": {
+            "hero_band": {
+                "y": 77.8,
+                "h": 309.6,
+                "full_width": 960,
+                "fill": "#0A3763"
+            },
+            "label": {
+                "x": 43.2,
+                "y": 183.6,
+                "w": 504,
+                "h": 36
+            },
+            "title": {
+                "x": 43.2,
+                "y": 223.2,
+                "w": 547.2,
+                "h": 108
+            },
+            "watermark_number": {
+                "x": 619.2,
+                "y": 108,
+                "w": 297.4,
+                "h": 266.4
+            },
+            "intro_sentence": {
+                "x": 43.2,
+                "y": 414,
+                "w": 850.4,
+                "h": 72
+            }
+        },
+        "cover_slide_zones": {
+            "title": {
+                "x": 43.2,
+                "y": 158.4,
+                "w": 554.4,
+                "h": 151.2
+            },
+            "subtitle": {
+                "x": 43.2,
+                "y": 320.4,
+                "w": 554.4,
+                "h": 57.6
+            },
+            "chips_row": {
+                "y": 399.6,
+                "h": 40.3
+            },
+            "meta_line": {
+                "x": 43.2,
+                "y": 468,
+                "w": 554.4,
+                "h": 36
+            },
+            "media_frame": {
+                "x": 630,
+                "y": 111.6,
+                "w": 286.6,
+                "h": 360
+            }
+        },
+        "column_split_rules": {
+            "two_column_text_plus_panel": {
+                "left_text": {
+                    "x": 43.2,
+                    "w": 532.8
+                },
+                "gap": 36,
+                "right_panel": {
+                    "x": 612,
+                    "w": 304.6
+                }
+            },
+            "two_column_goal_layout": {
+                "left_list": {
+                    "x": 43.2,
+                    "w": 504
+                },
+                "gap": 50.4,
+                "right_panel": {
+                    "x": 597.6,
+                    "w": 319
+                }
+            },
+            "two_equal_cards": {
+                "card_w": 418.7,
+                "gap": 36,
+                "x": [
+                    43.2,
+                    497.9
+                ]
+            },
+            "code_plus_explanation": {
+                "left_code": {
+                    "x": 43.2,
+                    "w": 525.6
+                },
+                "gap": 36,
+                "right_explain": {
+                    "x": 604.8,
+                    "w": 311.8
+                }
+            },
+            "list_plus_side_panel": {
+                "left_list": {
+                    "x": 43.2,
+                    "w": 547.2
+                },
+                "gap": 28.8,
+                "right_panel": {
+                    "x": 619.2,
+                    "w": 297.4
+                }
+            },
+            "three_columns": {
+                "col_x": [
+                    43.2,
+                    366.7,
+                    657.8
+                ],
+                "col_w": [
+                    258.7,
+                    226.3,
+                    226.3
+                ],
+                "divider_x": [
+                    334.3,
+                    625.4
+                ],
+                "divider_y": 176.4,
+                "divider_h": 288,
+                "gap_text_to_divider": 32.4
+            },
+            "four_columns": {
+                "card_w": 202.1,
+                "gap": 21.6,
+                "x": [
+                    43.2,
+                    266.9,
+                    490.7,
+                    714.4
+                ]
+            }
+        },
+        "recommended_gaps_pt": {
+            "tile_to_title": 21.6,
+            "title_to_description": 10.8,
+            "tile_to_text_horizontal": 20.2,
+            "panel_inner_padding": 28.8,
+            "panel_inner_padding_top": 28.8,
+            "card_inner_padding": 21.6,
+            "list_row_pitch_agenda": 79.2,
+            "list_row_pitch_activity_summary": 104.4,
+            "divider_to_next_row_tile": 26.6,
+            "paragraph_space_after": 12,
+            "min_gap_between_blocks": 21.6,
+            "standard_gap_between_cards": 36
+        },
+        "alignment_rules": [
+            "모든 콘텐츠는 좌측 x=43.2pt, 우측 x=916.6pt 의 두 기준선 안에 배치한다.",
+            "콘텐츠 영역 상단은 y=169.2pt, 하단은 y=486pt 로 고정한다.",
+            "아이콘/번호 타일과 텍스트 박스는 세로 중심을 일치시킨다 (텍스트 anchor=middle).",
+            "텍스트가 타일 위에 올라갈 때는 타일과 동일 좌표·크기의 투명 텍스트 박스를 겹쳐 가운데 정렬한다.",
+            "구분선(divider)은 항목 사이 정중앙 근처에 배치하고 좌우 끝은 항목 폭과 맞춘다."
+        ]
+    },
+    "component_rules": {
+        "global": {
+            "corner_radius_pt": 7.2,
+            "corner_radius_formula": "roundRect adj = 7.2 / min(width, height) x 100000",
+            "shadow": {
+                "enabled": false,
+                "opacity": 0,
+                "blur_pt": 0,
+                "offset_pt": 0
+            },
+            "gradient_on_shapes": false,
+            "effects": "없음 (flat design). 그림자·광택·3D 사용 금지",
+            "shape_border_default": "없음",
+            "text_inset_pt": 0
+        },
+        "card_container": {
+            "outlined_white_card": {
+                "fill": "#FFFFFF",
+                "border": "#CBD5E1",
+                "border_width_pt": 1,
+                "radius_pt": 7.2,
+                "shadow": "none",
+                "usage": "비교형 좌측 카드, 칩(흰색)"
+            },
+            "filled_primary_card": {
+                "fill": "#0E4A84",
+                "border": "none",
+                "radius_pt": 7.2,
+                "shadow": "none",
+                "text_title": "#FFFFFF",
+                "text_body": "#BFDBFE",
+                "usage": "핵심 포인트 패널, 비교형 우측 카드"
+            },
+            "filled_navy_panel": {
+                "fill": "#0A3763",
+                "border": "none",
+                "radius_pt": 7.2,
+                "text_label": "#BFDBFE",
+                "text_title": "#FFFFFF",
+                "text_body": "#EFF6FF",
+                "usage": "다음 주 예고 패널"
+            },
+            "soft_gray_card": {
+                "fill": "#F1F5F9",
+                "border": "none",
+                "radius_pt": 7.2,
+                "text_title": "#0F172A",
+                "text_body": "#334155",
+                "usage": "프로세스 단계 카드"
+            },
+            "soft_blue_panel": {
+                "fill": "#EFF6FF",
+                "border": "none",
+                "radius_pt": 7.2,
+                "usage": "학습 목표 패널"
+            },
+            "tip_box": {
+                "fill": "#BFDBFE",
+                "border": "none",
+                "radius_pt": 0,
+                "text_color": "#0F172A",
+                "text_size_pt": 14,
+                "inner_padding_horizontal_pt": 21.6,
+                "usage": "Tip/참고 박스(직각)"
+            },
+            "code_block": {
+                "fill": "#F8FAFC",
+                "border": "#CBD5E1",
+                "border_width_pt": 1,
+                "radius_pt": 7.2,
+                "inner_padding_pt": 28.8
+            },
+            "glass_frame_on_dark": {
+                "fill": "#FFFFFF",
+                "fill_alpha_percent": 10,
+                "border": "#BFDBFE",
+                "border_width_pt": 1,
+                "radius_pt": 9.0,
+                "label_color": "#BFDBFE",
+                "usage": "표지 이미지/로고 자리 표시 프레임"
+            },
+            "card_padding_rule": "카드 내부 좌우·상단 여백 약 21.6~36pt, 텍스트 박스 폭 = 카드 폭 - 2 x padding"
+        },
+        "chip_and_button": {
+            "height_pt": 40.3,
+            "radius_pt": 7.2,
+            "text_size_pt": 16,
+            "text_weight": "Bold",
+            "variants": {
+                "outline_white": {
+                    "fill": "#FFFFFF",
+                    "border": "#CBD5E1 / 1pt",
+                    "text": "#0A3763",
+                    "example_width_pt": 180
+                },
+                "filled_point": {
+                    "fill": "#2563EB",
+                    "text": "#FFFFFF",
+                    "example_width_pt": 115.2
+                },
+                "filled_primary_time": {
+                    "fill": "#0E4A84",
+                    "text": "#FFFFFF",
+                    "example_width_pt": 122.4
+                }
+            },
+            "gap_between_chips_pt": 14.4
+        },
+        "icon_tile": {
+            "radius_pt": 7.2,
+            "sizes": {
+                "xl_feature": {
+                    "tile_pt": 57.6,
+                    "icon_pt": 28.8,
+                    "icon_offset_pt": 14.4,
+                    "usage": "3단 카드, 활동 목록, 핵심 포인트"
+                },
+                "lg_goal": {
+                    "tile_pt": 44.6,
+                    "icon_pt": 21.6,
+                    "icon_offset_pt": 11.5,
+                    "usage": "패널 제목 옆 아이콘"
+                },
+                "md_summary": {
+                    "tile_pt": 50.4,
+                    "icon_pt": 21.6,
+                    "icon_offset_pt": 14.4,
+                    "usage": "요약 항목 아이콘"
+                },
+                "number_agenda": {
+                    "tile_pt": 51.8,
+                    "text_size_pt": 18,
+                    "usage": "아젠다 번호"
+                },
+                "number_step": {
+                    "tile_pt": 64.8,
+                    "text_size_pt": 28,
+                    "usage": "프로세스 단계 번호"
+                }
+            },
+            "icon_to_tile_ratio": "아이콘은 타일의 50%(xl) ~ 약 48%(lg/md) 크기, 타일 중앙 정렬",
+            "fill_on_light_background": "#0E4A84",
+            "fill_on_primary_panel": "#FFFFFF (아이콘 #0E4A84)",
+            "icon_style": "단색 라인/글리프, 256x256 PNG, 투명 배경",
+            "placement": "항목 좌상단에 두고 제목은 타일 아래(카드형) 또는 우측(리스트형)에 배치",
+            "icon_to_text_gap_pt": {
+                "horizontal_list": 20.2,
+                "vertical_card": 21.6
+            }
+        },
+        "bullet_list": {
+            "marker": "•",
+            "text_color": "#334155",
+            "space_after_pt": 12,
+            "left_margin_pt": 27,
+            "hanging_indent_pt": 27,
+            "size_by_context_pt": {
+                "full_width_body": 20,
+                "split_column_body": 18,
+                "inside_panel": 16
+            },
+            "max_items_recommended": 5,
+            "max_lines_per_item": 2,
+            "on_dark_panel_text_color": "#BFDBFE 또는 #EFF6FF"
+        },
+        "divider_line": {
+            "color": "#CBD5E1",
+            "width_pt": 1,
+            "style": "solid",
+            "use": "리스트 항목 사이 가로선, 3단 카드 사이 세로선"
+        },
+        "process_connector": {
+            "color": "#CBD5E1",
+            "width_pt": 2,
+            "position": "번호 타일의 세로 중심선",
+            "z_order": "타일 뒤(아래)",
+            "span": "첫 타일 중심 ~ 마지막 타일 중심"
+        },
+        "highlight_text_rules": {
+            "emphasis_by_weight": "중요 문장은 Bold 로 처리하고 색상은 유지한다.",
+            "emphasis_by_color_on_light": "강조 키워드는 #2563EB (포인트 블루) 로 표시한다.",
+            "emphasis_by_color_on_dark": "강조 보조 텍스트는 #BFDBFE, 핵심 제목은 #FFFFFF.",
+            "code_keyword": "Bold + #2563EB",
+            "key_message": "핵심 한 문장은 #0E4A84 패널(핵심 포인트) 안에 18pt #BFDBFE 로 배치",
+            "forbidden": [
+                "밑줄",
+                "형광펜(배경 하이라이트)",
+                "이탤릭",
+                "3가지 이상의 강조 색상 혼용",
+                "그림자 효과"
+            ],
+            "max_emphasis_per_slide": "슬라이드당 강조 1~2곳"
+        },
+        "header_footer_chrome": {
+            "applies_to": "표지를 제외한 모든 슬라이드",
+            "header_bar": {
+                "fill": "#F8FAFC",
+                "height_pt": 44.6,
+                "left_text": "기관명 (15pt Bold #0E4A84)",
+                "right_text": "과목명 · 담당 강사 (14pt #475569, x=640 w=276.6 우측정렬)",
+                "center_text": "내비 탭 도입·본론·정리 (헤더 영역 가운데)"
+            },
+            "nav_tabs": {
+                "labels": [
+                    "도입",
+                    "본론",
+                    "정리"
+                ],
+                "active_rule": "현재 단계 탭만 16pt Bold #2563EB + 헤더 바 하단 2.9pt 밑줄(y=41.7), 나머지 14pt #475569",
+                "position": "헤더 바 안 가운데: x=346.8 / 440.4 / 534.0, y=0, h=41.7 (탭 폭 79.2, 간격 93.6)"
+            },
+            "day_label": "우측 상단 'Day 00' 14pt #475569",
+            "footer_bar": {
+                "fill": "#F1F5F9",
+                "height_pt": 30.2,
+                "text": "© 기관명 · 과목명 (12pt #475569)",
+                "page_number": "우측, 12pt #475569"
+            }
+        },
+        "image_rules": {
+            "cover_hero": "그라데이션 배경 이미지 전면, 우측에 반투명 프레임으로 이미지/로고 영역",
+            "placeholder_frame": {
+                "x": 630,
+                "y": 111.6,
+                "w": 286.6,
+                "h": 360
+            },
+            "content_images": "아이콘 외 사진은 radius 7.2pt, 테두리 없음, 콘텐츠 영역 안에서 정렬"
+        }
+    },
+    "slide_archetypes": {
+        "layout_naming": {
+            "cover_or_closing": "HY Title",
+            "section": "HY Section-도입 / 본론 / 정리 (활성 탭만 다름)",
+            "agenda_content": "HY Content-도입",
+            "free_content": "HY Content-본론, HY Content-정리",
+            "body_with_placeholder": "HY Body-도입 / 본론 / 정리"
+        },
+        "cover": {
+            "template_slide": 1,
+            "layout": "HY Title",
+            "background": "gradient hero image",
+            "elements": [
+                {
+                    "role": "title",
+                    "box": {
+                        "x": 43.2,
+                        "y": 158.4,
+                        "w": 554.4,
+                        "h": 151.2
+                    },
+                    "style": "cover_title"
+                },
+                {
+                    "role": "subtitle",
+                    "box": {
+                        "x": 43.2,
+                        "y": 320.4,
+                        "w": 554.4,
+                        "h": 57.6
+                    },
+                    "style": "cover_subtitle"
+                },
+                {
+                    "role": "day_chip",
+                    "box": {
+                        "x": 237.6,
+                        "y": 399.6,
+                        "w": 115.2,
+                        "h": 40.3
+                    },
+                    "variant": "filled_point",
+                    "example": "Day 01"
+                },
+                {
+                    "role": "meta_line",
+                    "box": {
+                        "x": 43.2,
+                        "y": 468,
+                        "w": 554.4,
+                        "h": 36
+                    },
+                    "style": "cover_meta",
+                    "example": "과목명 | 담당 강사"
+                },
+                {
+                    "role": "media_frame",
+                    "box": {
+                        "x": 630,
+                        "y": 111.6,
+                        "w": 286.6,
+                        "h": 360
+                    },
+                    "component": "glass_frame_on_dark"
+                }
+            ],
+            "rules": [
+                "좌측 텍스트 열은 폭 554.4pt, 우측 이미지 프레임과 약 32pt 간격",
+                "제목은 하단 정렬하여 부제와 붙어 보이도록 한다"
+            ]
+        },
+        "closing": {
+            "template_slide": 11,
+            "layout": "HY Title",
+            "structure": "cover 와 동일 구조에서 칩·미디어 프레임 제외",
+            "elements": [
+                {
+                    "role": "title",
+                    "example": "감사합니다",
+                    "style": "cover_title"
+                },
+                {
+                    "role": "subtitle",
+                    "example": "Q&A · 질문은 자유롭게 해 주세요",
+                    "style": "cover_subtitle"
+                },
+                {
+                    "role": "contact_line",
+                    "example": "담당 강사 이메일 | 연구실 | 면담 시간",
+                    "style": "cover_meta"
+                }
+            ]
+        },
+        "agenda_with_goals": {
+            "template_slide": 2,
+            "layout": "HY Content-도입",
+            "use_case": "오늘의 수업 흐름 / 목차 + 학습 목표",
+            "elements": [
+                {
+                    "role": "title",
+                    "box": {
+                        "x": 43.2,
+                        "y": 93.6,
+                        "w": 873.4,
+                        "h": 61.2
+                    },
+                    "style": "header_slide_title"
+                },
+                {
+                    "role": "agenda_list_left",
+                    "item_count": 4,
+                    "item_pattern": {
+                        "number_tile": {
+                            "size_pt": 51.8,
+                            "fill": "#0E4A84",
+                            "x": 43.2,
+                            "radius_pt": 7.2,
+                            "text": "18pt Bold #FFFFFF 두 자리 번호"
+                        },
+                        "text_box": {
+                            "x": 115.2,
+                            "w": 417.6,
+                            "h": 60.5,
+                            "line_1": "20pt Bold #0F172A (항목 제목)",
+                            "line_2": "14pt Regular #475569 (부연 설명)"
+                        },
+                        "divider": {
+                            "x": 43.2,
+                            "w": 504,
+                            "color": "#CBD5E1",
+                            "width_pt": 1
+                        }
+                    },
+                    "row_y_start": [
+                        179.3,
+                        258.5,
+                        337.7,
+                        416.9
+                    ],
+                    "row_pitch_pt": 79.2
+                },
+                {
+                    "role": "goal_panel_right",
+                    "box": {
+                        "x": 597.6,
+                        "y": 169.2,
+                        "w": 319,
+                        "h": 316.8
+                    },
+                    "fill": "#EFF6FF",
+                    "radius_pt": 7.2,
+                    "children": [
+                        {
+                            "role": "icon_tile",
+                            "box": {
+                                "x": 626.4,
+                                "y": 198,
+                                "w": 44.6,
+                                "h": 44.6
+                            },
+                            "fill": "#0E4A84",
+                            "icon_size_pt": 21.6
+                        },
+                        {
+                            "role": "heading",
+                            "box": {
+                                "x": 687.6,
+                                "y": 198,
+                                "w": 216,
+                                "h": 44.6
+                            },
+                            "style": "22pt Bold #0F172A"
+                        },
+                        {
+                            "role": "bullet_list",
+                            "box": {
+                                "x": 626.4,
+                                "y": 270,
+                                "w": 266.4,
+                                "h": 194.4
+                            },
+                            "style": "16pt #334155, 불릿 3개, 문단 후 12pt"
+                        }
+                    ]
+                }
+            ]
+        },
+        "section_divider": {
+            "template_slide": 3,
+            "layout": "HY Section-본론 (도입/정리 변형은 활성 탭만 변경)",
+            "background": "상단 y=77.8 부터 309.6pt 높이의 #0A3763 전폭 밴드, 하단은 흰색",
+            "elements": [
+                {
+                    "role": "part_label",
+                    "example": "PART 01",
+                    "style": "section_label"
+                },
+                {
+                    "role": "section_title",
+                    "example": "핵심 개념 이해",
+                    "style": "section_title"
+                },
+                {
+                    "role": "watermark_number",
+                    "example": "01",
+                    "style": "section_watermark_number",
+                    "note": "밴드 우측에 크게 배치, 배경과 거의 같은 톤(#164A7C)으로 은은하게"
+                },
+                {
+                    "role": "intro_sentence",
+                    "box": {
+                        "x": 43.2,
+                        "y": 414,
+                        "w": 850.4,
+                        "h": 72
+                    },
+                    "style": "section_intro",
+                    "location": "밴드 아래 흰 영역"
+                }
+            ],
+            "rules": [
+                "파트 번호는 2자리(01, 02...)",
+                "상단 내비게이션의 활성 탭을 해당 단계로 변경한다"
+            ]
+        },
+        "text_plus_key_point": {
+            "template_slide": 4,
+            "layout": "HY Body-본론",
+            "use_case": "정의/특징 불릿 + 핵심 한 문장 강조",
+            "elements": [
+                {
+                    "role": "title",
+                    "style": "header_slide_title"
+                },
+                {
+                    "role": "bullet_list_left",
+                    "box": {
+                        "x": 43.2,
+                        "y": 169.2,
+                        "w": 532.8,
+                        "h": 316.8
+                    },
+                    "style": "body_large 20pt #334155, 불릿 4~5개, 문단 후 12pt"
+                },
+                {
+                    "role": "key_point_panel_right",
+                    "box": {
+                        "x": 612,
+                        "y": 169.2,
+                        "w": 304.6,
+                        "h": 316.8
+                    },
+                    "fill": "#0E4A84",
+                    "radius_pt": 7.2,
+                    "children": [
+                        {
+                            "role": "icon_tile",
+                            "box": {
+                                "x": 644.4,
+                                "y": 201.6,
+                                "w": 57.6,
+                                "h": 57.6
+                            },
+                            "fill": "#FFFFFF",
+                            "icon_color": "#0E4A84",
+                            "icon_size_pt": 28.8
+                        },
+                        {
+                            "role": "heading",
+                            "box": {
+                                "x": 644.4,
+                                "y": 280.8,
+                                "w": 244.8,
+                                "h": 39.6
+                            },
+                            "style": "22pt Bold #FFFFFF"
+                        },
+                        {
+                            "role": "message",
+                            "box": {
+                                "x": 644.4,
+                                "y": 331.2,
+                                "w": 244.8,
+                                "h": 136.8
+                            },
+                            "style": "18pt Regular #BFDBFE"
+                        }
+                    ]
+                }
+            ]
+        },
+        "three_column_card_compare": {
+            "template_slide": 5,
+            "layout": "HY Content-본론",
+            "use_case": "세 가지 핵심 요소, 개념 A/B/C 나열",
+            "column_count": 3,
+            "column_pattern": {
+                "icon_tile": {
+                    "size_pt": 57.6,
+                    "fill": "#0E4A84",
+                    "icon_size_pt": 28.8,
+                    "y": 183.6
+                },
+                "title": {
+                    "y": 262.8,
+                    "h": 43.2,
+                    "style": "24pt Bold #0F172A"
+                },
+                "description": {
+                    "y": 316.8,
+                    "h": 136.8,
+                    "style": "18pt Regular #334155, 2~3줄"
+                }
+            },
+            "column_x": [
+                43.2,
+                366.7,
+                657.8
+            ],
+            "column_w": [
+                258.7,
+                226.3,
+                226.3
+            ],
+            "vertical_dividers": {
+                "x": [
+                    334.3,
+                    625.4
+                ],
+                "y": 176.4,
+                "h": 288,
+                "color": "#CBD5E1",
+                "width_pt": 1
+            },
+            "note": "카드 배경 없이 구분선으로 분할하는 오픈형 3단 구성"
+        },
+        "two_column_versus": {
+            "template_slide": 6,
+            "layout": "HY Content-본론",
+            "use_case": "두 접근 방식/개념 비교",
+            "elements": [
+                {
+                    "role": "left_card",
+                    "box": {
+                        "x": 43.2,
+                        "y": 169.2,
+                        "w": 418.7,
+                        "h": 309.6
+                    },
+                    "style": "outlined_white_card",
+                    "heading": {
+                        "box": {
+                            "x": 79.2,
+                            "y": 198,
+                            "w": 346.7,
+                            "h": 50.4
+                        },
+                        "style": "28pt Bold #0F172A"
+                    },
+                    "list": {
+                        "box": {
+                            "x": 79.2,
+                            "y": 266.4,
+                            "w": 346.7,
+                            "h": 187.2
+                        },
+                        "style": "20pt #334155, 불릿 3개"
+                    }
+                },
+                {
+                    "role": "right_card",
+                    "box": {
+                        "x": 497.9,
+                        "y": 169.2,
+                        "w": 418.7,
+                        "h": 309.6
+                    },
+                    "style": "filled_primary_card",
+                    "heading": {
+                        "box": {
+                            "x": 533.9,
+                            "y": 198,
+                            "w": 346.7,
+                            "h": 50.4
+                        },
+                        "style": "28pt Bold #FFFFFF"
+                    },
+                    "list": {
+                        "box": {
+                            "x": 533.9,
+                            "y": 266.4,
+                            "w": 346.7,
+                            "h": 187.2
+                        },
+                        "style": "20pt #BFDBFE, 불릿 3개"
+                    }
+                }
+            ],
+            "rules": [
+                "좌측은 중립(흰색+테두리), 우측은 강조(진한 파랑)로 시각적 대비를 준다",
+                "카드 내부 좌우 여백 36pt, 상단 여백 28.8pt",
+                "두 카드의 불릿 항목 수와 구조를 동일하게 맞춘다"
+            ]
+        },
+        "process_steps": {
+            "template_slide": 7,
+            "layout": "HY Content-본론",
+            "use_case": "문제 해결 4단계, 절차/프로세스",
+            "step_count": 4,
+            "elements": [
+                {
+                    "role": "connector_line",
+                    "box": {
+                        "x": 144.3,
+                        "y": 201.6,
+                        "w": 671.2
+                    },
+                    "color": "#CBD5E1",
+                    "width_pt": 2,
+                    "z_order": "back"
+                },
+                {
+                    "role": "step_unit",
+                    "number_tile": {
+                        "size_pt": 64.8,
+                        "fill": "#0E4A84",
+                        "radius_pt": 7.2,
+                        "y": 169.2,
+                        "text": "28pt Bold #FFFFFF",
+                        "align_to_card": "카드 가로 중앙"
+                    },
+                    "card": {
+                        "w": 202.1,
+                        "h": 216,
+                        "y": 262.8,
+                        "fill": "#F1F5F9",
+                        "radius_pt": 7.2,
+                        "border": "none"
+                    },
+                    "title": {
+                        "offset_x": 21.6,
+                        "offset_y": 21.6,
+                        "w": 158.9,
+                        "h": 43.2,
+                        "style": "24pt Bold #0F172A"
+                    },
+                    "description": {
+                        "offset_x": 21.6,
+                        "offset_y": 75.6,
+                        "w": 158.9,
+                        "h": 122.4,
+                        "style": "16pt Regular #334155, 2~3줄"
+                    }
+                }
+            ],
+            "step_x_card": [
+                43.2,
+                266.9,
+                490.7,
+                714.4
+            ],
+            "step_x_tile": [
+                111.9,
+                335.6,
+                559.4,
+                783.1
+            ],
+            "gap_tile_bottom_to_card_top": 28.8,
+            "rules": [
+                "단계 수가 3이면 카드 폭을 (873.4 - 2x21.6)/3 으로 재계산",
+                "단계 수가 5 이상이면 설명 텍스트 14pt 로 축소하고 카드 폭 균등 분할"
+            ]
+        },
+        "code_or_formula_explain": {
+            "template_slide": 8,
+            "layout": "HY Content-본론",
+            "use_case": "코드, 수식, 다이어그램 + 해설",
+            "elements": [
+                {
+                    "role": "code_block",
+                    "box": {
+                        "x": 43.2,
+                        "y": 169.2,
+                        "w": 525.6,
+                        "h": 316.8
+                    },
+                    "style": "code_block",
+                    "text_box": {
+                        "x": 72,
+                        "y": 194.4,
+                        "w": 468,
+                        "h": 266.4
+                    },
+                    "text_style": "code"
+                },
+                {
+                    "role": "explain_heading",
+                    "box": {
+                        "x": 604.8,
+                        "y": 169.2,
+                        "w": 311.8,
+                        "h": 43.2
+                    },
+                    "style": "24pt Bold #0F172A"
+                },
+                {
+                    "role": "explain_list",
+                    "box": {
+                        "x": 604.8,
+                        "y": 226.8,
+                        "w": 311.8,
+                        "h": 158.4
+                    },
+                    "style": "18pt #334155, 불릿 3개"
+                },
+                {
+                    "role": "tip_box",
+                    "box": {
+                        "x": 604.8,
+                        "y": 392.4,
+                        "w": 311.8,
+                        "h": 93.6
+                    },
+                    "style": "tip_box"
+                }
+            ],
+            "rules": [
+                "코드 키워드(def, for, in, return)는 Bold + #2563EB",
+                "코드 한 줄 최대 약 30자(18pt 기준), 최대 12줄",
+                "수식/다이어그램은 코드 블록 영역에 같은 박스 서식으로 대체"
+            ]
+        },
+        "activity_list_with_time": {
+            "template_slide": 9,
+            "layout": "HY Content-본론",
+            "use_case": "팀 활동, 일정/시간 배분이 있는 진행 순서",
+            "row_count": 3,
+            "row_pattern": {
+                "icon_tile": {
+                    "size_pt": 57.6,
+                    "fill": "#0E4A84",
+                    "x": 43.2,
+                    "icon_size_pt": 28.8
+                },
+                "text_box": {
+                    "x": 122.4,
+                    "w": 561.6,
+                    "h": 72,
+                    "line_1": "22pt Bold #0F172A",
+                    "line_2": "16pt Regular #334155"
+                },
+                "time_button": {
+                    "x": 794.2,
+                    "w": 122.4,
+                    "h": 40.3,
+                    "fill": "#0E4A84",
+                    "radius_pt": 7.2,
+                    "text": "16pt Bold #FFFFFF"
+                },
+                "divider": {
+                    "x": 43.2,
+                    "w": 873.4,
+                    "color": "#CBD5E1",
+                    "width_pt": 1
+                }
+            },
+            "row_tile_y": [
+                183.6,
+                288,
+                392.4
+            ],
+            "row_pitch_pt": 104.4,
+            "rules": [
+                "시간 표기는 '10분' 형식",
+                "마지막 행 아래에는 구분선을 두지 않는다"
+            ]
+        },
+        "summary_with_next": {
+            "template_slide": 10,
+            "layout": "HY Content-정리",
+            "use_case": "핵심 요약 + 다음 주 예고/과제",
+            "elements": [
+                {
+                    "role": "summary_rows_left",
+                    "row_count": 3,
+                    "row_pattern": {
+                        "icon_tile": {
+                            "size_pt": 50.4,
+                            "fill": "#0E4A84",
+                            "x": 43.2,
+                            "icon_size_pt": 21.6
+                        },
+                        "text_box": {
+                            "x": 115.2,
+                            "w": 475.2,
+                            "h": 64.8,
+                            "style": "20pt Regular #0F172A, 한 문장"
+                        },
+                        "divider": {
+                            "x": 43.2,
+                            "w": 547.2,
+                            "color": "#CBD5E1",
+                            "width_pt": 1
+                        }
+                    },
+                    "row_tile_y": [
+                        183.6,
+                        288,
+                        392.4
+                    ],
+                    "row_pitch_pt": 104.4
+                },
+                {
+                    "role": "next_week_panel_right",
+                    "box": {
+                        "x": 619.2,
+                        "y": 169.2,
+                        "w": 297.4,
+                        "h": 309.6
+                    },
+                    "style": "filled_navy_panel",
+                    "children": [
+                        {
+                            "role": "overline_label",
+                            "text": "NEXT WEEK",
+                            "box": {
+                                "x": 651.6,
+                                "y": 201.6,
+                                "w": 244.8,
+                                "h": 28.8
+                            },
+                            "style": "overline_label"
+                        },
+                        {
+                            "role": "heading",
+                            "text": "다음 주 예고",
+                            "box": {
+                                "x": 651.6,
+                                "y": 237.6,
+                                "w": 244.8,
+                                "h": 43.2
+                            },
+                            "style": "24pt Bold #FFFFFF"
+                        },
+                        {
+                            "role": "bullet_list",
+                            "box": {
+                                "x": 651.6,
+                                "y": 302.4,
+                                "w": 244.8,
+                                "h": 158.4
+                            },
+                            "style": "16pt #EFF6FF, 불릿 2개"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "generation_rules": {
+        "global": [
+            "폰트는 항상 Malgun Gothic, 코드만 Courier New 를 사용한다.",
+            "색상은 theme_scheme 의 10개 컬러와 중립 3색(#CBD5E1, #F8FAFC, #164A7C) 안에서만 선택한다.",
+            "모든 둥근 사각형의 모서리 반경은 7.2pt 로 통일한다 (예외: 반투명 프레임 9pt, Tip 박스 0pt).",
+            "그림자·그라데이션 도형·3D 효과는 사용하지 않는다 (표지 배경 이미지 제외).",
+            "텍스트 박스 내부 여백은 0, 정렬은 기본 왼쪽, 숫자 타일 텍스트만 가운데 정렬.",
+            "슬라이드 제목은 36pt Bold #0F172A, 위치는 (43.2, 93.6) 고정.",
+            "콘텐츠는 y=169.2 ~ 486pt, x=43.2 ~ 916.6pt 안에 배치한다."
+        ],
+        "deck_flow": [
+            "cover",
+            "agenda_with_goals",
+            "section_divider(도입)",
+            "본론 슬라이드(text_plus_key_point / three_column_card_compare / two_column_versus / process_steps / code_or_formula_explain / activity_list_with_time)",
+            "summary_with_next",
+            "closing"
+        ],
+        "archetype_selection_hint": {
+            "정의·특징 설명 + 핵심 메시지 1개": "text_plus_key_point",
+            "병렬 개념 3개": "three_column_card_compare",
+            "두 대상 비교": "two_column_versus",
+            "순서가 있는 단계(3~5개)": "process_steps",
+            "코드/수식 설명": "code_or_formula_explain",
+            "시간이 있는 활동": "activity_list_with_time",
+            "요약 및 예고": "summary_with_next"
+        },
+        "content_limits": {
+            "title_chars": 20,
+            "bullets_per_list": 5,
+            "cards_per_row": 4,
+            "min_font_size_pt": 14,
+            "image_policy": "아이콘은 256x256 단색 PNG, 주제에 맞는 단순 글리프 사용"
+        }
+    }
+}
