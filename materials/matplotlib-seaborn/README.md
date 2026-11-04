@@ -6,16 +6,16 @@
 
 | 폴더 | 교안 | 쓰는 데이터 |
 | --- | --- | --- |
-| 01_환경설정 | [시각화1 : 개발 환경과 첫 그래프](https://app.notion.com/p/8b41aa50ced24310945231b1b91d7c94) | 없음 (리스트로 첫 그래프) |
-| 02_pandas | [시각화2 : pandas로 데이터 다루기](https://app.notion.com/p/e3300ef79ac74888b02a7e2209315ede) | students, cafe_sales |
-| 03_선그래프 | [시각화3 : Figure·Axes와 선 그래프](https://app.notion.com/p/0851978d307b4566b93b53de906106d1) | cafe_sales |
-| 04_기본그래프 | [시각화4 : 막대·산점도·히스토그램](https://app.notion.com/p/e0c7903d80314222a5d7265c11a964e2) | students, cafe_sales |
-| 05_꾸미기 | [시각화5 : 꾸미기와 여러 그래프](https://app.notion.com/p/cbc840f40e2c4f46b7c02f16ad2f1c8d) | students, cafe_sales |
-| 06_분포 | [시각화6 : Seaborn과 분포 그래프](https://app.notion.com/p/fffe90859b5b4100ae245a00be2be9bd) | students |
-| 07_범주비교 | [시각화7 : 범주 비교 그래프](https://app.notion.com/p/c66f8497639447ba9a7ac24293e9637e) | students, cafe_sales |
-| 08_관계추세 | [시각화8 : 관계와 추세 그래프](https://app.notion.com/p/6c7ecfa4358d468da48c86c4e1da180e) | students, cafe_sales |
-| 09_히트맵다중 | [시각화9 : 히트맵과 다중 그래프](https://app.notion.com/p/73c483b747be4dd9a75e9011e31cf6cb) | students, cafe_sales |
-| 10_미니프로젝트 | [시각화10 : 미니 프로젝트 - 질문하고 그래프로 답하기](https://app.notion.com/p/45a0bbea549e48f2ad9b38b5a9b4b482) | students, cafe_sales |
+| 01_환경설정 | [1차시 : 개발 환경과 첫 그래프](https://app.notion.com/p/8b41aa50ced24310945231b1b91d7c94) | 없음 (리스트로 첫 그래프) |
+| 02_pandas | [2차시 : pandas로 데이터 다루기](https://app.notion.com/p/e3300ef79ac74888b02a7e2209315ede) | students, cafe_sales |
+| 03_선그래프 | [3차시 : Figure·Axes와 선 그래프](https://app.notion.com/p/0851978d307b4566b93b53de906106d1) | cafe_sales |
+| 04_기본그래프 | [4차시 : 막대·산점도·히스토그램](https://app.notion.com/p/e0c7903d80314222a5d7265c11a964e2) | students, cafe_sales |
+| 05_꾸미기 | [5차시 : 꾸미기와 여러 그래프](https://app.notion.com/p/cbc840f40e2c4f46b7c02f16ad2f1c8d) | students, cafe_sales |
+| 06_분포 | [6차시 : Seaborn과 분포 그래프](https://app.notion.com/p/fffe90859b5b4100ae245a00be2be9bd) | students |
+| 07_범주비교 | [7차시 : 범주 비교 그래프](https://app.notion.com/p/c66f8497639447ba9a7ac24293e9637e) | students, cafe_sales |
+| 08_관계추세 | [8차시 : 관계와 추세 그래프](https://app.notion.com/p/6c7ecfa4358d468da48c86c4e1da180e) | students, cafe_sales |
+| 09_히트맵다중 | [9차시 : 히트맵과 다중 그래프](https://app.notion.com/p/73c483b747be4dd9a75e9011e31cf6cb) | students, cafe_sales |
+| 10_미니프로젝트 | [10차시 : 미니 프로젝트 - 질문하고 그래프로 답하기](https://app.notion.com/p/45a0bbea549e48f2ad9b38b5a9b4b482) | students, cafe_sales |
 
 `data/`의 두 CSV는 가상 데이터입니다. `students.csv`(학생 300명, 12열)와 `cafe_sales.csv`(2025-03-01~2026-02-28, 365일, 14열)이고, 교안 정답 숫자는 `_tools/data_facts.md`에 있습니다.
 
