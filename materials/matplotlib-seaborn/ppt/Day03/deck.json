@@ -10,7 +10,8 @@
       "title": "Matplotlib·Seaborn\n데이터 시각화",
       "subtitle": "Figure·Axes와 선 그래프",
       "meta": "한양대학교 ERICA | 최지원",
-      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 세 번째 시간입니다. 지난 시간에는 표를 읽고 고르고 묶었죠. 이번 시간에는 그 표를 처음으로 그림으로 옮겨 보겠습니다."
+      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 세 번째 시간입니다. 지난 시간에는 표를 읽고 고르고 묶었죠. 이번 시간에는 그 표를 처음으로 그림으로 옮겨 보겠습니다.",
+      "image": "../images/cover_matplotlib_seaborn.png"
     },
     {
       "archetype": "agenda_with_goals",

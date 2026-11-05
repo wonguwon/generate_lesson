@@ -10,7 +10,8 @@
       "title": "Matplotlib·Seaborn\n데이터 시각화",
       "subtitle": "막대·산점도·히스토그램",
       "meta": "한양대학교 ERICA | 최지원",
-      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 네 번째 시간입니다. 지난 시간에는 fig, ax로 선 그래프를 그렸죠. 이번 시간에는 같은 방식으로 그래프 모양을 세 가지 더 늘려 보겠습니다."
+      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 네 번째 시간입니다. 지난 시간에는 fig, ax로 선 그래프를 그렸죠. 이번 시간에는 같은 방식으로 그래프 모양을 세 가지 더 늘려 보겠습니다.",
+      "image": "../images/cover_matplotlib_seaborn.png"
     },
     {
       "archetype": "agenda_with_goals",

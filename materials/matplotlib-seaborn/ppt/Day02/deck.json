@@ -10,7 +10,8 @@
       "title": "Matplotlib·Seaborn\n데이터 시각화",
       "subtitle": "pandas로 데이터 다루기",
       "meta": "한양대학교 ERICA | 최지원",
-      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 두 번째 시간입니다. 지난 시간에는 내 PC에 환경을 만들고 첫 그래프를 그렸죠. 이번 시간에는 그 그래프에 넣을 표를 만들어 보겠습니다."
+      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 두 번째 시간입니다. 지난 시간에는 내 PC에 환경을 만들고 첫 그래프를 그렸죠. 이번 시간에는 그 그래프에 넣을 표를 만들어 보겠습니다.",
+      "image": "../images/cover_matplotlib_seaborn.png"
     },
     {
       "archetype": "agenda_with_goals",

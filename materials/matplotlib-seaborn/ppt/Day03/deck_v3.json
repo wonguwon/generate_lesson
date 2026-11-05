@@ -1,0 +1,263 @@
+{
+  "course": "Matplotlib·Seaborn 데이터 시각화",
+  "course_short": "Matplotlib·Seaborn",
+  "organization": "한양대학교 ERICA",
+  "instructor": "최지원",
+  "day": "Day 03",
+  "slides": [
+    {
+      "archetype": "cover",
+      "title": "Matplotlib·Seaborn\n데이터 시각화",
+      "subtitle": "Figure·Axes와 선 그래프",
+      "meta": "한양대학교 ERICA | 최지원",
+      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 세 번째 시간입니다. 지난 시간에는 표를 읽고 고르고 묶었죠. 이번 시간에는 그 표를 처음으로 그림으로 옮겨 보겠습니다.",
+      "image": "../images/cover_matplotlib_seaborn.png"
+    },
+    {
+      "archetype": "agenda_with_goals",
+      "title": "이번 시간 흐름",
+      "goal_icon": "target",
+      "items": [
+        {
+          "title": "Figure와 Axes",
+          "desc": "그래프의 구조, 두 가지 작성 방식"
+        },
+        {
+          "title": "선 그래프",
+          "desc": "plot, 겹쳐 그리기, 표 옮기기"
+        },
+        {
+          "title": "제목·축 이름·범례",
+          "desc": "그래프만 보고 읽히게 만들기"
+        },
+        {
+          "title": "실습과 정리",
+          "desc": "칸을 만들고 그리고 이름 붙이기"
+        }
+      ],
+      "goals": [
+        "Figure와 Axes의\n역할 구분하기",
+        "날짜와 표를\n선 그래프로 그리기",
+        "제목·축 이름·범례로\n읽히는 그래프 만들기"
+      ],
+      "notes": "순서를 보겠습니다. 먼저 그래프가 어떤 구조로 되어 있는지, Figure와 Axes를 봅니다. 그다음 그 칸에 선을 그립니다. 날짜와 손님 수를 그리고, 메뉴 네 개를 겹치고, groupby로 만든 월별 평균 표까지 옮깁니다. 마지막으로 제목, 축 이름, 범례를 붙입니다. 그리는 것보다 읽히게 만드는 것까지가 이번 시간의 목표입니다. 실습을 마치면 이 순서가 앞으로 모든 그래프를 만드는 기본 틀이 됩니다."
+    },
+    {
+      "archetype": "section_divider",
+      "phase": "도입",
+      "title": "Figure와 Axes",
+      "intro": "Figure는 종이, Axes는 그 위에 그린 그래프 한 칸이다",
+      "notes": "그래프를 그리기 전에 그래프가 무엇으로 되어 있는지부터 보겠습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "종이와 칸",
+      "image": "images/01_figure_axes.png",
+      "explain_title": "그리는 방식 바꾸기",
+      "bullets": [
+        "1차시: plt.plot 한 줄로 바로",
+        "이번부터: 종이와 칸을 먼저",
+        "그다음 그 칸에 그림"
+      ],
+      "notes": "1차시에는 plt.plot 한 줄로 바로 그렸습니다. 그때는 종이와 칸을 만든 적이 없죠. 그런데도 그래프가 나왔습니다. 왜 그럴까요? 보이지 않게 저절로 만들어졌기 때문입니다.\n그림의 바깥 네모가 Figure, 종이입니다. 안쪽 파란 네모가 Axes, 그 종이 위의 그래프 한 칸입니다. 이번 시간부터는 종이와 칸을 먼저 만들고, 그 칸에 그리는 방식으로 바꿉니다. 그림을 그릴 때도 종이를 펴고 어디에 그릴지 정한 다음 그리는 것처럼요."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "그래프의 구성 요소",
+      "image": "images/02_anatomy.png",
+      "explain_title": "이름 익히기",
+      "bullets": [
+        "Figure: 그래프 전체를 담는 종이",
+        "Axes: 종이 위의 그래프 한 칸",
+        "Axis: x축·y축 한 줄"
+      ],
+      "tip": "figsize: 종이 크기 (가로, 세로), 인치",
+      "notes": "그래프의 부분마다 이름이 있습니다. 앞으로 코드에 그대로 나오는 이름이니까 한 번 짚고 가겠습니다.\nFigure는 전체 종이입니다. 크기는 figsize로 정하는데, 가로, 세로 순서이고 단위는 인치, 기본은 6.4와 4.8입니다. Axes는 그래프 한 칸입니다. 선, 제목, 범례가 모두 여기에 그려집니다.\n여기서 헷갈리기 쉬운 게 Axes와 Axis입니다. 이름이 비슷하니 같은 말 같죠? 다릅니다. Axes는 그래프 한 칸이고, Axis는 그 안의 x축이나 y축 한 줄입니다. 축 위에 있는 값 표시는 눈금, tick이라고 부릅니다. x축의 2025-03이나 y축의 0, 100, 200 같은 것들입니다."
+    },
+    {
+      "archetype": "two_column_versus",
+      "title": "두 가지 작성 방식",
+      "left": {
+        "title": "pyplot 방식",
+        "bullets": [
+          "종이·칸: 저절로 생김",
+          "선: plt.plot(x, y)",
+          "제목: plt.title('…')",
+          "범례: plt.legend()"
+        ]
+      },
+      "right": {
+        "title": "객체 방식",
+        "bullets": [
+          "종이·칸: plt.subplots()",
+          "선: ax.plot(x, y)",
+          "제목: ax.set_title('…')",
+          "범례: ax.legend()"
+        ]
+      },
+      "notes": "그래프를 그리는 코드는 두 가지 방식이 있습니다. 왼쪽이 1차시에 쓴 pyplot 방식, 오른쪽이 이번 시간부터 쓸 객체 방식입니다. 두 방식은 결과가 다를까요? 같은 그래프가 나옵니다. 다른 건 어느 칸에 그릴지를 ax로 가리키느냐입니다.\n코드의 차이는 간단합니다. plt 대신 ax로 시작하고, 제목이나 축 이름에는 앞에 set_이 붙습니다. x축 이름은 ax.set_xlabel, y축 이름은 ax.set_ylabel입니다. 종이 크기는 subplots 안에 figsize로 넣습니다. 화면에 보이는 건 두 방식 모두 plt.show입니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "객체 방식으로 그리기",
+      "code": "fig, ax = plt.subplots(figsize=(6, 3))\nax.plot(days, temps)\nax.set_title('이번 주 아침 기온')\nplt.show()",
+      "explain_title": "코드 읽기",
+      "bullets": [
+        "subplots: 종이와 칸 만들기",
+        "ax: 내가 그릴 칸",
+        "set_: 제목·축 이름에 붙음"
+      ],
+      "tip": "3차시부터 객체 방식으로 통일",
+      "notes": "1차시의 기온 그래프를 객체 방식으로 바꾼 코드입니다. 첫 줄에서 subplots가 종이와 칸을 만들어 주고, 그걸 fig와 ax 두 변수로 나눠 받습니다. 나머지는 그 ax에 그립니다. fig, ax로 나눠 받지 않고 바로 plot을 부르면 오류가 나니, 첫 줄은 이 모양 그대로 쓰시면 됩니다. 제목도 ax.title이 아니라 ax.set_title입니다.\n왜 굳이 방식을 바꿀까요? 한 칸일 때는 차이가 없습니다. 그런데 5차시에서 칸이 여러 개인 그래프를 그리면 어느 칸에 그릴지 골라야 하죠. 그때 ax로 칸을 고릅니다. 그래서 이 과정은 3차시부터 객체 방식으로 통일합니다. 이제 이 칸에 카페 데이터를 그려 보겠습니다."
+    },
+    {
+      "archetype": "section_divider",
+      "phase": "본론",
+      "title": "선 그래프",
+      "intro": "시간에 따른 변화는 점을 선으로 이어 본다",
+      "notes": "종이와 칸을 만드는 법을 봤으니 이제 칸에 선을 그려 보겠습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "일별 손님 수 읽기",
+      "image": "images/04_line.png",
+      "explain_title": "선 그래프",
+      "bullets": [
+        "점을 x 순서대로 이은 그래프",
+        "시간에 따른 변화를 봄",
+        "방학은 낮고 시험 주간은 튐"
+      ],
+      "notes": "선 그래프는 점을 x 순서대로 이어서 시간에 따른 변화를 보는 그래프입니다. 2차시에서 다룬 카페 표를 다시 읽어 그리면 이렇게 나옵니다.\n숫자로만 보면 365행이라 흐름을 알 수 없었죠. 그림으로 보니 어떤가요? 여름방학과 겨울방학 구간은 낮게 깔리고, 시험 주간에는 위로 튀어 오릅니다. 그리고 10월 초와 2월 중순에 0까지 떨어지는 곳이 있죠. 2차시에 찾은 휴무일입니다. 표에서 찾던 것들이 그림 한 장에 보입니다. 이게 1차시에 말씀드린 그래프의 힘입니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "날짜를 x축에 놓기",
+      "code": "fig, ax = plt.subplots(figsize=(10, 4))\nax.plot(cafe['date'], cafe['customers'])\nplt.show()",
+      "explain_title": "그리는 법",
+      "bullets": [
+        "시간 변화는 날짜 열을 x에",
+        "같은 ax에 plot 반복: 선이 겹침",
+        "marker='o': 값 자리에 점"
+      ],
+      "tip": "x축 글자가 겹치면 종이부터 넓힘",
+      "notes": "코드는 세 줄입니다. 가로로 긴 종이를 만들고, 날짜를 x로, 손님 수를 y로 넣습니다. 2차시에서 본 parse_dates로 읽은 날짜 열이 여기서 쓰입니다.\n메뉴 네 개를 한 그래프에 그리고 싶으면 어떻게 할까요? 같은 ax에 plot을 메뉴마다 한 줄씩 부르면 됩니다. 선 색은 파랑, 주황, 초록, 빨강 차례로 저절로 바뀝니다. 칸은 한 번만 만드는 게 중요합니다. 메뉴마다 subplots를 다시 부르면 선이 하나씩 다른 칸에 그려집니다. marker를 넣으면 값 자리마다 동그라미 점이 찍힙니다.\nx축 글자가 겹치면 코드가 틀린 걸까요? 아닙니다. 종이가 좁은 겁니다. 먼저 figsize로 가로를 넓혀 보세요. 글자를 기울이거나 눈금 간격을 바꾸는 건 5차시에 합니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "월별 평균을 선으로",
+      "code": "customers_by_month = (\n  cafe.groupby('year_month')['customers']\n  .mean().round(2)\n)\nfig, ax = plt.subplots(figsize=(10, 4))\nax.plot(customers_by_month.index,\n        customers_by_month.values,\n        marker='o')\nplt.show()",
+      "explain_title": "표를 선으로",
+      "bullets": [
+        "index: 이름표, x로 사용",
+        "values: 값, y로 사용",
+        "일별 선이 촘촘하면 월별로"
+      ],
+      "tip": "묶으면 큰 흐름만 남음",
+      "notes": "일별 그래프는 선이 무척 촘촘합니다. 왜 그럴까요? 요일마다 손님 수가 오르내리기 때문입니다. 큰 흐름을 보고 싶을 때는 어떻게 할까요? 2차시에 배운 groupby가 여기서 나옵니다. 연월로 묶어 월별 평균을 내면 요일 변동이 사라지고 큰 흐름만 남습니다.\n그럼 이 표를 어떻게 그릴까요? groupby 결과는 이름표와 값으로 되어 있습니다. 이름표가 index, 값이 values입니다. index를 x로, values를 y로 넣으면 됩니다. groupby로 만든 표가 이렇게 그림이 됩니다. 값이 12개뿐이니 marker로 점을 찍어 주면 읽기 쉽습니다. year_month는 연-월 글자라 가나다순이 곧 시간 순서입니다. 그래서 reindex 없이 그대로 씁니다. 기본 크기로 그리면 x축 글자 12개가 겹치는데, figsize를 넓히면 풀립니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "제목·축 이름·범례",
+      "intro": "그래프만 보고도 무엇을 그렸는지 알 수 있어야 한다",
+      "notes": "선을 그렸으면 이제 이름을 붙여 보겠습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "이름 붙이기",
+      "image": "images/05_labels.png",
+      "explain_title": "세 가지를 붙임",
+      "bullets": [
+        "제목: 무엇을 그렸는지",
+        "축 이름: 읽는 사람의 말, 단위까지",
+        "범례: 어느 선이 무엇인지"
+      ],
+      "tip": "그래프만 보고 알 수 있어야 함",
+      "notes": "선을 네 개 겹쳤는데 이름이 없다면 어느 선이 어느 메뉴인지 알 수 있을까요? 알 수 없죠. 만든 사람은 알아도 보는 사람은 모릅니다. 그래서 세 가지를 붙입니다. 무엇을 그렸는지 알려 주는 제목, 축이 무엇인지 알려 주는 축 이름, 선을 구분해 주는 범례입니다.\n축 이름을 쓸 때 열 이름을 그대로 쓰면 될까요? customers라고 쓰는 것보다 읽는 사람의 말로, 단위까지 쓰는 게 좋습니다. 판매량(잔)처럼요. 그래프를 코드 없이 다른 사람에게 보여 준다고 생각하면 됩니다. 이름이 붙으면 이야기도 읽힙니다. 여름방학에는 에이드가 라떼보다 많고, 겨울방학에는 라떼가 에이드보다 많다는 걸 실습에서 확인해 보겠습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "메뉴별 판매량 코드",
+      "code": "fig, ax = plt.subplots(figsize=(10, 4))\nax.plot(cafe['date'], cafe['americano'],\n        label='아메리카노')\nax.plot(cafe['date'], cafe['latte'],\n        label='라떼')\nax.set_title('메뉴별 일별 판매량')\nax.set_xlabel('날짜')\nax.set_ylabel('판매량(잔)')\nax.legend()\nplt.show()",
+      "explain_title": "코드 읽기",
+      "bullets": [
+        "label: 선마다 붙이는 이름표",
+        "legend(): label을 모아 범례로",
+        "loc: 범례 자리 옮기기"
+      ],
+      "tip": "에이드·차도 같은 방식으로 추가",
+      "notes": "메뉴 코드입니다. 지면이 좁아 아메리카노와 라떼만 적었는데, 에이드와 차도 같은 방식으로 한 줄씩 더합니다.\n범례는 어떻게 만들어질까요? plot마다 label로 이름표를 붙이고, 마지막에 legend를 부르면 그 이름표를 모아 범례를 그립니다. 그래서 legend만 부르면 범례가 생기지 않습니다. label이 없으면 빈 범례와 경고가 나옵니다.\n범례 자리는 기본값이 best입니다. 선을 가장 적게 가리는 자리를 저절로 고릅니다. 그래도 범례가 선을 가리면 loc로 빈 자리에 옮기면 됩니다. upper right, upper left, upper center 같은 값을 넣습니다. pyplot 방식에 익숙하면 ax.xlabel로 쓰기 쉬운데, 객체 방식은 ax.set_xlabel입니다. 그럼 이제 직접 해 보겠습니다."
+    },
+    {
+      "archetype": "process_steps",
+      "title": "실습 안내",
+      "steps": [
+        {
+          "title": "실습 1",
+          "desc": "빈 Figure·Axes,\n기온 그래프 다시"
+        },
+        {
+          "title": "실습 2",
+          "desc": "일별 손님 수와\n메뉴별 판매량"
+        },
+        {
+          "title": "실습 3",
+          "desc": "월별 평균 표를\n선 그래프로"
+        },
+        {
+          "title": "실습 4",
+          "desc": "제목·축 이름·범례\n달기"
+        }
+      ],
+      "notes": "실습은 네 개입니다. 앞 실습의 코드를 다음 실습에서 그대로 쓰니까 순서대로 진행합니다. 실습 1에서는 빈 Figure와 Axes를 만들고 1차시 그래프를 객체 방식으로 다시 그립니다. 실습 2에서는 일별 손님 수와 메뉴 네 개를 그립니다. 실습 3에서는 월별 평균 표를 선으로 옮기고, 실습 4에서 이름을 붙입니다. 노트북을 Colab에 올리고 준비 셀을 실행한 뒤, 설정 셀과 데이터 읽기 셀을 입력해 주세요. 실습 3에서는 기본 크기와 넓은 종이를 비교해 보고, 실습 4에서는 범례 자리도 옮겨 봅니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습: 선 그래프 그리기",
+      "intro": "칸을 만들고, 선을 그리고, 표를 옮기고, 이름을 붙이는 순서로 이어서 만든다\n실습 환경에서 진행하겠습니다.",
+      "notes": "그럼 실습 환경으로 넘어가서 실습 1부터 차례로 진행하겠습니다.\n[화면 전환: 실습 1]"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "phase": "정리",
+      "title": "Figure에서 라벨까지",
+      "image": "images/06_four_stage.png",
+      "explain_title": "네 단계",
+      "bullets": [
+        "Figure: 종이를 펴고",
+        "Axes: 칸을 잡고",
+        "ax.plot: 그리고",
+        "라벨: 이름을 붙임"
+      ],
+      "notes": "[화면 전환: 슬라이드로 복귀]\n실습 수고하셨습니다. 이번 시간에 해 본 순서를 그림으로 모으면 이렇습니다. 종이를 펴고, 칸을 잡고, 그리고, 이름을 붙입니다. 일별 손님 수에서 방학과 시험 주간이 보였고, 월별 평균에서 큰 흐름이 보였고, 메뉴별 그래프에는 이름이 붙었습니다. 어떤 그래프든 이 순서는 같습니다.\n1차시에 그래프는 질문에 답하는 그림이라고 말씀드렸죠. 질문을 정하고, 맞는 모양을 고르고, 읽히게 다듬는다고요. 이번 시간에는 선 그래프라는 모양과 이름 붙이기까지 해 본 겁니다. 그래프만 보고도 무엇을 그렸는지 알 수 있어야 한다는 것, 기억해 주세요."
+    },
+    {
+      "archetype": "summary_with_next",
+      "title": "이번 시간 정리",
+      "rows": [
+        {
+          "icon": "check",
+          "text": "Figure는 종이, Axes는 그래프 한 칸"
+        },
+        {
+          "icon": "check",
+          "text": "선 그래프는 x 순서대로 점을 이음"
+        },
+        {
+          "icon": "circle-check-big",
+          "text": "제목·축 이름·범례로 읽히게 만듦"
+        }
+      ],
+      "next_label": "NEXT",
+      "next_title": "4차시: 막대·산점도",
+      "next": [
+        "남은 불편: 흐름만 보임",
+        "비교는 막대, 관계는 점,\n분포는 히스토그램"
+      ],
+      "notes": "정리하겠습니다. 그래프는 종이를 펴고, 칸을 잡고, 그리고, 이름을 붙이는 순서로 만듭니다. 그래프만 보고도 무엇을 그렸는지 알 수 있어야 합니다.\n그런데 선 그래프는 시간에 따른 흐름만 보여 줍니다. 범주끼리 비교하거나, 두 값의 관계를 보거나, 값의 분포를 보기는 어렵습니다. 다음 시간에는 같은 fig, ax로 비교는 막대, 관계는 점, 분포는 구간으로 그려 보겠습니다."
+    },
+    {
+      "archetype": "closing",
+      "notes": "수고하셨습니다. 다음 시간에 뵙겠습니다. 감사합니다."
+    }
+  ]
+}

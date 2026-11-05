@@ -7,6 +7,6 @@ for n in "$@"; do
   dir=$(ls -d ../${n}_*/) || exit 1
   name=$(basename "$dir")
   "$PY" build_$n.py >/dev/null || exit 1
-  (cd "$dir" && ../_tools/.venv/Scripts/python.exe -m jupyter nbconvert --to notebook --execute --inplace "${name}_강사용.ipynb" 2>&1 | tail -1) || exit 1
-  "$PY" make_student.py "$dir${name}_강사용.ipynb" "$dir${name}_학생용.ipynb"
+  "$PY" run_notebook.py "$dir${name}_강사용.ipynb" || exit 1
+  "$PY" make_student.py "$dir${name}_강사용.ipynb" "$dir$name.ipynb"
 done

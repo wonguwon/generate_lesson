@@ -4,6 +4,8 @@ from pathlib import Path
 import nbformat
 from nbformat.v4 import new_code_cell, new_markdown_cell, new_notebook
 
+from colab_setup import PREPARE, PREPARE_MD
+
 OUT = Path(__file__).resolve().parent.parent / "01_환경설정" / "01_환경설정_강사용.ipynb"
 
 cells = []
@@ -11,45 +13,45 @@ md = lambda s: cells.append(new_markdown_cell(s.strip("\n")))
 code = lambda s: cells.append(new_code_cell(s.strip("\n")))
 
 md("""
-### <b>1강 개발 환경과 첫 그래프 - 설치 확인 · 커널 · 한글 폰트</b>
+### <b>1차시 개발 환경과 첫 그래프 - Colab · 준비 셀 · 한글 폰트</b>
 
-* 이 노트북은 VS Code에서 프로젝트 폴더의 <b>.venv</b> 커널을 고른 뒤에 실행한다.
-* 먼저 노트북이 어떤 파이썬으로 실행되는지, 세 라이브러리가 설치되었는지 확인한다.
+* 이 노트북은 Google Colab에서 실행한다. 설치 없이 브라우저에서 바로 쓴다.
+* 먼저 Colab의 파이썬 버전과 세 라이브러리를 확인한다.
 * 리스트 두 개로 첫 그래프를 그리고, 한글과 마이너스 기호가 깨지는 것을 직접 고친다.
 """)
+
+md(PREPARE_MD)
+code(PREPARE)
 
 md("""
 #### <b>1) 설치 확인</b>
 
-* <b>커널(Kernel)</b>: 노트북의 코드를 실제로 실행하는 파이썬이다. 노트북 오른쪽 위에 지금 고른 커널 이름이 보인다.
+* <b>런타임</b>: 노트북의 코드를 실제로 실행하는 서버 쪽 파이썬 환경이다.
 * <b>sys.version</b>은 파이썬 버전, <b>sys.executable</b>은 지금 코드를 실행하는 파이썬 파일의 위치다.
-  * 경로 안에 <b>.venv</b>가 보이면 프로젝트의 가상환경 커널을 고른 것이다.
-  * 버전은 3.11 이상이면 된다. 숫자는 설치한 시점에 따라 다를 수 있다.
+  * 숫자는 Colab 업데이트에 따라 달라질 수 있다.
 """)
 code("""
-# 설명: 실습의 첫 확인이다. 오른쪽 위 커널 이름이 .venv인지 먼저 함께 본다.
-# 설명: 출력 둘째 줄 경로에 .venv가 있으면 가상환경의 파이썬으로 실행 중이라는 뜻이다.
-# 설명: 경로에 .venv가 없으면 커널을 다시 고른다. 이 확인이 앞으로 생길 오류를 막는다.
+# 파이썬 정보를 담은 sys 모듈을 불러온다
 import sys
 
+# 파이썬 버전을 출력한다
 print(sys.version)
+# 실행 중인 파이썬의 위치를 출력한다
 print(sys.executable)
 """)
 
 md("""
 * <b>import 라이브러리 as 별명</b>: 라이브러리를 불러오고, 긴 이름 대신 짧은 별명으로 부른다.
   * pandas는 <b>pd</b>, seaborn은 <b>sns</b>로 부르는 것이 널리 쓰는 관례다.
-* <b>라이브러리.__version__</b>: 설치된 버전을 알려 준다. 오류 없이 버전이 나오면 설치가 끝난 것이다.
-  * <b>ModuleNotFoundError</b>가 나오면 다른 커널을 골랐거나, 가상환경에 설치하지 않은 것이다.
+* <b>라이브러리.__version__</b>: 설치된 버전을 알려 준다. 세 라이브러리는 Colab에 미리 설치되어 있다.
 """)
 code("""
-# 설명: 과정 내내 쓸 세 라이브러리를 불러온다. pd, sns 같은 별명은 관례이니 그대로 쓴다.
-# 설명: 버전이 나오면 설치가 끝난 것이다. pandas 3.1.0, matplotlib 3.11.2, seaborn 0.13.2와 맞는지 본다.
-# 설명: ModuleNotFoundError가 나오면 커널이 .venv인지 먼저 보고, 맞으면 활성화한 터미널에서 다시 설치한다.
+# 세 라이브러리를 불러온다
 import pandas as pd
 import matplotlib
 import seaborn as sns
 
+# 라이브러리별 버전을 출력한다
 print('pandas', pd.__version__)
 print('matplotlib', matplotlib.__version__)
 print('seaborn', sns.__version__)
@@ -63,12 +65,12 @@ md("""
   * 두 리스트는 길이가 같아야 한다. 같은 자리의 값끼리 점 하나가 된다.
 """)
 code("""
-# 설명: 이번에는 파일 없이 리스트 두 개로 시작한다. 그래프의 x와 y가 무엇인지에 집중하기 위해서다.
-# 설명: 출력 7 7은 두 리스트의 길이가 같다는 뜻이다. 같은 자리의 값끼리 점 하나가 된다.
-# 설명: 값을 직접 적는 불편은 다음 시간에 CSV를 읽으며 해결한다고 예고한다.
+# x축에 놓을 요일
 days = ['월', '화', '수', '목', '금', '토', '일']
+# y축에 놓을 기온
 temps = [-5, -2, 1, 3, 0, -1, 2]
 
+# 두 리스트의 길이가 같은지 확인한다
 print(len(days), len(temps))
 """)
 
@@ -78,13 +80,14 @@ md("""
 * <b>plt.title('제목')</b>: 그래프 위에 제목을 단다. <b>plt.show()</b>: 그린 그래프를 화면에 보여 준다.
 """)
 code("""
-# 설명: 실행 전에 예고한다. 그래프는 나오지만 글자가 깨질 것이니 일부러 그대로 본다.
-# 설명: 실행 후 선은 잘 나왔고 제목과 요일만 □인 것을 보여 준다. 코드가 틀린 것이 아니다.
-# 설명: 아래 Glyph 경고를 읽어 준다. 기본 폰트 DejaVu Sans에 한글이 없다는 뜻이다.
+# 그래프 함수 모음을 plt로 불러온다
 import matplotlib.pyplot as plt
 
+# 요일과 기온으로 선 그래프를 그린다
 plt.plot(days, temps)
+# 그래프 제목을 단다
 plt.title('이번 주 아침 기온')
+# 그래프를 화면에 보여 준다
 plt.show()
 """)
 
@@ -92,22 +95,13 @@ md("""
 * 제목과 x축의 한글이 <b>네모(□)</b>로 보인다. 아래에 <b>Glyph ... missing from font(s) DejaVu Sans</b> 경고도 나온다.
   * matplotlib의 기본 폰트(DejaVu Sans)에는 한글 글자가 없기 때문이다.
 * <b>plt.rcParams</b>: matplotlib의 기본 설정을 모아 둔 사전이다. <b>'font.family'</b>에 한글 폰트 이름을 넣으면 이후 그래프에 그 폰트가 쓰인다.
-  * Windows는 <b>Malgun Gothic</b>(맑은 고딕), Mac은 <b>AppleGothic</b>을 쓴다. 둘 다 운영체제에 기본으로 들어 있다.
-* <b>platform.system()</b>: 지금 운영체제 이름을 알려 준다. Windows는 'Windows', Mac은 'Darwin'이다.
-  * 이 값으로 나눠 두면 같은 노트북을 Windows와 Mac 어디서 열어도 한글이 보인다.
+  * 준비 셀이 나눔고딕을 설치해 등록해 두었다. 이름은 <b>NanumGothic</b>이다.
 """)
 code("""
-# 설명: rcParams는 Matplotlib의 기본 설정 사전이다. 여기에 한글 폰트 이름을 넣는다.
-# 설명: if로 나눈 이유는 같은 노트북을 Windows와 Mac 어디서 열어도 쓰게 하기 위해서다.
-# 설명: 실행 후 앞 그래프와 비교한다. 한글은 나왔지만 y축 음수 앞 기호가 □로 바뀐 것을 찾게 한다.
-# 설명: Mac은 폰트에 따라 안 깨질 수 있다고 미리 말해 둔다.
-import platform
+# 기본 폰트를 나눔고딕으로 바꾼다
+plt.rcParams['font.family'] = 'NanumGothic'
 
-if platform.system() == 'Windows':
-    plt.rcParams['font.family'] = 'Malgun Gothic'
-else:
-    plt.rcParams['font.family'] = 'AppleGothic'
-
+# 같은 그래프를 다시 그린다
 plt.plot(days, temps)
 plt.title('이번 주 아침 기온')
 plt.show()
@@ -119,11 +113,10 @@ md("""
 * <b>plt.rcParams['axes.unicode_minus'] = False</b>: 축 눈금의 마이너스를 일반 하이픈(-)으로 바꾼다.
 """)
 code("""
-# 설명: 네모의 원인이 앞과 다르다. 눈금의 유니코드 마이너스가 한글 폰트에 없기 때문이다.
-# 설명: 그래서 설정을 하나 더 넣는다. 문제가 둘이니 고치는 설정도 둘이다.
-# 설명: 실행 후 제목, 요일, 음수 눈금을 차례로 짚는다. 월요일 -5가 최저, 목요일 3이 최고다.
+# 축 눈금의 마이너스를 일반 하이픈으로 바꾼다
 plt.rcParams['axes.unicode_minus'] = False
 
+# 같은 그래프를 다시 그린다
 plt.plot(days, temps)
 plt.title('이번 주 아침 기온')
 plt.show()
@@ -131,22 +124,18 @@ plt.show()
 
 md("""
 * 한글 제목, 요일, 음수 눈금이 모두 바르게 보인다. 가장 낮은 날은 월요일(-5), 가장 높은 날은 목요일(3)이다.
-* rcParams 설정은 <b>커널이 켜져 있는 동안만</b> 유지된다. 노트북을 새로 열거나 커널을 다시 시작하면 처음 상태로 돌아간다.
-* 그래서 아래 셀을 <b>설정 셀</b>로 정하고, 다음 시간부터 모든 노트북의 첫 코드 셀로 실행한다.
+* rcParams 설정은 <b>세션이 이어지는 동안만</b> 유지된다. 세션이 끝나거나 다시 시작하면 처음 상태로 돌아간다.
+* 그래서 아래 셀을 <b>설정 셀</b>로 정하고, 다음 시간부터 준비 셀 다음에 입력해 실행한다.
   * pandas는 다음 시간부터 쓰므로 미리 함께 불러 둔다.
 """)
 code("""
-# 설명: 앞에서 고친 내용을 한 셀로 모은 설정 셀이다. 출력은 없다.
-# 설명: rcParams는 커널이 켜져 있는 동안만 유지되므로 노트북을 열 때마다 실행해야 한다.
-# 설명: 다음 시간부터 모든 노트북이 이 셀로 시작한다. 그래프가 □로 나오면 이 셀부터 확인하게 한다.
-import platform
+# 표를 다루는 pandas와 그래프를 그리는 plt를 불러온다
 import pandas as pd
 import matplotlib.pyplot as plt
 
-if platform.system() == 'Windows':
-    plt.rcParams['font.family'] = 'Malgun Gothic'
-else:
-    plt.rcParams['font.family'] = 'AppleGothic'
+# 그래프의 기본 폰트를 나눔고딕으로 정한다
+plt.rcParams['font.family'] = 'NanumGothic'
+# 축 눈금의 마이너스를 일반 하이픈으로 바꾼다
 plt.rcParams['axes.unicode_minus'] = False
 """)
 

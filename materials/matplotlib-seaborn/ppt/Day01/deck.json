@@ -10,7 +10,8 @@
       "title": "Matplotlib·Seaborn\n데이터 시각화",
       "subtitle": "개발 환경과 첫 그래프",
       "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 첫 번째 시간입니다. 담당 강사 최지원입니다. 이번 시간에는 과정이 어떻게 흘러가는지 보고, 내 PC에 그래프를 그릴 바탕까지 만들어 보겠습니다.",
-      "meta": "한양대학교 ERICA | 최지원"
+      "meta": "한양대학교 ERICA | 최지원",
+      "image": "../images/cover_matplotlib_seaborn.png"
     },
     {
       "archetype": "agenda_with_goals",

@@ -5,8 +5,8 @@
 
 규칙
 - 마크다운 셀은 그대로 둔다.
-- 코드 셀의 코드는 남긴다. 학생은 코드를 입력하지 않고 셀을 하나씩 실행한다.
-- 강사용 설명 주석('# 설명:'으로 시작하는 줄)과 첫 줄 '# keep' 표시는 지운다.
+- 코드 셀은 빈 칸으로 둔다. 학생은 강의를 따라 코드를 입력한다.
+- 첫 줄이 '# keep'인 셀(준비 셀)만 코드를 남기고 그 표시를 지운다.
 - 모든 코드 셀의 출력과 실행 번호를 지운다.
 """
 import sys
@@ -15,22 +15,21 @@ from pathlib import Path
 import nbformat
 
 KEEP = "# keep"
-NOTE = "# 설명:"
 
 
 def convert(src: Path, dst: Path) -> None:
     nb = nbformat.read(src, as_version=4)
-    kept = notes = 0
+    kept = emptied = 0
     for cell in nb.cells:
         if cell.cell_type != "code":
             continue
         lines = cell.source.splitlines()
         if lines and lines[0].strip() == KEEP:
-            lines = lines[1:]
-        code = [line for line in lines if not line.strip().startswith(NOTE)]
-        notes += len(lines) - len(code)
-        cell.source = "\n".join(code).strip()
-        kept += 1
+            cell.source = "\n".join(lines[1:]).strip()
+            kept += 1
+        else:
+            cell.source = ""
+            emptied += 1
         cell.outputs = []
         cell.execution_count = None
         cell.metadata.pop("execution", None)
@@ -38,7 +37,7 @@ def convert(src: Path, dst: Path) -> None:
     nbformat.validate(nb)
     dst.parent.mkdir(parents=True, exist_ok=True)
     nbformat.write(nb, dst)
-    print(f"{dst.name}: 코드 셀 {kept}개, 지운 설명 주석 {notes}줄")
+    print(f"{dst.name}: 남긴 셀 {kept}개, 비운 코드 셀 {emptied}개")
 
 
 if __name__ == "__main__":
