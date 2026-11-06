@@ -1,0 +1,250 @@
+{
+  "course": "Matplotlib·Seaborn 데이터 시각화",
+  "course_short": "Matplotlib·Seaborn",
+  "organization": "한양대학교 ERICA",
+  "instructor": "최지원",
+  "day": "Day 08",
+  "slides": [
+    {
+      "archetype": "cover",
+      "title": "Matplotlib·Seaborn\n데이터 시각화",
+      "subtitle": "관계와 추세 그래프",
+      "meta": "한양대학교 ERICA | 최지원",
+      "image": "../images/cover_matplotlib_seaborn.png",
+      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 여덟 번째 시간입니다. 지난 시간에는 범주끼리 개수와 평균을 비교해 봤습니다. 이번 시간에는 두 수치가 어떻게 함께 움직이는지, 시간에 따라 어떻게 변하는지를 그려 보겠습니다."
+    },
+    {
+      "archetype": "agenda_with_goals",
+      "title": "이번 시간 흐름",
+      "goal_icon": "target",
+      "items": [
+        {
+          "title": "산점도와 hue·size",
+          "desc": "세 번째 변수를 색과 크기로"
+        },
+        {
+          "title": "회귀선",
+          "desc": "regplot, lmplot, 상관과 인과"
+        },
+        {
+          "title": "시계열 선 그래프",
+          "desc": "lineplot, 이동평균"
+        }
+      ],
+      "goals": [
+        "색과 크기로\n세 번째 변수 더하기",
+        "회귀선과 상관계수로\n관계의 방향 읽기",
+        "평균선과 이동평균으로\n추세 읽기"
+      ],
+      "notes": "순서를 보겠습니다. 먼저 4차시에 그린 산점도를 Seaborn으로 다시 그리고, 색과 크기로 세 번째 변수를 더합니다. 그다음 점 무리의 방향을 직선 하나로 긋고 숫자를 붙입니다. 여기서 상관과 인과의 차이도 짚습니다. 마지막으로 x가 시간인 경우를 lineplot으로 그립니다.\n내용이 많아 보이지만 질문은 두 가지입니다. 두 값이 함께 움직이는가, 시간에 따라 어떻게 변하는가입니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "산점도와 hue·size",
+      "intro": "세 번째 변수는 색과 크기로 더한다",
+      "notes": "산점도부터 보겠습니다.",
+      "phase": "도입"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "전공별로 색 나누기",
+      "code": "fig, ax = plt.subplots(figsize=(8, 5))\nsns.scatterplot(data=students,\n                x='study_hours',\n                y='exam_score',\n                hue='major',\n                hue_order=major_order,\n                alpha=0.7, ax=ax)\nax.set_title('전공별 공부 시간과 시험 점수')\nplt.show()",
+      "explain_title": "scatterplot",
+      "bullets": [
+        "한 행 = 점 하나",
+        "hue: 점 색으로 나눌 열",
+        "hue_order: 색·범례 순서",
+        "size: 점 크기로 나타낼 열"
+      ],
+      "notes": "4차시에 ax.scatter로 그린 공부 시간과 점수 산점도입니다. Seaborn에서는 표와 열 이름만 넘기면 되고, 축 이름도 열 이름이 저절로 붙습니다.\n여기에 hue로 전공을 넣었습니다. Matplotlib이었다면 전공마다 표를 나눠서 scatter를 다섯 번 불러야 합니다. Seaborn은 hue 한 줄이면 됩니다.\n그려 보면 20시간 넘는 학생 49명 중 33명이 공학이고, 예체능 점은 대부분 10시간 아래에 있습니다. 색을 더하니까 그동안 안 보이던 게 보이는 거죠.\n아르바이트 시간을 점 크기로 더하고 싶으면 size에 열 이름을 넣습니다. hue에 수치 열을 넣으면 진하기로 나타납니다.",
+      "tip": "범례가 가리면 sns.move_legend"
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "변수를 더할수록 좋을까",
+      "bullets": [
+        "색과 크기를 함께 읽기는 어려움",
+        "더하는 변수는 하나가 가장 읽기 쉬움",
+        "많아도 두 개(색·크기)까지 권함",
+        "크기로는 정확한 값을 읽기 어려움"
+      ],
+      "icon": "lightbulb",
+      "key_title": "핵심",
+      "key_message": "큰 흐름만 읽고\n변수는 하나씩 더함",
+      "notes": "그럼 변수를 많이 더할수록 많이 보여 주는 걸까요? 아닙니다. 색과 크기를 함께 읽기는 어렵습니다. 더하는 변수는 하나가 가장 읽기 쉽고, 많아도 색과 크기 두 개까지를 권합니다.\n크기로 정확한 값을 읽을 수 있을까요? 이것도 어렵습니다. 크기는 차이를 눈으로 비교하기 어렵거든요. 그래서 큰 점이 왼쪽에 조금 더 많다, 이 정도 큰 흐름만 읽습니다.\n범례가 점을 가리면 sns.move_legend로 그래프 바깥으로 뺍니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "무리를 가르는 열 고르기",
+      "image": "images/02_daytype.png",
+      "explain_title": "두 갈래",
+      "bullets": [
+        "위: 학기 평일 160일",
+        "아래: 주말·방학 205일",
+        "period: 두 갈래에 색이 섞임",
+        "day_type: 색이 깔끔하게 나뉨"
+      ],
+      "notes": "4차시에 기온과 에이드 산점도에서 점 무리가 두 갈래로 갈라진 걸 봤습니다. 이 두 갈래를 가르는 건 뭘까요?\n있는 열인 period로 색을 나눠 보면, 1학기와 2학기 색이 위아래에 모두 있습니다. 학기에도 주말이 있으니까요. 그래서 period로는 안 나뉩니다.\n달력을 떠올려 보면 기준은 학기 평일이냐, 주말이나 방학이냐입니다. 이 기준으로 색을 나누면 위는 학기 평일 160일, 아래는 주말과 방학 205일로 깔끔하게 갈립니다.\n순서가 중요합니다. 점 무리를 가르는 것이 무엇인가를 먼저 생각하고, 그 열을 hue로 넣습니다.",
+      "tip": "무엇이 가르는지 먼저 생각"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "표에 없으면 만든다",
+      "code": "cafe['day_type'] = '주말·방학'\ncafe.loc[\n    (cafe['period'].isin(\n        ['1학기', '2학기']))\n    & (~cafe['weekday'].isin(\n        ['토', '일'])),\n    'day_type'] = '학기 평일'\nday_type_order = ['학기 평일', '주말·방학']",
+      "explain_title": "코드 읽기",
+      "bullets": [
+        "먼저 모든 날을 주말·방학으로",
+        "학기이고 토·일이 아닌 날만 바꿈",
+        "~: 조건 뒤집기"
+      ],
+      "notes": "hue는 있는 열에서만 고를 수 있을까요? 아닙니다. 기준이 표에 없으면 2차시에 배운 loc으로 새 열을 만들면 됩니다.\n먼저 모든 날을 주말·방학으로 채우고, 학기이면서 토요일과 일요일이 아닌 날만 학기 평일로 바꿉니다. 물결표는 조건을 뒤집는 기호입니다.\n이 물결표를 빠뜨리면 학기 주말만 골라져서 학기 평일이 62일로 나옵니다. value_counts로 160과 205가 나오는지 꼭 확인해 주세요. 이 열은 뒤의 회귀선 실습에서도 그대로 씁니다.",
+      "tip": "value_counts로 160·205 확인"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "회귀선",
+      "intro": "추세선은 관계의 방향을 보여 줄 뿐 원인을 말하지 않는다",
+      "notes": "산점도는 점 무리가 기우는 방향을 눈으로 읽게 했습니다. 이번에는 그 방향을 직선으로 긋고 숫자를 붙여 보겠습니다.",
+      "phase": "본론"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "회귀선과 연한 띠",
+      "image": "images/03_reg.png",
+      "explain_title": "regplot",
+      "bullets": [
+        "회귀선: 점들을 잘 지나는 직선",
+        "기울기: 공부 1시간당 약 1.12점",
+        "띠: 회귀선의 95% 신뢰구간",
+        "scatter_kws: 점에만 줄 설정"
+      ],
+      "notes": "sns.regplot은 산점도에 회귀선을 얹어 줍니다. 회귀선은 점들을 가장 잘 지나가도록 그은 직선이고, 추세선이라고도 합니다.\n기울기는 x가 1 늘 때 선 위의 y가 늘어나는 양입니다. 여기서는 공부 1시간당 약 1.12점입니다.\n연한 띠는 뭘까요? 7차시 오차 막대와 같은 뜻입니다. 회귀선의 95% 신뢰구간이죠. 학생이 많은 10에서 15시간 근처는 좁고, 학생이 적은 35시간 넘는 오른쪽은 넓습니다. 띠 모양은 실행마다 조금 다릅니다.\nregplot은 Axes에 그리는 함수라서 ax를 받습니다. 점 크기처럼 점에만 줄 설정은 scatter_kws에 사전으로 넣습니다.",
+      "tip": "띠는 7차시 오차 막대와 같은 뜻"
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "상관계수 r",
+      "bullets": [
+        "-1~1, 부호는 방향",
+        "0에서 멀수록 직선 가까이 모임",
+        "공부 시간-점수 0.65, 점수-평점 0.72",
+        "SNS-수면 -0.36, 알바-공부 -0.28"
+      ],
+      "icon": "lightbulb",
+      "key_title": "주의",
+      "key_message": "r = 0.65는 65%가 아님\n0 근처도 관계가 없진 않음",
+      "notes": "방향에 숫자를 붙인 게 상관계수 r입니다. 열1.corr(열2)로 구합니다. 마이너스 1에서 1 사이 값이고, 부호는 방향, 0에서 멀수록 점이 직선 가까이 모입니다.\n공부 시간과 점수는 0.65로 양의 관계, 시험 점수와 평점은 0.72로 직선에 더 모여 있습니다. SNS 시간과 수면 시간은 마이너스 0.36으로 음의 관계입니다.\nr이 0.65면 65%만큼 관계가 있다는 뜻일까요? 아닙니다. 퍼센트가 아니라 방향과 모인 정도일 뿐입니다.\nr이 0에 가까우면 관계가 없는 걸까요? 이것도 아닙니다. 직선 관계가 약할 뿐이고, 곡선 모양이나 섞인 무리는 산점도로 확인해야 합니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "lmplot은 칸을 스스로 만든다",
+      "image": "images/04_levels.png",
+      "explain_title": "두 수준",
+      "bullets": [
+        "axes 수준: ax=로 칸 지정",
+        "figure 수준: 칸을 스스로 만듦",
+        "lmplot은 FacetGrid를 돌려줌",
+        "크기는 height·aspect"
+      ],
+      "notes": "지금까지 쓴 함수는 칸을 먼저 만들고 ax로 넘겼습니다. 이런 함수를 axes 수준이라고 합니다. scatterplot, regplot, lineplot이 그렇죠.\nlmplot은 다릅니다. Figure와 칸을 스스로 만드는 figure 수준 함수입니다. col에 전공을 넣으면 전공마다 칸이 생깁니다. 대신 ax를 받지 않습니다. 넣으면 TypeError가 납니다. 칸 하나에 넣어야 하면 regplot을 씁니다.\n돌려주는 것도 Axes가 아니라 FacetGrid입니다. 같은 모양 칸을 값마다 늘어놓은 묶음이죠. 그래서 크기는 figsize가 아니라 height와 aspect로 정합니다. 9차시의 relplot, catplot, pairplot도 같은 방법으로 다룹니다.",
+      "tip": "칸 하나에 넣으려면 regplot"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "전공별 회귀선",
+      "code": "g = sns.lmplot(data=students,\n    x='study_hours', y='exam_score',\n    col='major', col_order=major_order,\n    height=3,\n    scatter_kws={'s': 10, 'alpha': 0.5})\ng.set_titles('{col_name}')\ng.set_axis_labels('주간 공부 시간(시간)',\n                  '시험 점수(점)')\nplt.show()",
+      "explain_title": "figure 수준 다루기",
+      "bullets": [
+        "col: 값마다 칸",
+        "col_order: 칸 순서",
+        "g.set_titles: 칸 제목",
+        "g.set_axis_labels: 축 이름"
+      ],
+      "notes": "코드를 보시면 plt.subplots 줄이 없습니다. 앞에 남겨 두면 빈 그래프 한 장이 함께 나옵니다.\n이름도 돌려받은 g로 답니다. 칸 제목은 set_titles, 축 이름은 set_axis_labels입니다. 칸 제목을 안 정하면 major = 공학처럼 나옵니다.\n결과를 보면 공학 선이 1.51로 가장 가파르고, 예체능이 0.5로 가장 평평합니다. 자연과학과 사회과학은 0.83, 0.84로 거의 같아서 순위를 매기지 않습니다.",
+      "tip": "plt.subplots 줄은 쓰지 않음"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "상관은 인과가 아니다",
+      "image": "images/05_causation.png",
+      "explain_title": "함께 움직이는 값",
+      "bullets": [
+        "에이드-아메리카노 r 0.80",
+        "에이드-손님 수 r 0.81",
+        "아메리카노-손님 수 r 0.98",
+        "제3의 변수: 손님 수"
+      ],
+      "notes": "에이드와 아메리카노의 r은 0.80입니다. 에이드가 많이 팔려서 아메리카노가 팔리는 걸까요? 아니죠. 손님이 많은 날 둘 다 많이 팔리는 겁니다. 두 값을 함께 움직이는 제3의 변수가 손님 수입니다. r이 높아도 원인은 아닙니다.\n반대의 경우도 있습니다. 기온과 에이드의 r은 전체로는 0.51인데, day_type으로 나누면 학기 평일 0.72, 주말·방학 0.82입니다. 섞인 무리가 관계를 가린 거죠. 그래서 전체 r이 약하다고 관계가 약한 건 아니고, hue로 나눠 다시 봅니다.\n기울기가 가파르면 원인이 강할까요? 그것도 아닙니다. 원인은 데이터가 만들어진 상황으로 따로 확인합니다.",
+      "tip": "제3의 변수를 먼저 의심"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "시계열 선 그래프",
+      "intro": "x값마다 여러 값이면 평균과 범위를 함께 그린다",
+      "notes": "이번에는 x가 시간인 경우를 보겠습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "월별 lineplot",
+      "image": "images/06_line.png",
+      "explain_title": "lineplot",
+      "bullets": [
+        "x값마다 y 평균을 선으로 이음",
+        "띠: 평균의 95% 신뢰구간",
+        "넣는 표: 원래 표 그대로",
+        "x값마다 값이 하나면 띠 없음"
+      ],
+      "notes": "3차시에는 groupby로 월별 평균을 만들어 ax.plot으로 그렸습니다. lineplot은 원래 표를 넣으면 x값마다 평균을 계산해 선으로 잇고, 범위를 띠로 그립니다. 7차시 errorbar와 같은 기본값이라 errorbar 인자로 바꿀 수 있습니다.\n띠가 넓은 달은 손님이 많은 달일까요? 아닙니다. 값이 넓게 퍼진 달입니다. 학기 달은 평일 약 410명과 주말 약 150명이 섞여서 넓고, 방학 달은 좁습니다.\n일별로 그리면 x값마다 값이 하나뿐이라 띠가 없습니다.",
+      "tip": "띠가 넓으면 값이 넓게 퍼진 달"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "7일 이동평균",
+      "code": "cafe['customers_7d'] = (\n    cafe['customers'].rolling(7)\n    .mean().round(2))\nfig, ax = plt.subplots(figsize=(10, 4))\nsns.lineplot(data=cafe, x='date',\n    y='customers', alpha=0.3, label='일별',\n    ax=ax)\nsns.lineplot(data=cafe, x='date',\n    y='customers_7d', label='7일 이동평균',\n    ax=ax)\nplt.show()",
+      "explain_title": "이동평균",
+      "bullets": [
+        "그날 포함 지난 7행의 평균",
+        "짧은 출렁임을 걸러 추세만",
+        "처음 6행은 NaN",
+        "새 열로 더해 봄, 원래 값은 그대로"
+      ],
+      "notes": "일별 손님 수는 주말마다 뚝 떨어져서 톱니 모양입니다. 큰 흐름이 안 보이죠. 이럴 때 이동평균을 씁니다. 날마다 그날을 포함한 지난 며칠의 평균을 다시 구한 값입니다.\nrolling(7).mean()이면 행마다 그 행과 바로 위 6행의 평균을 냅니다. 처음 6행은 7행이 모이지 않아서 NaN입니다. 원래 값을 고치는 게 아니라 새 열로 더해 보는 겁니다.\n일별 선은 흐리게, 이동평균 선은 진하게 겹치면 시험 주간에 솟고 휴무일에 꺼지는 흐름이 보입니다.",
+      "tip": "일별은 흐리게, 추세는 진하게"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습: 관계와 추세",
+      "intro": "점으로 나누고, 직선으로 긋고, 선과 띠로 읽는다\n실습 환경에서 진행하겠습니다.",
+      "notes": "그럼 실습 환경으로 넘어가서 실습 1부터 차례로 진행하겠습니다. 실습 1에서 만든 day_type 열을 실습 3에서 그대로 쓰니까 순서대로 진행해 주세요.\n[화면 전환: 실습 1]"
+    },
+    {
+      "archetype": "summary_with_next",
+      "title": "이번 시간 정리",
+      "rows": [
+        {
+          "icon": "check",
+          "text": "세 번째 변수는 hue, 점 무리를 가르는 열로"
+        },
+        {
+          "icon": "check",
+          "text": "회귀선은 방향, 상관은 인과가 아님"
+        },
+        {
+          "icon": "circle-check-big",
+          "text": "lineplot은 평균과 범위, 이동평균으로 추세"
+        }
+      ],
+      "next_label": "NEXT",
+      "next_title": "9차시: 히트맵",
+      "next": [
+        "남은 불편: r을 한 쌍씩",
+        "상관·피벗 히트맵,\nrelplot·catplot, pairplot"
+      ],
+      "notes": "[화면 전환: 슬라이드로 복귀]\n실습 수고하셨습니다. 정리하겠습니다. 추세선은 방향을 보여 줄 뿐 원인을 말하지 않습니다. 관계는 방향과 흩어짐을, 추세는 평균과 범위를 함께 봅니다.\n그런데 상관계수를 한 쌍씩 구하니까 여러 변수를 한눈에 비교하기 어렵습니다. 칸을 스스로 만드는 함수도 lmplot 하나만 써 봤죠. 다음 시간에는 상관 히트맵과 월·요일 피벗 히트맵, relplot, catplot, pairplot으로 여러 변수를 한 장에 그려 보겠습니다."
+    },
+    {
+      "archetype": "closing",
+      "notes": "수고하셨습니다. 다음 시간에 뵙겠습니다. 감사합니다."
+    }
+  ]
+}

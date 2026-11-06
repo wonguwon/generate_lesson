@@ -1,0 +1,260 @@
+{
+  "course": "Matplotlib·Seaborn 데이터 시각화",
+  "course_short": "Matplotlib·Seaborn",
+  "organization": "한양대학교 ERICA",
+  "instructor": "최지원",
+  "day": "Day 09",
+  "slides": [
+    {
+      "archetype": "cover",
+      "title": "Matplotlib·Seaborn\n데이터 시각화",
+      "subtitle": "히트맵과 다중 그래프",
+      "meta": "한양대학교 ERICA | 최지원",
+      "image": "../images/cover_matplotlib_seaborn.png",
+      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 아홉 번째 시간입니다. 지난 시간에는 회귀선과 lineplot으로 관계와 추세를 봤습니다. 이번 시간에는 여러 변수를 한 장에 담는 히트맵과 다중 그래프를 그려 보겠습니다."
+    },
+    {
+      "archetype": "agenda_with_goals",
+      "title": "이번 시간 흐름",
+      "goal_icon": "target",
+      "items": [
+        {
+          "title": "상관 히트맵",
+          "desc": "corr, heatmap, 발산형 색"
+        },
+        {
+          "title": "피벗 히트맵",
+          "desc": "pivot_table, 연속형 색"
+        },
+        {
+          "title": "작은 그래프 여러 개",
+          "desc": "relplot, catplot, FacetGrid"
+        },
+        {
+          "title": "변수 쌍 한눈에 보기",
+          "desc": "pairplot"
+        }
+      ],
+      "goals": [
+        "상관행렬을\n색 칸으로 훑기",
+        "두 범주가 만나는\n칸을 색으로 칠하기",
+        "같은 그래프를\n집단별로 나누어 놓기"
+      ],
+      "notes": "순서를 보겠습니다. 먼저 모든 변수 쌍의 상관계수를 표 하나로 구해서 색으로 칠합니다. 그다음 월과 요일이 만나는 칸을 칠합니다. 이어서 같은 그래프를 집단별 칸에 나누고, 마지막으로 여러 변수 쌍을 한 장에 늘어놓습니다.\n모두 한 장에 많이 담는 방법입니다. 많이 담을수록 색과 배치의 규칙이 중요해지니까, 그 규칙을 함께 보겠습니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "상관 히트맵",
+      "intro": "여러 변수의 관계를 색 칸으로 한눈에 훑는다",
+      "notes": "상관 히트맵부터 보겠습니다.",
+      "phase": "도입"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "상관행렬을 색으로",
+      "image": "images/01_corr.png",
+      "explain_title": "읽는 법",
+      "bullets": [
+        "상관행렬: 모든 수치 열 쌍의 r",
+        "대각선은 자기 자신이라 1.00",
+        "대각선 위아래가 같음",
+        "진한 칸은 산점도로 확인"
+      ],
+      "notes": "8차시에는 상관계수를 한 쌍씩 구했습니다. 이번에는 수치 열 모든 쌍을 표 하나로 구합니다. 이 표가 상관행렬이고, 칸마다 값에 맞는 색을 칠한 게 히트맵입니다.\n대각선은 자기 자신과의 상관이라 모두 1입니다. 대각선 위아래는 같은 값이고요.\n빨간 칸이 시험 점수와 평점 0.72, 공부 시간과 점수 0.65입니다. 파란 칸이 수면과 SNS 마이너스 0.36이죠. 8차시에 구한 네 숫자가 이 표에 그대로 들어 있습니다.\n진한 칸은 원인 관계일까요? 아닙니다. 8차시처럼 직선 관계의 방향과 세기만 보여 줍니다. 히트맵은 어디를 볼지 고르는 지도입니다. 진한 칸은 산점도로 모양을 확인합니다.",
+      "tip": "히트맵은 어디를 볼지 고르는 지도"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "상관 히트맵 코드",
+      "code": "student_corr = students.corr(\n    numeric_only=True).round(2)\n\nfig, ax = plt.subplots(figsize=(9, 7))\nsns.heatmap(student_corr, annot=True,\n            fmt='.2f', cmap='coolwarm',\n            vmin=-1, vmax=1, center=0,\n            ax=ax)\nax.set_title('학생 데이터 상관계수')\nplt.show()",
+      "explain_title": "인자",
+      "bullets": [
+        "numeric_only: 수치 열만 계산",
+        "annot: 칸 안에 숫자",
+        "fmt: 소수 둘째 자리까지",
+        "cmap: 색 이름"
+      ],
+      "notes": "코드를 보겠습니다. students.corr()만 쓰면 어떻게 될까요? student_id 같은 글자 열 때문에 ValueError가 납니다. 그래서 numeric_only를 True로 넣어 수치 열만 계산합니다. 수치 열은 grade를 포함해 9개입니다. grade는 숫자지만 뜻은 범주라서 읽을 때 따로 생각해야 합니다.\n어떤 열이 들어가는지 확인하고 싶으면 select_dtypes로 수치 열만 남겨 보면 됩니다.\nheatmap은 axes 수준이라 ax를 받습니다. annot로 칸 안에 숫자를 넣고, fmt로 자릿수를 정합니다.",
+      "tip": "글자 열이 섞이면 numeric_only"
+    },
+    {
+      "archetype": "two_column_versus",
+      "title": "0이 가운데인 값의 색",
+      "left": {
+        "title": "기본 색",
+        "bullets": [
+          "가장 어두운 칸이 -0.36",
+          "0 근처 칸도 어두운 보라",
+          "양·음 구분이 안 됨"
+        ]
+      },
+      "right": {
+        "title": "발산형 coolwarm",
+        "bullets": [
+          "-1 진한 파랑, 1 진한 빨강",
+          "0 근처는 연한 회색",
+          "색만으로 방향과 세기"
+        ]
+      },
+      "notes": "색은 왜 지정했을까요? 기본 색으로 그리면 색의 양 끝이 데이터 최솟값 마이너스 0.36과 대각선 1에 맞춰집니다. 그래서 0 근처 칸도 어두운 보라로 나오고, 0의 자리가 보이지 않습니다.\n상관계수는 0을 가운데로 양과 음이 나뉘는 값입니다. 이런 값에는 발산형 색을 씁니다. coolwarm은 음수 파랑, 0 연한 회색, 양수 빨강입니다. vmin과 vmax로 양 끝을 마이너스 1과 1에 고정하고, center로 0을 가운데 색에 맞춥니다. 그러면 색만 봐도 방향과 세기를 읽을 수 있습니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "피벗 히트맵",
+      "intro": "두 범주가 만나는 칸의 값을 색으로 칠한다",
+      "notes": "히트맵은 상관행렬이 아니어도 행과 열이 있는 표면 무엇이든 칠할 수 있습니다.",
+      "phase": "본론"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "월×요일 평균 손님 수",
+      "image": "images/02_pivot.png",
+      "explain_title": "읽는 법",
+      "bullets": [
+        "진한 칸: 학기 달 월~목",
+        "연한 칸: 토·일, 7·8·1·2월",
+        "가장 진한 칸: 2025-03 수 528",
+        "휴무일이 있으면 칸이 연해짐"
+      ],
+      "notes": "이번에는 월과 요일이 만나는 칸에 평균 손님 수를 칠했습니다. 한눈에 뭐가 보이나요? 학기 달의 월요일부터 목요일까지 진하고, 주말과 방학 달은 연합니다. 가장 진한 칸은 2025년 3월 수요일 528명입니다. 숫자 84개를 표로 읽었다면 이렇게 바로 보이지 않았겠죠.\n튀는 칸도 있습니다. 2025년 10월 월요일과 수요일이 학기 달치고 연합니다. 추석 휴무일의 0이 평균에 들어갔기 때문입니다. 2026년 2월도 설 휴무일 때문에 목요일이 월화수보다 진합니다.\n그래서 튀는 칸은 원래 표에서 까닭을 확인합니다.",
+      "tip": "튀는 칸은 원래 표에서 까닭 확인"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "피벗 표와 히트맵",
+      "code": "customers_pivot = cafe.pivot_table(\n    index='year_month', columns='weekday',\n    values='customers', aggfunc='mean')\ncustomers_pivot = customers_pivot.reindex(\n    columns=weekday_order).round(2)\n\nfig, ax = plt.subplots(figsize=(8, 6))\nsns.heatmap(customers_pivot, annot=True,\n            fmt='.0f', cmap='YlOrRd',\n            ax=ax)\nplt.show()",
+      "explain_title": "pivot_table",
+      "bullets": [
+        "index: 행으로 놓을 열",
+        "columns: 열로 펼칠 열",
+        "values·aggfunc: 칸의 값과 집계",
+        "reindex(columns=): 열 순서"
+      ],
+      "notes": "피벗 테이블은 한 열은 행으로, 다른 열은 열로 펼치고 만나는 칸에 값을 집계한 표입니다. 2차시 groupby를 두 방향으로 펼친 거죠. groupby에 unstack을 붙여도 같은 표가 나오는데, 실습에서 모든 칸이 같은지 비교해 봅니다.\n요일 열은 월요일부터 나올까요? 아닙니다. 글자라서 가나다순, 금목수월일토화로 나옵니다. 그래서 reindex로 순서를 맞춥니다. 여기서 columns를 빠뜨리면 행에 적용돼서 모든 칸이 NaN이 됩니다.\n색 막대 이름은 cbar_kws로 답니다.",
+      "tip": "columns=를 빠뜨리면 모든 칸이 NaN"
+    },
+    {
+      "archetype": "two_column_versus",
+      "title": "값의 성질에 맞는 색",
+      "left": {
+        "title": "발산형 coolwarm",
+        "bullets": [
+          "0을 가운데로 양·음",
+          "vmin·vmax·center 함께",
+          "예: 상관계수"
+        ]
+      },
+      "right": {
+        "title": "연속형 YlOrRd",
+        "bullets": [
+          "0에서 한 방향으로 커지는 값",
+          "연한 색에서 진한 색으로",
+          "예: 손님 수, 매출"
+        ]
+      },
+      "notes": "여기서는 왜 coolwarm을 쓰지 않았을까요? 손님 수는 0에서 한 방향으로만 커지는 값입니다. coolwarm을 쓰면 가운데 색이 기준값처럼 읽혀서 없는 뜻이 생깁니다.\n그래서 연한 색에서 진한 색으로 한 방향으로 가는 연속형 색을 씁니다. YlOrRd가 그중 하나입니다. 양과 음이 있는 값은 발산형, 한 방향으로 커지는 값은 연속형. 값의 성질이 색을 정합니다. 앞으로 어떤 데이터를 칠하든 이 기준으로 고르시면 됩니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "작은 그래프 여러 개",
+      "intro": "같은 그래프를 집단별로 쪼개 나란히 놓는다",
+      "notes": "8차시 lmplot은 col 하나로 전공마다 칸을 만들었습니다. 같은 방식을 산점도와 박스플롯에도 써 보겠습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "Figure 수준과 Axes 수준",
+      "image": "images/04_function_map.png",
+      "explain_title": "함수 관계",
+      "bullets": [
+        "relplot: scatter·line",
+        "catplot: strip·box·violin·bar 등",
+        "kind로 그래프 종류를 고름",
+        "col·row로 칸을 나눔"
+      ],
+      "notes": "지금까지 쓴 함수를 한 장에 정리했습니다. 위가 칸을 스스로 만드는 figure 수준, 아래가 ax로 칸을 받는 axes 수준입니다.\nrelplot은 kind로 scatter와 line을 고르고, catplot은 strip, box, violin, bar, count, point를 고릅니다. 칸마다 아래쪽 함수를 그린다고 보시면 됩니다.\n칸은 5차시처럼 subplots로 직접 나눠야 할까요? figure 수준 함수는 열 이름 하나로 칸을 만들고 축까지 맞춰 줍니다. 대신 ax는 받지 않습니다. ax를 넣으면 경고와 함께 새 그림이 따로 생깁니다. 칸 하나에 넣으려면 아래쪽 함수를 쓰면 됩니다.",
+      "tip": "칸 하나에 넣으려면 axes 수준"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "칸 나누기 코드",
+      "code": "g = sns.relplot(data=students,\n    x='study_hours', y='exam_score',\n    col='housing', kind='scatter',\n    height=3.5, s=15, alpha=0.6)\ng.set_titles('{col_name}')\ng.set_axis_labels('주간 공부 시간(시간)',\n                  '시험 점수(점)')\nplt.show()",
+      "explain_title": "칸 인자",
+      "bullets": [
+        "col·row: 값마다 옆으로·아래로",
+        "col_wrap: 한 줄에 놓을 칸 수",
+        "height·aspect: 칸 크기",
+        "FacetGrid: 빈 칸에 함수 실행"
+      ],
+      "notes": "주거 형태별로 칸을 나눈 산점도입니다. 세 칸 모두 오른쪽 위로 기울고, 주거별 상관계수도 0.63, 0.68, 0.62로 비슷합니다. 주거 형태는 공부 시간과 점수의 관계를 가르지 않는다는 거죠. 칸마다 모양이 비슷하면 그것도 답입니다.\ncatplot도 같습니다. kind를 box로 하고 col에 학년, col_wrap에 2를 넣으면 2×2가 됩니다. col_wrap을 쓴 칸은 한 줄 배열이 되어 g.axes[i]로 꺼냅니다.\nhistplot처럼 relplot, catplot에 없는 그래프는 sns.FacetGrid로 빈 칸을 만들고 map_dataframe으로 함수를 실행합니다. 분포는 row로 위아래에 쌓으면 x축이 한 줄로 맞습니다.",
+      "tip": "칸마다 모양이 비슷하면 그것도 답"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "변수 쌍 한눈에 보기",
+      "intro": "처음 받은 데이터는 pairplot으로 전체 관계를 훑는다",
+      "notes": "상관 히트맵은 쌍마다 숫자 하나를 보여 줬습니다. pairplot은 점 모양까지 보여 줍니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "pairplot 읽기",
+      "image": "images/05_pair.png",
+      "explain_title": "격자",
+      "bullets": [
+        "모든 쌍을 산점도 격자로",
+        "대각선: 그 열의 분포",
+        "hue를 주면 대각선은 밀도 곡선",
+        "corner=True: 아래 삼각형만"
+      ],
+      "notes": "고른 열의 모든 쌍을 산점도로 늘어놓은 그림입니다. 처음 받은 데이터를 훑을 때 좋습니다.\n대각선 칸은 같은 열끼리니까 그 열의 분포를 그립니다. 기본은 히스토그램이고, hue를 주면 6차시 밀도 곡선이 됩니다.\n열 다섯 개면 칸이 25개인데, 위 삼각형은 x와 y만 바뀐 같은 그림입니다. 그래서 corner를 True로 하면 15칸만 남습니다.\n그림의 오른쪽 아래를 보시면 아르바이트 시간 대각선에서 자취 곡선만 15시간 근처에 봉우리가 있습니다. 나머지 칸은 세 색이 거의 겹치는데, 여기만 갈라지죠. 눈에 띈 쌍은 8차시 산점도와 회귀선, 이번 시간 칸 나누기로 따로 자세히 봅니다.",
+      "tip": "눈에 띈 쌍은 따로 자세히"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "pairplot 코드",
+      "code": "pair_cols = ['study_hours', 'exam_score',\n             'gpa', 'sleep_hours',\n             'part_time_hours']\n\ng = sns.pairplot(students, vars=pair_cols,\n    hue='housing', corner=True, height=2,\n    plot_kws={'s': 10, 'alpha': 0.5})\nplt.show()",
+      "explain_title": "열 고르기",
+      "bullets": [
+        "vars: 넣을 열",
+        "칸 수는 열 수의 제곱",
+        "plot_kws: 산점도 칸에만 줄 설정"
+      ],
+      "notes": "열을 다 넣어야 빠짐없이 보는 걸까요? 칸 수는 열 수의 제곱입니다. 수치 열 9개를 전부 넣으면 81칸이라 오래 걸리고 칸도 작습니다. 히트맵에서 관계가 보인 열 위주로 4개에서 5개를 고릅니다. 그래서 히트맵과 pairplot은 순서대로 쓰면 좋습니다.\n이상치가 있는 열은 주의합니다. sns_minutes는 900분 하나 때문에 축이 늘어나서 점이 한쪽에 몰립니다. 그래서 이번에는 뺐습니다.\npairplot도 figure 수준이라 ax를 받지 않고, PairGrid를 돌려줍니다.",
+      "tip": "열은 4~5개"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습: 여러 변수 그리기",
+      "intro": "상관 히트맵, 피벗 히트맵, 칸 나누기, pairplot 순서로 그린다\n실습 환경에서 진행하겠습니다.",
+      "notes": "그럼 실습 환경으로 넘어가서 실습 1부터 차례로 진행하겠습니다.\n[화면 전환: 실습 1]"
+    },
+    {
+      "archetype": "summary_with_next",
+      "title": "이번 시간 정리",
+      "rows": [
+        {
+          "icon": "check",
+          "text": "히트맵은 어디를 볼지 고르는 지도"
+        },
+        {
+          "icon": "check",
+          "text": "양·음은 발산형, 한 방향은 연속형 색"
+        },
+        {
+          "icon": "circle-check-big",
+          "text": "figure 수준 함수로 칸을 나눠 나란히 비교"
+        }
+      ],
+      "next_label": "NEXT",
+      "next_title": "10차시: 프로젝트",
+      "next": [
+        "남은 불편: 그래프 고르기",
+        "질문을 세우고\n그래프로 답하기"
+      ],
+      "notes": "[화면 전환: 슬라이드로 복귀]\n실습 수고하셨습니다. 정리하겠습니다. 많이 보여 줄수록 색과 배치의 규칙이 중요합니다. 값의 성질에 맞는 색을 고르고, 축을 맞춘 칸에 나란히 놓습니다.\n그런데 그래프 종류가 많아졌습니다. 질문마다 어떤 그래프를 고를지 기준이 아직 한곳에 없죠. 다음 시간은 마지막 시간입니다. 차트 선택 기준을 정리하고, 질문 세 개를 세워서 요약 그림 한 장으로 답해 보겠습니다."
+    },
+    {
+      "archetype": "closing",
+      "notes": "수고하셨습니다. 다음 시간에 뵙겠습니다. 감사합니다."
+    }
+  ]
+}

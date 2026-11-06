@@ -1,0 +1,246 @@
+{
+  "course": "Matplotlib·Seaborn 데이터 시각화",
+  "course_short": "Matplotlib·Seaborn",
+  "organization": "한양대학교 ERICA",
+  "instructor": "최지원",
+  "day": "Day 10",
+  "slides": [
+    {
+      "archetype": "cover",
+      "title": "Matplotlib·Seaborn\n데이터 시각화",
+      "subtitle": "미니 프로젝트 - 질문하고 그래프로 답하기",
+      "meta": "한양대학교 ERICA | 최지원",
+      "image": "../images/cover_matplotlib_seaborn.png",
+      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 마지막 시간입니다. 지난 시간에는 히트맵과 다중 그래프로 여러 변수를 한 장에 담아 봤습니다. 이번 시간에는 그동안 배운 것을 모아서 질문을 세우고 그래프로 답해 보겠습니다."
+    },
+    {
+      "archetype": "agenda_with_goals",
+      "title": "이번 시간 흐름",
+      "goal_icon": "target",
+      "items": [
+        {
+          "title": "차트 선택 기준",
+          "desc": "비교·분포·관계·추이·구성"
+        },
+        {
+          "title": "분석 질문과 데이터 준비",
+          "desc": "무엇을 무엇과, 필터·groupby"
+        },
+        {
+          "title": "요약 그림",
+          "desc": "subplots, savefig"
+        },
+        {
+          "title": "그래프 점검 목록",
+          "desc": "저장 전 다섯 가지"
+        }
+      ],
+      "goals": [
+        "질문 유형으로\n그래프 고르기",
+        "질문마다 표를 만들고\n그래프로 답하기",
+        "요약 그림을 저장하고\n점검하기"
+      ],
+      "notes": "순서를 보겠습니다. 9차시 동안 그래프를 함수별로 하나씩 익혔습니다. 이번에는 어떤 질문에 쓰는가로 다시 묶습니다. 그다음 두 CSV로 질문 세 개를 세우고, 표를 만들고, 그래프 세 개를 한 장에 모아 저장합니다. 마지막으로 점검 목록으로 그래프를 고칩니다.\n이번 시간은 새 함수를 배우는 시간이 아니라, 배운 것을 어떤 순서로 쓰는지 보는 시간입니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "차트 선택 기준",
+      "intro": "질문의 종류가 그래프의 종류를 정한다",
+      "notes": "먼저 그래프를 고르는 기준입니다.",
+      "phase": "도입"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "질문에서 그래프로",
+      "image": "images/01_choice.png",
+      "explain_title": "고르는 순서",
+      "bullets": [
+        "묻는 말을 먼저 적음",
+        "다섯 갈래에서 유형을 고름",
+        "유형에 맞는 그래프를 고름"
+      ],
+      "notes": "그래프 종류부터 고르면 될까요? 아닙니다. 묻는 말을 먼저 적고 그래프를 고릅니다.\n질문은 크게 다섯 갈래입니다. 어느 쪽이 더 큰가를 묻는 비교, 값이 어떻게 퍼져 있나를 묻는 분포, 두 값이 함께 움직이나를 묻는 관계, 시간에 따라 어떻게 변하나를 묻는 추이, 전체가 무엇으로 나뉘나를 묻는 구성입니다.\n이 다섯 갈래가 정해진 표준은 아닙니다. 널리 쓰이는 차트 선택 구분을 이 과정의 그래프에 맞게 묶은 겁니다.",
+      "tip": "질문 하나에 그래프 하나"
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "질문 유형별 그래프",
+      "bullets": [
+        "비교: bar·countplot·barplot·pointplot",
+        "분포: hist·histplot·boxplot·violinplot",
+        "관계: scatter·regplot·heatmap·pairplot",
+        "추이: plot·lineplot·rolling",
+        "구성: countplot(hue)·histplot(stack)"
+      ],
+      "icon": "lightbulb",
+      "key_title": "함께 쓰기",
+      "key_message": "두 범주는 피벗 heatmap\n집단별 칸은 col=\n한 장은 subplots",
+      "notes": "지금까지 배운 함수를 다섯 갈래에 넣어 보면 이렇습니다.\n비교는 막대와 countplot, barplot, pointplot입니다. 7차시에 봤죠. 분포는 6차시 히스토그램과 박스플롯, 바이올린이고, 관계는 8차시와 9차시의 산점도, 회귀선, 상관 히트맵, pairplot입니다. 추이는 선 그래프와 이동평균입니다.\n구성은 집단마다 개수를 나란히 놓는 countplot이나, 구간마다 집단을 쌓은 히스토그램을 씁니다. 비율을 쌓는 누적 막대는 이 과정에서 다루지 않았습니다.\n두 범주가 만나는 칸의 값은 피벗 히트맵, 같은 그래프를 집단별로 나누려면 col, 여러 질문의 그래프를 한 장에 놓으려면 subplots를 씁니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "피하면 좋은 선택",
+      "image": "images/02_bad_good.png",
+      "explain_title": "왼쪽 대신 오른쪽",
+      "bullets": [
+        "조각 많은 파이 → 정렬한 막대",
+        "3D 효과 → 평면 그래프",
+        "자른 막대 → y축 0부터",
+        "뜻 없는 색 → 강조 하나 + 회색"
+      ],
+      "notes": "피하면 좋은 선택 네 가지입니다.\n항목이 많은 파이 차트는 각도와 넓이를 비교하기 어렵습니다. 정렬한 막대가 낫습니다. 다만 파이 차트를 쓰면 안 된다는 건 아닙니다. 조각 두세 개 비율 정도는 읽힙니다.\n3D 효과는 원근 때문에 앞 막대가 커 보이고 뒤 막대가 가려집니다.\n0에서 시작하지 않는 막대는 길이 비율이 부풀려집니다. 점과 선은 0부터가 아니어도 된다고 7차시에 봤죠. 막대는 길이로 읽으니까 0부터입니다.\n뜻 없는 색은 보는 사람이 색마다 뜻을 찾게 만듭니다. 5차시처럼 강조 하나에 나머지 회색, 집단 색은 hue와 범례로 씁니다.",
+      "tip": "길이와 위치로 읽히게 그림"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "분석 질문과 데이터 준비",
+      "intro": "좋은 질문은 무엇을 무엇과 비교하는가로 끝난다",
+      "notes": "그래프를 고르기 전에 질문부터 정합니다.",
+      "phase": "본론"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "질문 세 개와 표",
+      "image": "images/03_question.png",
+      "explain_title": "질문 세 개",
+      "bullets": [
+        "① 시험 주간 손님: 비교",
+        "② 전공별 공부-점수: 관계",
+        "③ 주거별 수면 시간: 분포"
+      ],
+      "notes": "두 CSV로 질문 세 개를 세웠습니다.\n하나, 시험 주간에 카페 손님은 얼마나 늘까? 비교 질문입니다. 둘, 공부 시간과 점수의 관계는 전공마다 다를까? 관계 질문입니다. 셋, 주거 형태에 따라 수면 시간이 다를까? 분포 질문입니다.\n그림처럼 질문마다 열을 고르고, 필터를 걸고, 집계해서 표를 만듭니다. 그래프 전에 답을 확인할 표를 먼저 만드는 겁니다. 2차시에 배운 그대로죠.\n첫 번째 질문의 표만 그래프의 재료가 되고, 두 번째와 세 번째 그래프는 원래 표로 그립니다.",
+      "tip": "열 → 필터 → 집계"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "질문 ①의 표",
+      "code": "semester_days = cafe[\n    (cafe['period'].isin(\n        ['1학기', '2학기']))\n    & (cafe['customers'] > 0)]\ncustomers_by_exam = (\n    semester_days.groupby('exam_week')\n    ['customers'].mean().round(2))",
+      "explain_title": "비교 기준",
+      "bullets": [
+        "같은 학기 중 시험 없는 영업일",
+        "휴무일 0명은 뺌",
+        "평소 340.24명, 시험 455.07명",
+        "배율 1.34"
+      ],
+      "notes": "좋은 질문은 무엇을 무엇과 비교하는가로 끝납니다. 첫 번째 질문은 시험 주간을 무엇과 비교할까요? 1년 전체 평균과 비교하면 방학 날이 섞여서 평소가 낮아지고 차이가 부풀려집니다. 그래서 같은 학기 안에서 비교합니다.\n휴무일 0명도 평소 손님일까요? 문을 닫은 날이니까 손님이 0보다 큰 날만 남깁니다. 이렇게 비교 기준이 필터를 정합니다.\n그러면 218일이 남고, 평소 340.24명, 시험 주간 455.07명으로 1.34배입니다. 필터 없이 전체로 계산하면 1.8배가 나옵니다.",
+      "tip": "비교 기준이 필터를 정함"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "질문 ②의 표",
+      "code": "corr_by_major = {}\nfor major in major_order:\n    part = students[\n        students['major'] == major]\n    corr_by_major[major] = round(\n        part['study_hours'].corr(\n            part['exam_score']), 2)\ncorr_by_major = pd.Series(corr_by_major)",
+      "explain_title": "결과",
+      "bullets": [
+        "② 공학 0.83, 예체능 0.18",
+        "② 자연과학 0.50, 인문 0.49",
+        "③ 표는 groupby에 agg로"
+      ],
+      "notes": "두 번째 질문은 전공마다 표를 골라서 corr를 구합니다. for문으로 돌며 사전에 담고, pd.Series로 바꿉니다. pd.Series에 사전을 넣으면 키가 index, 값이 값이 됩니다.\n공학 0.83에서 예체능 0.18까지입니다. 자연과학 0.50과 인문 0.49는 거의 같으니 순위를 매기지 않습니다.\n세 번째 질문의 표는 코드에 적지 않았는데, groupby에 agg로 개수, 평균, 중앙값을 함께 구합니다. 다를까를 묻는 분포 질문이라 평균 하나로 답할 수 없죠. 응답 수, 평균, 중앙값을 함께 보고 그래프로 퍼짐을 확인합니다. 평균은 기숙사 6.46, 자취 6.67, 통학 6.48시간으로 차이가 0.2시간 안팎입니다.",
+      "tip": "거의 같은 값은 순위를 매기지 않음"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "요약 그림",
+      "intro": "질문 하나에 그래프 하나, 세 개를 한 장에 모아 저장한다",
+      "notes": "표를 만들었으면 질문마다 맞는 그래프를 고르고 제목에 답을 씁니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "세 그래프를 한 장에",
+      "image": "images/04_summary_fig.png",
+      "explain_title": "질문과 그래프",
+      "bullets": [
+        "① ax.bar: 시험 주간만 강조색",
+        "② regplot 다섯 개: 공학만 강조",
+        "③ boxplot: 같은 회색 세 상자",
+        "제목에는 질문이 아니라 답"
+      ],
+      "notes": "완성된 요약 그림입니다. 왼쪽은 막대 두 개에 시험 주간만 강조색입니다. 제목은 시험 주간 손님은 평소의 약 1.3배입니다.\n가운데는 회귀선 다섯 개를 한 칸에 그리고 공학만 빨갛게 했습니다. 제목은 공부 시간과 점수의 관계는 공학에서 가장 뚜렷입니다.\n오른쪽은 세 상자를 같은 회색으로 그렸습니다. 제목은 주거 형태가 달라도 수면 시간은 비슷입니다.\n제목에 질문을 쓰는 걸까요? 아닙니다. 답을 씁니다. 제목만 읽어도 결론을 알 수 있어야 합니다.\n그럼 세 번째처럼 차이가 없으면 그래프를 버려야 할까요? 비슷하다도 답입니다. 다만 강조색 없이 같은 회색으로 그립니다.",
+      "tip": "비슷하다도 답"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "1×3 요약 그림 코드",
+      "code": "fig, axes = plt.subplots(\n    1, 3, figsize=(15, 4.5),\n    layout='constrained')\naxes[0].bar(['평소', '시험 주간'],\n    customers_by_exam.values,\n    color=['lightgray', '#d62728'])\nsns.boxplot(data=students, x='housing',\n    y='sleep_hours',\n    color='lightgray', ax=axes[2])\nfig.savefig('output/summary.png',\n    dpi=200, bbox_inches='tight')",
+      "explain_title": "섞어 그리기",
+      "bullets": [
+        "Matplotlib: axes[i]의 메서드",
+        "Seaborn: ax=axes[i]",
+        "칸에는 axes 수준 함수만",
+        "저장은 show 앞에"
+      ],
+      "notes": "지면이 좁아서 첫 칸과 셋째 칸, 저장 줄만 적었습니다. Matplotlib은 axes[0]의 메서드로, Seaborn은 ax=axes[2]로 칸을 정합니다. 한 칸에 두 라이브러리를 섞어 그릴 수 있는 거죠.\n가운데 칸은 어떻게 그릴까요? lmplot은 figure 수준이라 칸에 못 넣으니까 axes 수준 regplot을 씁니다. scatter=False로 점을 끄고, ci=None으로 띠를 끕니다. major_order를 거꾸로 돌아서 공학을 마지막에 그리면 빨간 선이 위로 올라옵니다. 회색 선은 label=None으로 범례에서 뺍니다.\n제목은 칸마다 set_title, 전체 제목은 fig.suptitle입니다. 저장은 5차시처럼 폴더를 먼저 만들고, show 앞에 fig.savefig로 합니다.",
+      "tip": "가운데 칸은 regplot, scatter=False"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "그래프 점검 목록",
+      "intro": "제목이 결론을, 축이 단위를 말하면 완성이다",
+      "notes": "그래프를 저장하거나 보여 주기 전에 점검할 게 있습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "고치기 전과 후",
+      "image": "images/05_before_after.png",
+      "explain_title": "왼쪽의 문제",
+      "bullets": [
+        "제목이 결론을 말하지 않음",
+        "축에 이름·단위가 없음",
+        "y축이 300부터 시작",
+        "파랑·주황에 뜻이 없음"
+      ],
+      "notes": "왼쪽은 숫자가 맞는 그래프입니다. 그런데 뭐가 문제일까요?\n제목이 exam_week별 customers라서 결론을 말하지 않습니다. 축에 이름과 단위가 없고, x축은 0과 1이라 뜻을 알 수 없습니다. y축이 300부터 시작합니다. 파랑과 주황에는 뜻이 없습니다.\ny축을 300부터 그리면 1.34배가 약 4배처럼 보입니다. 숫자가 맞아도 그래프는 틀릴 수 있다는 거죠. 실습 4에서 이 그래프를 직접 그려 보고 고칩니다.",
+      "tip": "같은 숫자도 축과 색에 따라 다르게 읽힘"
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "점검 다섯 가지",
+      "bullets": [
+        "제목 = 결론: set_title에 답 문장",
+        "축 이름과 단위: set_xlabel·set_ylabel",
+        "막대는 0부터: set_ylim 줄 지우기",
+        "색에 뜻이 있고 범례가 있음",
+        "한글·마이너스 정상: 설정 셀 다시 실행"
+      ],
+      "icon": "lightbulb",
+      "key_title": "핵심",
+      "key_message": "저장·공유 전에\n다섯 가지를 한 번 더",
+      "notes": "그래프를 저장하거나 보여 주기 전에 다섯 가지를 봅니다.\n첫째, 제목만 읽어도 답을 아는가. 둘째, 축마다 무엇을 어떤 단위로 재는지 있는가. 0과 1 대신 뜻이 있는 글자를 씁니다. 셋째, 막대 y축이 0에서 시작하는가. 넷째, 색마다 뜻이 있고 그 뜻을 범례나 제목에서 알 수 있는가. 다섯째, 글자가 네모로 나오거나 음수 부호가 깨지지 않는가입니다.\n이 다섯 가지도 정해진 표준은 아닙니다. 1차시부터 9차시까지 고쳐 온 것을 모은 겁니다. 제목이 결론을 말하고 축이 단위를 말하면 거의 완성입니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습: 질문에 답하기",
+      "intro": "표, 그래프, 요약 그림, 점검 순서로 이어서 만든다\n실습 환경에서 진행하겠습니다.",
+      "notes": "그럼 실습 환경으로 넘어가서 실습 1부터 차례로 진행하겠습니다.\n[화면 전환: 실습 1]"
+    },
+    {
+      "archetype": "summary_with_next",
+      "title": "이번 시간 정리",
+      "rows": [
+        {
+          "icon": "check",
+          "text": "질문 유형이 그래프를 정함"
+        },
+        {
+          "icon": "check",
+          "text": "질문마다 표를 만들고, 제목에 답을 씀"
+        },
+        {
+          "icon": "circle-check-big",
+          "text": "저장·공유 전에 점검 다섯 가지"
+        }
+      ],
+      "next_label": "NEXT STEP",
+      "next_title": "내 데이터로 해 보기",
+      "next": [
+        "내 CSV 하나로 질문 하나",
+        "표 → 그래프 → 제목에 답\n→ 점검 → 저장"
+      ],
+      "notes": "[화면 전환: 슬라이드로 복귀]\n실습 수고하셨습니다. 정리하겠습니다. 질문을 정하고, 표를 만들고, 맞는 그래프를 골라, 제목에 답을 씁니다.\n1차시에 환경을 준비했고, 2차시에 pandas로 표를 만들었습니다. 3차시부터 5차시까지 Matplotlib으로 그래프를 그리고 다듬었고, 6차시부터 9차시까지 Seaborn으로 분포, 비교, 관계, 여러 변수를 그렸습니다. 그리고 이번 시간에 이 모두를 한 흐름으로 이었습니다.\n그래프는 질문에 답하는 그림입니다. 그리기 전에 두 가지만 물어보세요. 무엇을 무엇과 비교하는가, 답을 제목 한 줄로 쓸 수 있는가. 내 CSV 하나로 질문 하나부터 바로 해 보시길 바랍니다."
+    },
+    {
+      "archetype": "closing",
+      "notes": "마지막 시간까지 함께해 주셔서 감사합니다."
+    }
+  ]
+}

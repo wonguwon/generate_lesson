@@ -1,0 +1,255 @@
+{
+  "course": "Matplotlib·Seaborn 데이터 시각화",
+  "course_short": "Matplotlib·Seaborn",
+  "organization": "한양대학교 ERICA",
+  "instructor": "최지원",
+  "day": "Day 06",
+  "slides": [
+    {
+      "archetype": "cover",
+      "title": "Matplotlib·Seaborn\n데이터 시각화",
+      "subtitle": "Seaborn과 분포 그래프",
+      "meta": "한양대학교 ERICA | 최지원",
+      "image": "../images/cover_matplotlib_seaborn.png",
+      "notes": "안녕하세요. Matplotlib·Seaborn 데이터 시각화 여섯 번째 시간입니다. 지난 시간에는 그래프를 다듬고 파일로 저장해 봤습니다. 이번 시간부터는 표와 열 이름만 넘기면 그려 주는 Seaborn을 쓰고, 값이 어떻게 퍼져 있는지 분포를 그려 보겠습니다."
+    },
+    {
+      "archetype": "agenda_with_goals",
+      "title": "이번 시간 흐름",
+      "goal_icon": "target",
+      "items": [
+        {
+          "title": "Seaborn의 작동 방식",
+          "desc": "data·x·y·hue, set_theme"
+        },
+        {
+          "title": "히스토그램과 밀도 곡선",
+          "desc": "histplot, kdeplot, multiple"
+        },
+        {
+          "title": "박스플롯과 바이올린",
+          "desc": "boxplot, violinplot"
+        }
+      ],
+      "goals": [
+        "표와 열 이름으로\n그래프 그리기",
+        "분포의 모양을\n막대와 곡선으로 보기",
+        "상자로 가운데·퍼짐·\n이상치 비교하기"
+      ],
+      "notes": "순서를 보겠습니다. 먼저 Seaborn이 어떻게 작동하고 Matplotlib과 어떻게 이어지는지 봅니다. 그다음 히스토그램과 밀도 곡선으로 분포의 모양을 보고, 마지막으로 박스플롯으로 여러 집단을 나란히 비교합니다.\n지금까지는 평균처럼 값 하나로 요약해서 봤는데요, 이번 시간에는 같은 학생 설문을 평균이 아니라 분포로 다시 봅니다. 평균 하나로는 안 보이던 차이가 보이기 시작합니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "Seaborn의 작동 방식",
+      "intro": "표와 열 이름을 넘기면 Seaborn이 그리고 묶어 준다",
+      "notes": "그럼 Seaborn이 어떤 도구인지부터 보겠습니다.",
+      "phase": "도입"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "Matplotlib과의 관계",
+      "image": "images/01_seaborn.png",
+      "explain_title": "함께 쓰는 법",
+      "bullets": [
+        "Seaborn: Matplotlib 위에서 동작",
+        "ax=: Seaborn이 그릴 칸",
+        "그린 Axes를 돌려줌",
+        "제목·저장은 3~5차시 그대로"
+      ],
+      "notes": "Seaborn을 쓰면 Matplotlib은 필요 없을까요? 아닙니다. Seaborn도 Matplotlib의 Axes에 그립니다.\n그림을 보시면 sns.histplot이 ax에 그리고, 그린 Axes를 돌려줍니다. 그 칸에 ax.set_title로 제목을 다는 건 지금까지와 같습니다. 그러니까 칸을 나누고, 제목을 달고, 저장하는 건 3차시부터 5차시까지 배운 그대로입니다. 바뀌는 건 그리는 줄 하나입니다.\n예를 들어 2번째 칸에 그리고 싶으면 axes[1].hist 대신 sns.histplot에 ax=axes[1]을 넣으면 됩니다.",
+      "tip": "Seaborn도 Matplotlib의 Axes에 그림"
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "공통 인자 data·x·y·hue",
+      "bullets": [
+        "data: 그릴 표(DataFrame)",
+        "x·y: 축에 놓을 열 이름(문자열)",
+        "hue: 색으로 나눌 열 이름",
+        "ax: 그릴 칸"
+      ],
+      "icon": "lightbulb",
+      "key_title": "핵심",
+      "key_message": "표는 data=, 열은 이름으로\n값은 Seaborn이 꺼냄",
+      "notes": "Seaborn 함수는 대부분 같은 인자를 받습니다. data에 표를 넣고, x와 y에 열 이름을 넣습니다.\n여기서 낯선 점이 있죠. 지금까지는 열의 값을 꺼내서 넘겼는데, 이제는 열 이름을 문자열로 넘깁니다. 값은 Seaborn이 표에서 꺼냅니다.\n그래서 편해지는 게 두 가지 있습니다. 축 이름에 열 이름이 저절로 붙습니다. 한글로 바꿀 때만 set_xlabel을 쓰면 됩니다. 빈 값도 Seaborn이 빼고 그립니다. 4차시처럼 미리 dropna를 하지 않아도 됩니다.\nhue는 색으로 나눌 열입니다. hue에 housing을 넣으면 주거 형태별로 색이 나뉩니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "set_theme과 한글 폰트",
+      "image": "images/02_theme.png",
+      "explain_title": "테마가 하는 일",
+      "bullets": [
+        "테마: 배경·격자·글자 크기·색 묶음",
+        "set_theme()은 폰트도 다시 정함",
+        "한글 폰트가 sans-serif로 덮임",
+        "style: whitegrid, darkgrid 등"
+      ],
+      "notes": "Seaborn에는 테마가 있습니다. 배경, 격자, 글자 크기, 색을 한 번에 정해 주는 묶음이죠. sns.set_theme 한 줄이면 됩니다.\n그런데 함정이 있습니다. 왼쪽 그림을 보시면 제목이 네모로 깨졌죠. set_theme은 폰트도 기본값 sans-serif로 다시 정하기 때문입니다. 1차시에 지정한 한글 폰트를 덮어쓰는 겁니다.\n그럼 폰트를 나중에 넣지 말고 먼저 넣으면 될까요? 안 됩니다. 먼저 넣어도 set_theme이 덮어씁니다. 폰트는 set_theme 안에서 함께 넘겨야 합니다.",
+      "tip": "왼쪽: 덮어쓰기 / 오른쪽: font= 지정"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "6차시부터 쓰는 설정 셀",
+      "code": "import pandas as pd\nimport matplotlib.pyplot as plt\nimport seaborn as sns\n\nsns.set_theme(\n    style='whitegrid',\n    font='NanumGothic',\n    rc={'axes.unicode_minus': False})",
+      "explain_title": "설정 셀",
+      "bullets": [
+        "style: 배경과 격자",
+        "font: 테마에 쓸 폰트",
+        "rc: 함께 넣을 Matplotlib 설정"
+      ],
+      "notes": "그래서 이번 시간부터는 설정 셀이 이렇게 바뀝니다. seaborn을 sns로 불러오고, set_theme에 style, font, rc를 함께 넘깁니다.\nstyle은 whitegrid로 흰 바탕 격자를 씁니다. font에 나눔고딕을 넣고, rc에는 1차시에 봤던 마이너스 설정을 넣습니다. 그러면 1차시 rcParams 두 줄은 없어도 됩니다. 이 한 줄에 폰트와 마이너스 설정이 모두 들어가니까요.\n앞으로 매 시간 준비 셀 다음에 이 설정 셀을 실행합니다.",
+      "tip": "매 시간 준비 셀 다음에 실행",
+      "keywords": [
+        "import",
+        "as"
+      ]
+    },
+    {
+      "archetype": "section_divider",
+      "title": "히스토그램과 밀도 곡선",
+      "intro": "분포의 모양은 막대로 세고 곡선으로 매끄럽게 본다",
+      "notes": "설정이 끝났으니 첫 그래프를 그려 보겠습니다. 4차시에 그린 히스토그램부터입니다.",
+      "phase": "본론"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "ax.hist와 histplot",
+      "code": "sleep = students['sleep_hours'].dropna()\n\nfig, axes = plt.subplots(\n    1, 2, figsize=(10, 4), sharey=True,\n    layout='constrained')\naxes[0].hist(sleep, bins=20)\naxes[0].set_title('ax.hist')\nsns.histplot(data=students,\n             x='sleep_hours', bins=20,\n             ax=axes[1])\naxes[1].set_title('sns.histplot')",
+      "explain_title": "무엇이 다른가",
+      "bullets": [
+        "넣는 것: 표와 열 이름",
+        "빈 값: 알아서 빼고 285명",
+        "구간 수: 데이터에 맞춰 정함",
+        "축 이름: 저절로 붙음"
+      ],
+      "notes": "4차시 ax.hist와 나란히 그려 봤습니다. 왼쪽은 빈 값을 미리 뺀 Series를 넣었고, 오른쪽은 표와 열 이름만 넣었습니다.\nbins를 20으로 맞추면 두 그래프는 같습니다. 가장 높은 막대가 7.1시간에서 7.3시간 구간의 39명입니다. 같은 그림을 다른 방법으로 그린 거죠.\n다른 점은 기본값입니다. ax.hist는 구간이 기본 10개인데, histplot은 데이터에 맞춰 정합니다. 수면 시간은 11개가 됩니다. 빈 값 15개도 알아서 빼고 285명을 그립니다.",
+      "tip": "bins를 맞추면 같은 그래프"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "막대 위의 곡선",
+      "image": "images/03_hist.png",
+      "explain_title": "밀도 곡선",
+      "bullets": [
+        "KDE: 막대를 매끄럽게 이은 선",
+        "kde=True: 막대 위에 함께",
+        "kdeplot: 곡선만, y축은 밀도",
+        "cut=0: 데이터 범위에서 자름"
+      ],
+      "notes": "그림에서 막대를 이은 곡선이 밀도 곡선입니다. KDE라고도 합니다. 막대는 구간을 어떻게 나누느냐에 따라 모양이 달라지는데, 곡선은 전체 모양을 매끄럽게 보여 줍니다.\nhistplot에 kde=True를 넣으면 막대 위에 곡선이 얹히고, sns.kdeplot을 쓰면 곡선만 그립니다.\nkdeplot의 y축은 학생 수가 아니라 Density, 밀도입니다. 곡선 아래 넓이를 모두 더하면 1이 되는 값이라, 높낮이와 모양만 읽으면 됩니다.\n곡선은 끝을 번지게 그리기 때문에 통학 시간처럼 0 아래가 있을 수 없는 값도 0분 아래까지 내려갑니다. 그런 값이 있다는 뜻은 아니고, 이럴 때는 cut=0으로 자릅니다.",
+      "tip": "y축은 개수가 아니라 밀도"
+    },
+    {
+      "archetype": "three_column_card_compare",
+      "title": "hue로 나눈 막대를 놓는 법",
+      "columns": [
+        {
+          "icon": "layers",
+          "title": "layer",
+          "desc": "기본값, 반투명하게 겹침\n집단이 다른 구간에 있을 때"
+        },
+        {
+          "icon": "chart-column-stacked",
+          "title": "stack",
+          "desc": "위로 쌓음\n구간 전체 인원 읽기"
+        },
+        {
+          "icon": "chart-column",
+          "title": "dodge",
+          "desc": "옆으로 나란히\n같은 구간의 집단끼리 비교"
+        }
+      ],
+      "notes": "hue로 나누면 같은 구간에 집단 막대가 모입니다. 이걸 어떻게 놓을지 정하는 게 multiple입니다.\nlayer는 기본값으로 반투명하게 겹칩니다. stack은 위로 쌓아서 구간 전체 인원을 읽기 좋고, dodge는 옆으로 나란히 놓아서 같은 구간의 집단끼리 비교하기 좋습니다.\n실습에서 주거 형태별 통학 시간으로 세 가지를 나란히 그려 볼 건데요, stack으로 보면 첫 막대가 152명까지 쌓입니다. 기숙사 85명과 자취 67명을 더한 값이죠.\n모양을 비교하고 싶으면 kdeplot에 hue를 넣습니다. 이때 곡선은 하나하나 넓이가 1이라, 곡선이 크다고 학생이 많다는 뜻은 아닙니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "박스플롯과 바이올린",
+      "intro": "상자 하나로 중앙값·퍼짐·이상치를 비교한다",
+      "notes": "히스토그램은 집단 하나의 모양을 자세히 보여 줍니다. 그런데 전공 다섯 개처럼 집단이 많으면 어떻게 할까요? 상자 하나로 요약해서 나란히 놓습니다."
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "상자 읽는 법",
+      "image": "images/04_box.png",
+      "explain_title": "다섯 요소",
+      "bullets": [
+        "중앙값: 크기순 한가운데 값",
+        "상자: Q1~Q3, 가운데 50%",
+        "수염: 상자 길이 1.5배 안의 끝값",
+        "점: 수염 밖의 이상치 후보"
+      ],
+      "notes": "상자를 읽는 법입니다. 값을 크기순으로 세웠을 때 한가운데가 중앙값이고, 상자 안의 가로선입니다. 네 등분하는 경계가 사분위수인데, 25% 지점이 Q1, 75% 지점이 Q3입니다.\n상자에는 가운데 50%가 들어 있습니다. 상자가 길수록 많이 퍼져 있다는 뜻이죠. 수염은 상자 끝에서 상자 길이의 1.5배 안에 있는 가장 먼 값까지 긋고, 그 밖의 값은 점으로 찍습니다.\n점은 지워야 할 오류일까요? 아닙니다. 확인해 볼 값입니다. 2차시에 찾은 이상치를 여기서 다시 만나는데, 오류인지는 원인을 보고 정합니다.",
+      "tip": "점은 오류가 아니라 확인할 값"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "전공별 박스플롯",
+      "code": "major_order = ['공학', '자연과학', '사회과학',\n               '인문', '예체능']\n\nfig, ax = plt.subplots(figsize=(8, 4))\nsns.boxplot(data=students, x='major',\n            y='study_hours',\n            order=major_order, ax=ax)\nax.set_title('전공별 주간 공부 시간')\nax.set_xlabel('전공')\nax.set_ylabel('주간 공부 시간(시간)')\nplt.show()",
+      "explain_title": "코드 읽기",
+      "bullets": [
+        "x: 범주 열, y: 수치 열",
+        "order: 범주를 놓을 순서",
+        "ax=로 칸 지정, 이름은 ax로"
+      ],
+      "notes": "코드는 x에 전공, y에 공부 시간을 넣었습니다. order를 빼면 표에 처음 나온 순서로 놓이니까, 순서를 정하려면 리스트를 넣습니다.\n결과를 보면 중앙값이 공학 17.9시간에서 예체능 5.45시간까지 계단처럼 내려갑니다.\n이상치는 전체 값 기준일까요? 아닙니다. 그 집단의 상자 기준입니다. 같은 40시간이어도 공학에서는 수염 안이고, 자연과학에서는 점으로 찍힙니다.\n평균 막대였다면 이런 퍼짐과 이상치는 보이지 않았을 겁니다.",
+      "tip": "점은 그 집단 상자 기준"
+    },
+    {
+      "archetype": "three_column_card_compare",
+      "title": "세 그래프 고르기",
+      "columns": [
+        {
+          "icon": "chart-column",
+          "title": "히스토그램·밀도",
+          "desc": "모양\n집단 하나~셋의 모양"
+        },
+        {
+          "icon": "box",
+          "title": "박스플롯",
+          "desc": "가운데·퍼짐·이상치\n집단이 많을 때 요약 비교"
+        },
+        {
+          "icon": "audio-lines",
+          "title": "바이올린",
+          "desc": "가운데·퍼짐 + 모양\n집단끼리 모양까지 비교"
+        }
+      ],
+      "notes": "바이올린 플롯은 밀도 곡선을 좌우로 펼친 모양이고, 안에 작은 상자와 중앙값이 들어 있습니다. sns.violinplot으로 그리고, 박스플롯과 인자가 같습니다. 공부 시간도 0 아래가 없으니 cut=0을 넣습니다.\n세 가지를 어떻게 고를까요? 집단이 하나에서 셋이고 모양이 궁금하면 히스토그램이나 밀도 곡선, 집단이 많아서 요약 비교를 하려면 박스플롯, 집단끼리 모양까지 보려면 바이올린입니다."
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습: 분포 그래프",
+      "intro": "설정 셀, 히스토그램·밀도 곡선, 박스플롯 순서로 그린다\n실습 환경에서 진행하겠습니다.",
+      "notes": "그럼 실습 환경으로 넘어가서 실습 1부터 차례로 진행하겠습니다.\n[화면 전환: 실습 1]"
+    },
+    {
+      "archetype": "summary_with_next",
+      "title": "이번 시간 정리",
+      "rows": [
+        {
+          "icon": "check",
+          "text": "Seaborn은 표와 열 이름으로, 칸은 ax=로"
+        },
+        {
+          "icon": "check",
+          "text": "set_theme은 폰트를 덮어쓰니 font=·rc=를 함께"
+        },
+        {
+          "icon": "circle-check-big",
+          "text": "분포는 모양·가운데·퍼짐으로 읽음"
+        }
+      ],
+      "next_label": "NEXT",
+      "next_title": "7차시: 범주 비교",
+      "next": [
+        "남은 불편: 평균의 흔들림",
+        "countplot, barplot,\nstripplot, pointplot"
+      ],
+      "notes": "[화면 전환: 슬라이드로 복귀]\n실습 수고하셨습니다. 정리하겠습니다. Seaborn은 표와 열 이름으로 그리고, 칸과 제목은 지금까지처럼 ax로 다룹니다. 설정 셀은 set_theme에 폰트를 함께 넘깁니다.\n분포는 모양, 가운데, 퍼짐으로 읽습니다. 평균 하나로는 안 보이던 차이가 보였죠.\n그런데 집단끼리 평균을 비교할 때 그 평균이 얼마나 흔들리는지는 아직 그래프에 없습니다. 다음 시간에는 개수를 세고, 막대 끝의 오차 막대를 읽고, 개별 점과 추이를 그려 보겠습니다."
+    },
+    {
+      "archetype": "closing",
+      "notes": "수고하셨습니다. 다음 시간에 뵙겠습니다. 감사합니다."
+    }
+  ]
+}
