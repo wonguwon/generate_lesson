@@ -6,6 +6,7 @@
 결과:
     data/students.csv    대학생 생활 습관 설문(가상) 300행
     data/cafe_sales.csv  캠퍼스 카페 일별 판매(가상) 365행
+    data/bike_rentals.csv 캠퍼스 공유 자전거 일별 대여(가상) 365행, 10차시용
 
 난수 시드를 고정해 실행할 때마다 같은 파일이 나온다.
 특징 검증과 정답 숫자 정리는 check_data.py가 한다.
@@ -242,14 +243,52 @@ def make_cafe(seed: int = SEED_CAFE) -> pd.DataFrame:
     )
 
 
+# ---------------------------------------------------------------------------
+# bike_rentals.csv (10차시 미니 프로젝트용 추가 데이터)
+# ---------------------------------------------------------------------------
+SEED_BIKE = 10
+# 학사 기간별 평일 기준 하루 대여 수(대여소 네 곳 합계)
+BIKE_PERIOD_BASE = {"1학기": 300, "여름방학": 120, "2학기": 290, "겨울방학": 70}
+BIKE_WEEKDAY_FACTOR = {"월": 1.0, "화": 1.03, "수": 1.05, "목": 1.0, "금": 0.9, "토": 0.55, "일": 0.5}
+# 대여소별 몫: 도서관이 가장 많고, 정문과 기숙사는 비슷하다
+BIKE_STATIONS = {"main_gate": 0.25, "library": 0.33, "dorm": 0.235, "gym": 0.185}
+
+
+def make_bike(cafe: pd.DataFrame, seed: int = SEED_BIKE) -> pd.DataFrame:
+    """캠퍼스 공유 자전거 일별 대여(가상). 날짜·요일·학사 기간·기온·비는 cafe와 같은 날씨를 쓴다."""
+    rng = np.random.default_rng(seed)
+    n = len(cafe)
+    temp = cafe["avg_temp"].to_numpy()
+    rain = cafe["rain"].to_numpy()
+    base = cafe["period"].map(BIKE_PERIOD_BASE).to_numpy(dtype=float)
+    wf = cafe["weekday"].map(BIKE_WEEKDAY_FACTOR).to_numpy()
+    temp_f = np.clip(0.5 + 0.035 * temp, 0.25, 1.4)
+    lam = base * wf * temp_f * np.where(rain == 1, 0.45, 1.0)
+    total = lam * rng.lognormal(0, 0.10, n)
+
+    share = np.array(list(BIKE_STATIONS.values()))
+    share = share * rng.lognormal(0, 0.08, (n, len(share)))
+    share = share / share.sum(axis=1, keepdims=True)
+    station = rng.poisson(total[:, None] * share)
+
+    df = cafe[["date", "year_month", "month", "weekday", "period", "avg_temp", "rain"]].copy()
+    for i, name in enumerate(BIKE_STATIONS):
+        df[name] = station[:, i]
+    df["rentals"] = station.sum(axis=1)
+    return df
+
+
 def main() -> None:
     DATA_DIR.mkdir(parents=True, exist_ok=True)
     students = make_students()
     cafe = make_cafe()
+    bike = make_bike(cafe)
     students.to_csv(DATA_DIR / "students.csv", index=False, encoding="utf-8")
     cafe.to_csv(DATA_DIR / "cafe_sales.csv", index=False, encoding="utf-8")
+    bike.to_csv(DATA_DIR / "bike_rentals.csv", index=False, encoding="utf-8")
     print(f"students.csv   {students.shape}")
     print(f"cafe_sales.csv {cafe.shape}")
+    print(f"bike_rentals.csv {bike.shape}")
 
 
 if __name__ == "__main__":

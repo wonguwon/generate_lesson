@@ -15,13 +15,13 @@
 | 07_범주비교 | [7차시 : 범주 비교 그래프](https://app.notion.com/p/c66f8497639447ba9a7ac24293e9637e) | students, cafe_sales |
 | 08_관계추세 | [8차시 : 관계와 추세 그래프](https://app.notion.com/p/6c7ecfa4358d468da48c86c4e1da180e) | students, cafe_sales |
 | 09_히트맵다중 | [9차시 : 히트맵과 다중 그래프](https://app.notion.com/p/73c483b747be4dd9a75e9011e31cf6cb) | students, cafe_sales |
-| 10_미니프로젝트 | [10차시 : 미니 프로젝트 - 질문하고 그래프로 답하기](https://app.notion.com/p/45a0bbea549e48f2ad9b38b5a9b4b482) | students, cafe_sales |
+| 10_미니프로젝트 | [10차시 : 미니 프로젝트 - 질문하고 그래프로 답하기](https://app.notion.com/p/45a0bbea549e48f2ad9b38b5a9b4b482) | bike_rentals (추가 데이터) |
 
-`data/`의 두 CSV는 가상 데이터입니다. `students.csv`(학생 300명, 12열)와 `cafe_sales.csv`(2025-03-01~2026-02-28, 365일, 14열)이고, 교안 정답 숫자는 `_tools/data_facts.md`에 있습니다.
+`data/`의 CSV는 모두 가상 데이터입니다. `students.csv`(학생 300명, 12열), `cafe_sales.csv`(2025-03-01~2026-02-28, 365일, 14열), 10차시용 `bike_rentals.csv`(같은 기간, 365일, 12열)이고, 교안 정답 숫자는 `_tools/data_facts.md`에 있습니다.
 
 ## 배포
 
-`_배포/NN_주제.ipynb`가 차시별 배포 파일이고, `_배포/data/`가 실습 데이터입니다. 학생은 노트북을 Colab에 업로드하고, 구글 드라이브에 `데이터_시각화_실습` 폴더를 만들어 그 안에 `data` 폴더를 올립니다. 준비 셀이 드라이브 연결, 작업 폴더 이동, 폰트 설치를 맡습니다.
+`_배포/NN_주제.ipynb`가 차시별 배포 파일이고, `_배포/data/`가 실습 데이터입니다. 학생은 노트북을 Colab에 업로드하고, 구글 드라이브에 `데이터_시각화_실습` 폴더를 만들어 그 안에 `data` 폴더를 올립니다. 준비 셀이 드라이브 연결, 작업 폴더 이동, 폰트 설치를 맡습니다. 10차시 미니 프로젝트는 추가 데이터 `_배포/10차시_추가데이터/bike_rentals.csv`를 드라이브의 `data` 폴더에 더 올려서 씁니다.
 
 - 노트북을 다시 만들었으면 `_tools/make_dist.py`로 배포 파일을 다시 모읍니다.
 
