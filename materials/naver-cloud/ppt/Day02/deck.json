@@ -1,0 +1,285 @@
+{
+  "course": "네이버 클라우드 활용 강의",
+  "course_short": "네이버 클라우드",
+  "organization": "남서울대학교",
+  "instructor": "최지원",
+  "day": "Day 02",
+  "slides": [
+    {
+      "archetype": "cover",
+      "title": "네이버 클라우드\n활용 강의",
+      "subtitle": "SSH 접속과 앱 실행",
+      "meta": "남서울대학교 | 최지원",
+      "image": "../images/image-1794530607412.png"
+    },
+    {
+      "archetype": "agenda_with_goals",
+      "title": "이번 시간 흐름",
+      "goal_icon": "target",
+      "items": [
+        {
+          "title": "SSH 접속",
+          "desc": "관리자 비밀번호로 서버에 들어가기"
+        },
+        {
+          "title": "apt와 Node.js 22",
+          "desc": "프로그램 설치, 앱 전용 계정"
+        },
+        {
+          "title": "git clone과 npm ci",
+          "desc": "코드 받기, 의존성은 서버에서"
+        },
+        {
+          "title": ".env·Prisma·/health",
+          "desc": "비밀값·DB 만들고 실행 확인"
+        }
+      ],
+      "goals": [
+        "SSH로\n서버에 들어가기",
+        "웹 서비스를\n설치하고 실행하기"
+      ]
+    },
+    {
+      "archetype": "section_divider",
+      "phase": "본론",
+      "title": "SSH 접속",
+      "intro": "내 노트북에서 클라우드 서버 안으로\n어떻게 들어갈까?"
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "SSH로 서버에 들어가기",
+      "bullets": [
+        "SSH: 다른 컴퓨터의 셸에 암호화 접속(22번)",
+        "터미널: 명령을 글자로 입력하는 창",
+        "셸: 친 명령을 받아 실행하는 프로그램",
+        "root: Linux의 관리자 계정",
+        "관리자 비밀번호: 서버를 만들 때 정한 root 비밀번호"
+      ],
+      "icon": "terminal",
+      "key_title": "핵심",
+      "key_message": ".pem으로 비밀번호를 꺼내고\n접속은 그 비밀번호로"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "프롬프트 읽기",
+      "code": "root@sandal-web:~#\n\nwhoami   # 지금 계정\npwd      # 지금 폴더\nls       # 폴더 안 목록\ncd       # 폴더 이동\nexit     # 나가기",
+      "keywords": [
+        "root",
+        "whoami",
+        "pwd",
+        "ls",
+        "cd",
+        "exit"
+      ],
+      "explain_title": "읽는 법",
+      "bullets": [
+        "계정 @ 서버 이름 : 지금 폴더",
+        "~는 홈 폴더",
+        "끝이 #이면 관리자, $면 일반 계정"
+      ],
+      "tip": "명령 전에 계정·서버부터 보기"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습 1. SSH 접속하기",
+      "intro": "관리자 비밀번호를 확인하고 root로 접속한다\n프롬프트와 whoami를 확인한다"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "apt와 Node.js 22",
+      "intro": "빈 서버에 Node.js와 필요한 프로그램을\n어떻게 설치할까?"
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "apt로 설치하기",
+      "bullets": [
+        "패키지: 설치할 수 있게 묶어 둔 프로그램",
+        "apt: Ubuntu의 패키지 관리자(앱 스토어처럼)",
+        "패키지 저장소: apt가 받아 오는 곳",
+        "apt update · upgrade · install",
+        "NodeSource: 최신 Node.js 패키지 저장소"
+      ],
+      "icon": "package",
+      "key_title": "Node.js 22",
+      "key_message": "기본 저장소는 낮은 버전\n→ NodeSource에서 설치"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "설치할 프로그램",
+      "code": "git\nbuild-essential\nnodejs (22)\nnginx\napache2-utils\ncertbot\npython3-certbot-nginx",
+      "explain_title": "쓰는 곳",
+      "bullets": [
+        "git: 코드 받기",
+        "build-essential: 부품 빌드",
+        "nodejs: 앱 실행(npm 포함)",
+        "nginx·certbot: 앞문·HTTPS"
+      ],
+      "tip": "apache2-utils: 비밀번호 파일"
+    },
+    {
+      "archetype": "two_column_versus",
+      "title": "설치는 root, 실행은 app",
+      "left": {
+        "title": "root",
+        "bullets": [
+          "하는 일: 프로그램 설치",
+          "권한: 무엇이든 바꿈",
+          "앱이 뚫리면: 서버 전체"
+        ]
+      },
+      "right": {
+        "title": "app (앱 전용 계정)",
+        "bullets": [
+          "하는 일: 앱 실행",
+          "권한: 비밀번호 없는 계정",
+          "앱이 뚫려도: app 권한까지"
+        ]
+      }
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습 2. 설치와 app 계정",
+      "intro": "git·nginx·certbot·Node.js 22를 설치하고\n앱 전용 계정 app을 만든다"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "git clone과 npm ci",
+      "intro": "코드는 어떻게 받고,\nnode_modules는 왜 서버에서 다시 설치할까?"
+    },
+    {
+      "archetype": "two_column_versus",
+      "title": "압축파일 vs git clone",
+      "left": {
+        "title": "압축파일 그대로 옮기기",
+        "bullets": [
+          "옮김: 코드·모듈·.env·데이터",
+          "node_modules: Windows용",
+          "서버 시작: 실패할 수 있음",
+          "다음 수정: 다시 압축"
+        ]
+      },
+      "right": {
+        "title": "git clone + npm ci",
+        "bullets": [
+          "옮김: 코드만",
+          "node_modules: 서버에서 새로",
+          "서버 시작: 정상",
+          "다음 수정: git pull 한 줄"
+        ]
+      }
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "코드 받기와 의존성",
+      "bullets": [
+        "git clone: Git 저장소를 통째로 받기",
+        "PAT: GitHub 비밀번호 대신 쓰는 토큰",
+        "의존성: 앱이 가져다 쓰는 코드(node_modules)",
+        "package-lock.json: 의존성의 정확한 버전",
+        "npm ci: lock 파일 그대로 새로 설치"
+      ],
+      "icon": "git-branch",
+      "key_title": "better-sqlite3",
+      "key_message": "SQLite를 읽는 부품\nOS마다 따로 빌드\n→ 서버에서 새로 설치"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습 3. 저장소 받기",
+      "intro": "app 계정으로 저장소를 받고\nnpm ci로 의존성을 설치한다"
+    },
+    {
+      "archetype": "section_divider",
+      "title": ".env와 DB 마이그레이션",
+      "intro": "비밀값과 DB 표는\n서버에서 어떻게 새로 만들까?"
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "환경 변수(.env)",
+      "bullets": [
+        "환경 변수: 코드 밖에 두는 설정·비밀값",
+        ".env: 환경 변수 파일, Git에 올리지 않음",
+        ".env.example: 칸 이름만 적힌 견본",
+        "수신기·카메라 토큰: 장치가 붙을 때 내는 값",
+        "CORS 허용 주소: 요청을 보낼 수 있는 웹 주소"
+      ],
+      "icon": "lock",
+      "key_title": "새로 채울 칸",
+      "key_message": "토큰 두 개는 서버에서 새로\nCORS에는 https 주소"
+    },
+    {
+      "archetype": "process_steps",
+      "title": "DB는 세 단계로",
+      "steps": [
+        {
+          "title": "generate",
+          "desc": "prisma:generate\nDB를 읽고 쓰는 코드 만들기"
+        },
+        {
+          "title": "migrate",
+          "desc": "prisma:migrate:deploy\n마이그레이션으로 빈 표 만들기"
+        },
+        {
+          "title": "seed",
+          "desc": "prisma:seed\n연습용 데이터 넣기"
+        }
+      ]
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습 4. .env와 DB",
+      "intro": "토큰 두 개로 .env를 채우고\n마이그레이션·seed를 실행한다"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "빌드와 헬스 체크",
+      "intro": "앱이 서버 안에서 살아 있는지\n어떻게 확인할까?"
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "살아 있는지 확인",
+      "bullets": [
+        "빌드: 개발용 코드를 브라우저용 파일로 묶기",
+        "서버는 하나: Fastify가 8000에서 화면·API",
+        "/health: 앱이 살아 있는지 답하는 주소",
+        "127.0.0.1: 이 컴퓨터 자신, 서버 안에서만",
+        "curl: 터미널에서 요청을 보내 응답 보기"
+      ],
+      "icon": "activity",
+      "key_title": "핵심",
+      "key_message": "서버 안에서 /health가\n응답하면 앱은 살아 있음"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습 5. 실행과 /health",
+      "intro": "빌드·실행하고 두 번째 창에서 curl로 확인한다\n앱을 멈추면 같은 curl이 실패하는지 본다"
+    },
+    {
+      "archetype": "summary_with_next",
+      "title": "이번 시간 정리",
+      "rows": [
+        {
+          "icon": "git-branch",
+          "text": "코드만 가져가고, 의존성·.env·DB는 서버에서 새로"
+        },
+        {
+          "icon": "terminal",
+          "text": "설치는 root, 실행은 app"
+        },
+        {
+          "icon": "activity",
+          "text": "앱은 서버 안 8000에서 돎, 창을 닫으면 멈춤"
+        }
+      ],
+      "next_label": "NEXT",
+      "next_title": "상시 실행·HTTPS",
+      "next": [
+        "systemd로 계속 돌게 하기",
+        "Nginx에 비밀번호·HTTPS",
+        "브라우저·휴대폰으로 열기"
+      ]
+    },
+    {
+      "archetype": "closing"
+    }
+  ]
+}

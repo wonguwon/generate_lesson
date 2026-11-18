@@ -1,0 +1,313 @@
+{
+  "course": "네이버 클라우드 활용 강의",
+  "course_short": "네이버 클라우드",
+  "organization": "남서울대학교",
+  "instructor": "최지원",
+  "day": "Day 03",
+  "slides": [
+    {
+      "archetype": "cover",
+      "title": "네이버 클라우드\n활용 강의",
+      "subtitle": "상시 실행과 HTTPS 공개",
+      "meta": "남서울대학교 | 최지원",
+      "image": "../images/image-1794530607412.png"
+    },
+    {
+      "archetype": "agenda_with_goals",
+      "title": "이번 시간 흐름",
+      "goal_icon": "target",
+      "items": [
+        {
+          "title": "systemd",
+          "desc": "창을 닫아도 앱이 계속 돌게"
+        },
+        {
+          "title": "Nginx와 htpasswd",
+          "desc": "앞문에서 비밀번호로 확인"
+        },
+        {
+          "title": "HTTPS와 wss://",
+          "desc": "인증서로 암호화, 라즈베리파이 연결"
+        },
+        {
+          "title": "요금과 반납",
+          "desc": "정지와 반납, 백업 챙기기"
+        }
+      ],
+      "goals": [
+        "웹 화면을\nHTTPS로 공개하기",
+        "요금 확인하고\n서버 반납하기"
+      ]
+    },
+    {
+      "archetype": "section_divider",
+      "phase": "본론",
+      "title": "상시 실행(systemd)",
+      "intro": "SSH 창을 닫아도 앱이 계속 돌게 하려면\n어떻게 할까?"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "창에 묶인 앱 vs 서비스",
+      "image": "images/01_systemd.png",
+      "explain_title": "알아 둘 말",
+      "bullets": [
+        "프로세스: 실행 중 프로그램",
+        "서비스: OS가 지켜봄",
+        "systemd: 서비스 관리자",
+        "로그: journalctl로 봄"
+      ],
+      "tip": "SQLite라 앱은 하나만 띄움"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "서비스 등록과 확인",
+      "code": "systemctl enable --now\nsystemctl status\nsystemctl restart\njournalctl -u",
+      "keywords": [
+        "systemctl",
+        "journalctl"
+      ],
+      "explain_title": "서비스 파일에 적는 것",
+      "bullets": [
+        "실행 계정(app)",
+        "앱 폴더",
+        "실행 명령",
+        "꺼지면 다시 켜기 · 부팅 때 켜기"
+      ],
+      "tip": "고친 뒤에는 daemon-reload → restart"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습 1. systemd 등록",
+      "intro": "smart-sandal 서비스를 등록하고\n창을 닫았다 다시 들어와 /health를 확인한다"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "리버스 프록시와 기본 인증",
+      "intro": "밖에서 브라우저로 열되,\n우리 팀만 들어오게 하려면 어떻게 할까?"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "Nginx 앞문",
+      "image": "images/02_nginx.png",
+      "explain_title": "알아 둘 말",
+      "bullets": [
+        "리버스 프록시: 안내 데스크",
+        "Nginx: 80·443 앞문",
+        "도메인: 이름으로 된 주소",
+        "sslip.io: IP가 든 이름 주소"
+      ],
+      "tip": "계속 운영하면 팀 도메인으로 바꿈"
+    },
+    {
+      "archetype": "two_column_versus",
+      "title": "/ws/ vs /",
+      "left": {
+        "title": "/ws/",
+        "bullets": [
+          "들어오는 것: 라즈베리파이·카메라",
+          "확인하는 곳: 앱이 토큰으로",
+          "비밀번호: 걸지 않음"
+        ]
+      },
+      "right": {
+        "title": "/ (나머지 전부)",
+        "bullets": [
+          "들어오는 것: 웹 화면·API·실시간",
+          "확인하는 곳: Nginx가 비밀번호로",
+          "비밀번호: 반드시 걸기"
+        ]
+      }
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "사라지는 127.0.0.1 보호",
+      "bullets": [
+        "기본 인증: 브라우저가 아이디·비밀번호 창을 띄움",
+        "htpasswd: 기본 인증 파일을 만드는 명령",
+        "앱의 보호: 127.0.0.1이 아니면 403",
+        "Nginx 뒤: 모든 요청이 127.0.0.1로 보임",
+        "→ 보호가 사라짐, 8000은 계속 닫음"
+      ],
+      "icon": "shield-alert",
+      "key_title": "주의",
+      "key_message": "비밀번호 없이\nNginx를 열지 않기"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습 2. Nginx와 비밀번호",
+      "intro": "htpasswd로 비밀번호를 만들고 Nginx를 설정한다\n로그인 창이 먼저 뜨는지 확인한다"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "HTTPS 인증서와 wss://",
+      "intro": "주고받는 내용을 어떻게 암호화하고,\n라즈베리파이는 어떻게 붙일까?"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "HTTPS와 인증서",
+      "image": "images/04_http_https.png",
+      "explain_title": "알아 둘 말",
+      "bullets": [
+        "HTTPS: 암호화(443번)",
+        "인증서: 서버 확인 증명서",
+        "Let's Encrypt: 무료 발급",
+        "certbot: 받아서 Nginx에"
+      ],
+      "tip": "갱신은 certbot이 자동으로"
+    },
+    {
+      "archetype": "process_steps",
+      "title": "certbot이 하는 일",
+      "steps": [
+        {
+          "title": "확인받기",
+          "desc": "이 주소가 이 서버로\n오는지 80번으로"
+        },
+        {
+          "title": "인증서 받기",
+          "desc": "Let's Encrypt\n무료 발급"
+        },
+        {
+          "title": "443 추가",
+          "desc": "Nginx 설정에\n443 연결 추가"
+        },
+        {
+          "title": "https 전환",
+          "desc": "http 요청을\nhttps로 넘김"
+        }
+      ]
+    },
+    {
+      "archetype": "text_plus_key_point",
+      "title": "라즈베리파이는 wss://",
+      "bullets": [
+        "WebSocket: 연결을 열어 두고 계속 주고받음",
+        "ws:// 암호화 없음 · wss:// 암호화",
+        "수신기: 사설 IP가 아니면 ws:// 거부",
+        "바꿀 것: .env 접속 주소 두 줄을 wss://로",
+        "토큰을 서버 .env와 같게 → 서비스 재시작"
+      ],
+      "icon": "radio",
+      "key_title": "둘 다 맞아야 붙음",
+      "key_message": "wss:// 주소\n+ 서버와 같은 토큰"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습 3. HTTPS 접속",
+      "intro": "certbot으로 인증서를 받고 https로 연다\n휴대폰(모바일 데이터)으로도 확인한다"
+    },
+    {
+      "archetype": "section_divider",
+      "title": "요금 관리와 서버 반납",
+      "intro": "다 쓴 서버는 어떻게 멈추고,\n어떻게 돌려줄까?"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "title": "정지와 반납",
+      "image": "images/05_stop_return.png",
+      "explain_title": "알아 둘 말",
+      "bullets": [
+        "크레딧 차감: 크레딧부터",
+        "정지: 끄고 그대로(90일)",
+        "반납: 서버·디스크 삭제",
+        "요금: 콘솔 크레딧 관리"
+      ],
+      "tip": "반납은 되돌릴 수 없음"
+    },
+    {
+      "archetype": "two_column_versus",
+      "title": "정지 vs 반납",
+      "left": {
+        "title": "정지",
+        "bullets": [
+          "서버·디스크·DB: 남음",
+          "다시 쓰기: 시작하면 앱까지 돎",
+          "서버 요금: 디스크 요금은 나감",
+          "공인 IP: 붙어 있고 요금이 나감"
+        ]
+      },
+      "right": {
+        "title": "반납",
+        "bullets": [
+          "서버·디스크·DB: 함께 사라짐",
+          "다시 쓰기: 서버를 새로 만듦",
+          "서버 요금: 멈춤",
+          "공인 IP: 따로 해제·반납해야 멈춤"
+        ]
+      }
+    },
+    {
+      "archetype": "process_steps",
+      "title": "반납 순서",
+      "steps": [
+        {
+          "title": "백업 받기",
+          "desc": "운영중일 때\nbackups 받기"
+        },
+        {
+          "title": "IP 해제",
+          "desc": "공인 IP를\n서버에서 해제"
+        },
+        {
+          "title": "서버 반납",
+          "desc": "반납 보호 끄기\n→ 정지 → 반납"
+        },
+        {
+          "title": "IP 반납",
+          "desc": "공인 IP 반납"
+        },
+        {
+          "title": "요금 확인",
+          "desc": "다음 날\n과금 정보 확인"
+        }
+      ]
+    },
+    {
+      "archetype": "section_divider",
+      "title": "실습 4. 요금 확인과 정지",
+      "intro": "크레딧을 확인하고 서버를 정지한다\n반납 순서는 강사 화면으로 보기만 한다"
+    },
+    {
+      "archetype": "code_or_formula_explain",
+      "phase": "정리",
+      "title": "배포 체크리스트",
+      "image": "images/06_summary.png",
+      "explain_title": "공개 전에 확인",
+      "bullets": [
+        "비밀번호 + 8000 닫힘",
+        "라즈베리파이는 wss://",
+        "서버에서 npm ci",
+        "디스크 여유 10GB 이상"
+      ],
+      "tip": "서버 1대 · backups는 밖으로"
+    },
+    {
+      "archetype": "summary_with_next",
+      "title": "과정을 마치며",
+      "rows": [
+        {
+          "icon": "lock",
+          "text": "비밀번호와 HTTPS가 걸렸는가"
+        },
+        {
+          "icon": "door-open",
+          "text": "열린 문이 22·80·443뿐인가"
+        },
+        {
+          "icon": "check",
+          "text": "백업이 서버 밖에도 있는가"
+        }
+      ],
+      "next_label": "NEXT STEP",
+      "next_title": "코드를 고친 뒤 반영",
+      "next": [
+        "git pull → npm ci",
+        "prisma → build",
+        "systemctl restart"
+      ]
+    },
+    {
+      "archetype": "closing"
+    }
+  ]
+}
