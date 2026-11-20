@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>대학가 배달 주문 대시보드</title>
+<style>
+:root{--bg:#f4f3f0;--panel:#fcfcfb;--ink:#0b0b0b;--ink2:#52514e;--line:#d9d7d0;--accent:#2a78d6;--exam:#fde9c4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo","Noto Sans KR",sans-serif;line-height:1.45}
+main{max-width:1180px;margin:0 auto;padding:24px 16px 40px}
+h1{font-size:26px;margin:0 0 4px}
+.sub{color:var(--ink2);margin:0 0 20px;font-size:14px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.card .name{color:var(--ink2);font-size:14px}
+.card .num{font-size:28px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+.row2{display:grid;grid-template-columns:3fr 2fr;gap:12px;margin-bottom:12px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;min-width:0}
+.panel h2{font-size:17px;margin:0 0 2px}
+.panel .note{color:var(--ink2);font-size:13px;margin:0 0 8px}
+svg.chart{width:100%;height:auto;display:block}
+.axis{stroke:var(--line);stroke-width:1}
+.line{fill:none;stroke:var(--accent);stroke-width:2}
+.pt circle{fill:var(--accent);stroke:var(--panel);stroke-width:2}
+.pt circle.hit{fill:transparent;stroke:none}
+.pt:hover circle:first-of-type{r:7}
+.val{fill:var(--ink);font-size:12px;font-weight:600}
+.tick,.axis-title{fill:var(--ink2);font-size:12px}
+.exam{fill:var(--exam)}
+.exam-label{fill:var(--ink);font-size:12px;font-weight:700}
+.seg-val{font-size:12px;font-weight:600}
+.seg-val.side{fill:var(--ink2);font-size:11px}
+.seg:hover rect{opacity:.85}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--ink2);margin:4px 0}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.heatwrap{overflow-x:auto}
+table.heat{border-collapse:separate;border-spacing:2px;width:100%;font-size:12px;font-variant-numeric:tabular-nums}
+table.heat th{color:var(--ink2);font-weight:600;padding:2px 4px}
+table.heat td{text-align:center;padding:3px 2px;border-radius:3px;min-width:34px}
+table.mini{border-collapse:collapse;margin-top:10px;font-size:13px;font-variant-numeric:tabular-nums}
+table.mini caption{text-align:left;color:var(--ink2);margin-bottom:4px}
+table.mini th,table.mini td{border-bottom:1px solid var(--line);padding:3px 10px;text-align:right}
+table.mini th[scope=row],table.mini thead th:first-child{text-align:left}
+footer{color:var(--ink2);font-size:13px;margin-top:16px}
+@media (max-width:820px){.cards{grid-template-columns:repeat(2,1fr)}.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<header><h1>대학가 배달 주문 대시보드</h1>
+<p class="sub">2025-03-03 ~ 2025-05-25(1~12주) · 매출과 주문 수는 status가 완료인 주문, 평균 평점은 평점이 있는 주문 전체</p></header>
+<section class="cards">
+<div class="card"><div class="name">매출</div><div class="num">90,182,000원</div></div>
+<div class="card"><div class="name">완료 주문 수</div><div class="num">4,193건</div></div>
+<div class="card"><div class="name">건당 평균 금액</div><div class="num">21,508원</div></div>
+<div class="card"><div class="name">평균 평점</div><div class="num">3.49</div></div>
+</section>
+<section class="row2">
+<div class="panel"><h2>주문은 주마다 어떻게 달라지나?</h2><p class="note">주차별 완료 주문 수(주차별 시트)</p><svg class="chart" viewBox="0 0 640 300" role="img" aria-label="주차별 완료 주문 수 선 차트">
+<line class="axis" x1="24" y1="256" x2="616" y2="256"/>
+<rect class="exam" x="382.7" y="16" width="36" height="240" rx="4"/>
+<text class="exam-label" x="400.7" y="30" text-anchor="middle">중간고사</text>
+<polyline class="line" points="24.0,181.5 77.8,172.5 131.6,172.5 185.5,170.2 239.3,170.2 293.1,159.0 346.9,185.9 400.7,69.2 454.5,147.8 508.4,165.7 562.2,179.2 616.0,150.0"/>
+<g class="pt"><title>1주차(시작일 2025-03-03) 완료 주문 340건 · 매출 7,560,500원</title><circle cx="24.0" cy="181.5" r="5"/><circle class="hit" cx="24.0" cy="181.5" r="14"/></g>
+<text class="val" x="24.0" y="170.5" text-anchor="middle">340</text>
+<text class="tick" x="24.0" y="276" text-anchor="middle">1주</text>
+<g class="pt"><title>2주차(시작일 2025-03-10) 완료 주문 344건 · 매출 7,107,500원</title><circle cx="77.8" cy="172.5" r="5"/><circle class="hit" cx="77.8" cy="172.5" r="14"/></g>
+<text class="val" x="77.8" y="161.5" text-anchor="middle">344</text>
+<text class="tick" x="77.8" y="276" text-anchor="middle">2주</text>
+<g class="pt"><title>3주차(시작일 2025-03-17) 완료 주문 344건 · 매출 7,361,500원</title><circle cx="131.6" cy="172.5" r="5"/><circle class="hit" cx="131.6" cy="172.5" r="14"/></g>
+<text class="val" x="131.6" y="161.5" text-anchor="middle">344</text>
+<text class="tick" x="131.6" y="276" text-anchor="middle">3주</text>
+<g class="pt"><title>4주차(시작일 2025-03-24) 완료 주문 345건 · 매출 7,790,000원</title><circle cx="185.5" cy="170.2" r="5"/><circle class="hit" cx="185.5" cy="170.2" r="14"/></g>
+<text class="val" x="185.5" y="159.2" text-anchor="middle">345</text>
+<text class="tick" x="185.5" y="276" text-anchor="middle">4주</text>
+<g class="pt"><title>5주차(시작일 2025-03-31) 완료 주문 345건 · 매출 7,155,000원</title><circle cx="239.3" cy="170.2" r="5"/><circle class="hit" cx="239.3" cy="170.2" r="14"/></g>
+<text class="val" x="239.3" y="159.2" text-anchor="middle">345</text>
+<text class="tick" x="239.3" y="276" text-anchor="middle">5주</text>
+<g class="pt"><title>6주차(시작일 2025-04-07) 완료 주문 350건 · 매출 7,403,500원</title><circle cx="293.1" cy="159.0" r="5"/><circle class="hit" cx="293.1" cy="159.0" r="14"/></g>
+<text class="val" x="293.1" y="148.0" text-anchor="middle">350</text>
+<text class="tick" x="293.1" y="276" text-anchor="middle">6주</text>
+<g class="pt"><title>7주차(시작일 2025-04-14) 완료 주문 338건 · 매출 7,298,500원</title><circle cx="346.9" cy="185.9" r="5"/><circle class="hit" cx="346.9" cy="185.9" r="14"/></g>
+<text class="val" x="346.9" y="174.9" text-anchor="middle">338</text>
+<text class="tick" x="346.9" y="276" text-anchor="middle">7주</text>
+<g class="pt"><title>8주차(시작일 2025-04-21) 완료 주문 390건 · 매출 8,580,000원</title><circle cx="400.7" cy="69.2" r="5"/><circle class="hit" cx="400.7" cy="69.2" r="14"/></g>
+<text class="val" x="400.7" y="58.2" text-anchor="middle">390</text>
+<text class="tick" x="400.7" y="276" text-anchor="middle">8주</text>
+<g class="pt"><title>9주차(시작일 2025-04-28) 완료 주문 355건 · 매출 7,529,000원</title><circle cx="454.5" cy="147.8" r="5"/><circle class="hit" cx="454.5" cy="147.8" r="14"/></g>
+<text class="val" x="454.5" y="136.8" text-anchor="middle">355</text>
+<text class="tick" x="454.5" y="276" text-anchor="middle">9주</text>
+<g class="pt"><title>10주차(시작일 2025-05-05) 완료 주문 347건 · 매출 7,658,500원</title><circle cx="508.4" cy="165.7" r="5"/><circle class="hit" cx="508.4" cy="165.7" r="14"/></g>
+<text class="val" x="508.4" y="154.7" text-anchor="middle">347</text>
+<text class="tick" x="508.4" y="276" text-anchor="middle">10주</text>
+<g class="pt"><title>11주차(시작일 2025-05-12) 완료 주문 341건 · 매출 7,211,000원</title><circle cx="562.2" cy="179.2" r="5"/><circle class="hit" cx="562.2" cy="179.2" r="14"/></g>
+<text class="val" x="562.2" y="168.2" text-anchor="middle">341</text>
+<text class="tick" x="562.2" y="276" text-anchor="middle">11주</text>
+<g class="pt"><title>12주차(시작일 2025-05-19) 완료 주문 354건 · 매출 7,527,000원</title><circle cx="616.0" cy="150.0" r="5"/><circle class="hit" cx="616.0" cy="150.0" r="14"/></g>
+<text class="val" x="616.0" y="139.0" text-anchor="middle">354</text>
+<text class="tick" x="616.0" y="276" text-anchor="middle">12주</text>
+</svg></div>
+<div class="panel"><h2>어느 요일, 어느 시간에 주문이 몰리나?</h2><p class="note">시간대 × 요일 완료 주문 수(시간대x요일 시트), 진할수록 많음</p><div class="heatwrap"><table class="heat"><thead><tr><th scope="col">시간대</th><th scope="col">월</th><th scope="col">화</th><th scope="col">수</th><th scope="col">목</th><th scope="col">금</th><th scope="col">토</th><th scope="col">일</th></tr></thead><tbody>
+<tr><th scope="row">10시</th><td style="background:#e8eff9;color:#0b0b0b" title="월요일 10시 3건">3</td><td style="background:#dfe7f3;color:#0b0b0b" title="화요일 10시 8건">8</td><td style="background:#dfe7f3;color:#0b0b0b" title="수요일 10시 8건">8</td><td style="background:#e6eef8;color:#0b0b0b" title="목요일 10시 4건">4</td><td style="background:#e6eef8;color:#0b0b0b" title="금요일 10시 4건">4</td><td style="background:#e8eff9;color:#0b0b0b" title="토요일 10시 3건">3</td><td style="background:#e4ecf6;color:#0b0b0b" title="일요일 10시 5건">5</td></tr>
+<tr><th scope="row">11시</th><td style="background:#adbfd7;color:#0b0b0b" title="월요일 11시 34건">34</td><td style="background:#b5c5db;color:#0b0b0b" title="화요일 11시 30건">30</td><td style="background:#c2d0e3;color:#0b0b0b" title="수요일 11시 23건">23</td><td style="background:#b3c3da;color:#0b0b0b" title="목요일 11시 31건">31</td><td style="background:#b3c3da;color:#0b0b0b" title="금요일 11시 31건">31</td><td style="background:#afc0d8;color:#0b0b0b" title="토요일 11시 33건">33</td><td style="background:#859ebf;color:#0b0b0b" title="일요일 11시 55건">55</td></tr>
+<tr><th scope="row">12시</th><td style="background:#92a9c7;color:#0b0b0b" title="월요일 12시 48건">48</td><td style="background:#839cbe;color:#0b0b0b" title="화요일 12시 56건">56</td><td style="background:#98adca;color:#0b0b0b" title="수요일 12시 45건">45</td><td style="background:#a4b7d1;color:#0b0b0b" title="목요일 12시 39건">39</td><td style="background:#96acc9;color:#0b0b0b" title="금요일 12시 46건">46</td><td style="background:#9aafcc;color:#0b0b0b" title="토요일 12시 44건">44</td><td style="background:#6382ac;color:#ffffff" title="일요일 12시 73건">73</td></tr>
+<tr><th scope="row">13시</th><td style="background:#cad6e7;color:#0b0b0b" title="월요일 13시 19건">19</td><td style="background:#cad6e7;color:#0b0b0b" title="화요일 13시 19건">19</td><td style="background:#b7c7dc;color:#0b0b0b" title="수요일 13시 29건">29</td><td style="background:#c2d0e3;color:#0b0b0b" title="목요일 13시 23건">23</td><td style="background:#b9c8dd;color:#0b0b0b" title="금요일 13시 28건">28</td><td style="background:#96acc9;color:#0b0b0b" title="토요일 13시 46건">46</td><td style="background:#859ebf;color:#0b0b0b" title="일요일 13시 55건">55</td></tr>
+<tr><th scope="row">14시</th><td style="background:#d3deed;color:#0b0b0b" title="월요일 14시 14건">14</td><td style="background:#dbe4f1;color:#0b0b0b" title="화요일 14시 10건">10</td><td style="background:#e1e9f4;color:#0b0b0b" title="수요일 14시 7건">7</td><td style="background:#dde6f2;color:#0b0b0b" title="목요일 14시 9건">9</td><td style="background:#ced9e9;color:#0b0b0b" title="금요일 14시 17건">17</td><td style="background:#ccd8e8;color:#0b0b0b" title="토요일 14시 18건">18</td><td style="background:#ced9e9;color:#0b0b0b" title="일요일 14시 17건">17</td></tr>
+<tr><th scope="row">15시</th><td style="background:#dfe7f3;color:#0b0b0b" title="월요일 15시 8건">8</td><td style="background:#dde6f2;color:#0b0b0b" title="화요일 15시 9건">9</td><td style="background:#e1e9f4;color:#0b0b0b" title="수요일 15시 7건">7</td><td style="background:#d7e1ef;color:#0b0b0b" title="목요일 15시 12건">12</td><td style="background:#d5e0ee;color:#0b0b0b" title="금요일 15시 13건">13</td><td style="background:#d9e3f0;color:#0b0b0b" title="토요일 15시 11건">11</td><td style="background:#e1e9f4;color:#0b0b0b" title="일요일 15시 7건">7</td></tr>
+<tr><th scope="row">16시</th><td style="background:#d3deed;color:#0b0b0b" title="월요일 16시 14건">14</td><td style="background:#dbe4f1;color:#0b0b0b" title="화요일 16시 10건">10</td><td style="background:#d5e0ee;color:#0b0b0b" title="수요일 16시 13건">13</td><td style="background:#cad6e7;color:#0b0b0b" title="목요일 16시 19건">19</td><td style="background:#d5e0ee;color:#0b0b0b" title="금요일 16시 13건">13</td><td style="background:#e1e9f4;color:#0b0b0b" title="토요일 16시 7건">7</td><td style="background:#dde6f2;color:#0b0b0b" title="일요일 16시 9건">9</td></tr>
+<tr><th scope="row">17시</th><td style="background:#b5c5db;color:#0b0b0b" title="월요일 17시 30건">30</td><td style="background:#b7c7dc;color:#0b0b0b" title="화요일 17시 29건">29</td><td style="background:#b7c7dc;color:#0b0b0b" title="수요일 17시 29건">29</td><td style="background:#bbcade;color:#0b0b0b" title="목요일 17시 27건">27</td><td style="background:#b5c5db;color:#0b0b0b" title="금요일 17시 30건">30</td><td style="background:#b5c5db;color:#0b0b0b" title="토요일 17시 30건">30</td><td style="background:#c6d3e5;color:#0b0b0b" title="일요일 17시 21건">21</td></tr>
+<tr><th scope="row">18시</th><td style="background:#6a88b0;color:#ffffff" title="월요일 18시 69건">69</td><td style="background:#89a1c2;color:#0b0b0b" title="화요일 18시 53건">53</td><td style="background:#5b7ba7;color:#ffffff" title="수요일 18시 77건">77</td><td style="background:#6583ad;color:#ffffff" title="목요일 18시 72건">72</td><td style="background:#44689a;color:#ffffff" title="금요일 18시 89건">89</td><td style="background:#406598;color:#ffffff" title="토요일 18시 91건">91</td><td style="background:#819bbd;color:#0b0b0b" title="일요일 18시 57건">57</td></tr>
+<tr><th scope="row">19시</th><td style="background:#7691b7;color:#0b0b0b" title="월요일 19시 63건">63</td><td style="background:#5475a3;color:#ffffff" title="화요일 19시 81건">81</td><td style="background:#4e709f;color:#ffffff" title="수요일 19시 84건">84</td><td style="background:#44689a;color:#ffffff" title="목요일 19시 89건">89</td><td style="background:#1c4883;color:#ffffff" title="금요일 19시 110건">110</td><td style="background:#0d3b7a;color:#ffffff" title="토요일 19시 118건">118</td><td style="background:#6180aa;color:#ffffff" title="일요일 19시 74건">74</td></tr>
+<tr><th scope="row">20시</th><td style="background:#7893b8;color:#0b0b0b" title="월요일 20시 62건">62</td><td style="background:#728eb4;color:#ffffff" title="화요일 20시 65건">65</td><td style="background:#7f99bc;color:#0b0b0b" title="수요일 20시 58건">58</td><td style="background:#5f7ea9;color:#ffffff" title="목요일 20시 75건">75</td><td style="background:#184481;color:#ffffff" title="금요일 20시 112건">112</td><td style="background:#466a9b;color:#ffffff" title="토요일 20시 88건">88</td><td style="background:#8fa6c5;color:#0b0b0b" title="일요일 20시 50건">50</td></tr>
+<tr><th scope="row">21시</th><td style="background:#98adca;color:#0b0b0b" title="월요일 21시 45건">45</td><td style="background:#abbdd5;color:#0b0b0b" title="화요일 21시 35건">35</td><td style="background:#a9bcd4;color:#0b0b0b" title="수요일 21시 36건">36</td><td style="background:#a0b4cf;color:#0b0b0b" title="목요일 21시 41건">41</td><td style="background:#a9bcd4;color:#0b0b0b" title="금요일 21시 36건">36</td><td style="background:#94aac8;color:#0b0b0b" title="토요일 21시 47건">47</td><td style="background:#a2b5d0;color:#0b0b0b" title="일요일 21시 40건">40</td></tr>
+<tr><th scope="row">22시</th><td style="background:#859ebf;color:#0b0b0b" title="월요일 22시 55건">55</td><td style="background:#7f99bc;color:#0b0b0b" title="화요일 22시 58건">58</td><td style="background:#9eb2ce;color:#0b0b0b" title="수요일 22시 42건">42</td><td style="background:#8fa6c5;color:#0b0b0b" title="목요일 22시 50건">50</td><td style="background:#6180aa;color:#ffffff" title="금요일 22시 74건">74</td><td style="background:#6e8bb2;color:#ffffff" title="토요일 22시 67건">67</td><td style="background:#98adca;color:#0b0b0b" title="일요일 22시 45건">45</td></tr>
+<tr><th scope="row">23시</th><td style="background:#8da4c4;color:#0b0b0b" title="월요일 23시 51건">51</td><td style="background:#a0b4cf;color:#0b0b0b" title="화요일 23시 41건">41</td><td style="background:#a6b8d2;color:#0b0b0b" title="수요일 23시 38건">38</td><td style="background:#8ba2c3;color:#0b0b0b" title="목요일 23시 52건">52</td><td style="background:#6986af;color:#ffffff" title="금요일 23시 70건">70</td><td style="background:#7f99bc;color:#0b0b0b" title="토요일 23시 58건">58</td><td style="background:#98adca;color:#0b0b0b" title="일요일 23시 45건">45</td></tr>
+<tr><th scope="row">0시</th><td style="background:#c8d5e6;color:#0b0b0b" title="월요일 0시 20건">20</td><td style="background:#becde0;color:#0b0b0b" title="화요일 0시 25건">25</td><td style="background:#bbcade;color:#0b0b0b" title="수요일 0시 27건">27</td><td style="background:#c2d0e3;color:#0b0b0b" title="목요일 0시 23건">23</td><td style="background:#abbdd5;color:#0b0b0b" title="금요일 0시 35건">35</td><td style="background:#b1c2d9;color:#0b0b0b" title="토요일 0시 32건">32</td><td style="background:#c8d5e6;color:#0b0b0b" title="일요일 0시 20건">20</td></tr>
+<tr><th scope="row">1시</th><td style="background:#e1e9f4;color:#0b0b0b" title="월요일 1시 7건">7</td><td style="background:#dde6f2;color:#0b0b0b" title="화요일 1시 9건">9</td><td style="background:#e1e9f4;color:#0b0b0b" title="수요일 1시 7건">7</td><td style="background:#e4ecf6;color:#0b0b0b" title="목요일 1시 5건">5</td><td style="background:#d7e1ef;color:#0b0b0b" title="금요일 1시 12건">12</td><td style="background:#d3deed;color:#0b0b0b" title="토요일 1시 14건">14</td><td style="background:#d7e1ef;color:#0b0b0b" title="일요일 1시 12건">12</td></tr>
+</tbody></table></div></div>
+</section>
+<section class="panel"><h2>어느 주제에서 불만이 많나?</h2><p class="note">주제마다 긍정·부정·중립 리뷰 수를 쌓은 막대(리뷰분류 시트), 막대 위 숫자는 합계</p><div class="legend"><span><i style="background:#eb6834"></i>부정</span><span><i style="background:#a8a7a0"></i>중립</span><span><i style="background:#2a78d6"></i>긍정</span></div>
+<svg class="chart" viewBox="0 0 900 360" role="img" aria-label="주제별 감성 리뷰 수 누적 막대 차트">
+<line class="axis" x1="20" y1="320" x2="880" y2="320"/>
+<g class="seg"><title>맛 · 부정 17개</title><rect x="56.7" y="258.6" width="70.0" height="60.4" rx="3" fill="#eb6834"/></g>
+<text class="seg-val" x="91.7" y="292.8" text-anchor="middle" fill="#ffffff">17</text>
+<g class="seg"><title>맛 · 중립 5개</title><rect x="56.7" y="240.2" width="70.0" height="16.4" rx="3" fill="#a8a7a0"/></g>
+<text class="seg-val" x="91.7" y="252.4" text-anchor="middle" fill="#0b0b0b">5</text>
+<g class="seg"><title>맛 · 긍정 57개</title><rect x="56.7" y="31.0" width="70.0" height="207.2" rx="3" fill="#2a78d6"/></g>
+<text class="seg-val" x="91.7" y="138.6" text-anchor="middle" fill="#ffffff">57</text>
+<text class="val" x="91.7" y="22.0" text-anchor="middle">79</text>
+<text class="tick" x="91.7" y="342" text-anchor="middle">맛</text>
+<g class="seg"><title>배달 · 부정 23개</title><rect x="200.0" y="236.6" width="70.0" height="82.4" rx="3" fill="#eb6834"/></g>
+<text class="seg-val" x="235.0" y="281.8" text-anchor="middle" fill="#ffffff">23</text>
+<g class="seg"><title>배달 · 중립 2개</title><rect x="200.0" y="229.2" width="70.0" height="5.3" rx="3" fill="#a8a7a0"/></g>
+<text class="seg-val side" x="274.0" y="235.9">2</text>
+<g class="seg"><title>배달 · 긍정 13개</title><rect x="200.0" y="181.5" width="70.0" height="45.7" rx="3" fill="#2a78d6"/></g>
+<text class="seg-val" x="235.0" y="208.4" text-anchor="middle" fill="#ffffff">13</text>
+<text class="val" x="235.0" y="172.5" text-anchor="middle">38</text>
+<text class="tick" x="235.0" y="342" text-anchor="middle">배달</text>
+<g class="seg"><title>양 · 부정 6개</title><rect x="343.3" y="299.0" width="70.0" height="20.0" rx="3" fill="#eb6834"/></g>
+<text class="seg-val" x="378.3" y="313.0" text-anchor="middle" fill="#ffffff">6</text>
+<g class="seg"><title>양 · 중립 7개</title><rect x="343.3" y="273.3" width="70.0" height="23.7" rx="3" fill="#a8a7a0"/></g>
+<text class="seg-val" x="378.3" y="289.1" text-anchor="middle" fill="#0b0b0b">7</text>
+<g class="seg"><title>양 · 긍정 19개</title><rect x="343.3" y="203.5" width="70.0" height="67.7" rx="3" fill="#2a78d6"/></g>
+<text class="seg-val" x="378.3" y="241.4" text-anchor="middle" fill="#ffffff">19</text>
+<text class="val" x="378.3" y="194.5" text-anchor="middle">32</text>
+<text class="tick" x="378.3" y="342" text-anchor="middle">양</text>
+<g class="seg"><title>포장 · 부정 8개</title><rect x="486.7" y="291.6" width="70.0" height="27.4" rx="3" fill="#eb6834"/></g>
+<text class="seg-val" x="521.7" y="309.3" text-anchor="middle" fill="#ffffff">8</text>
+<g class="seg"><title>포장 · 중립 1개</title><rect x="486.7" y="288.0" width="70.0" height="1.7" rx="3" fill="#a8a7a0"/></g>
+<text class="seg-val side" x="560.7" y="292.8">1</text>
+<g class="seg"><title>포장 · 긍정 4개</title><rect x="486.7" y="273.3" width="70.0" height="12.7" rx="3" fill="#2a78d6"/></g>
+<text class="seg-val side" x="560.7" y="280.8">4</text>
+<text class="val" x="521.7" y="264.3" text-anchor="middle">13</text>
+<text class="tick" x="521.7" y="342" text-anchor="middle">포장</text>
+<g class="seg"><title>가격 · 부정 4개</title><rect x="630.0" y="306.3" width="70.0" height="12.7" rx="3" fill="#eb6834"/></g>
+<text class="seg-val side" x="704.0" y="316.7">4</text>
+<g class="seg"><title>가격 · 중립 2개</title><rect x="630.0" y="299.0" width="70.0" height="5.3" rx="3" fill="#a8a7a0"/></g>
+<text class="seg-val side" x="704.0" y="304.7">2</text>
+<g class="seg"><title>가격 · 긍정 17개</title><rect x="630.0" y="236.6" width="70.0" height="60.4" rx="3" fill="#2a78d6"/></g>
+<text class="seg-val" x="665.0" y="270.8" text-anchor="middle" fill="#ffffff">17</text>
+<text class="val" x="665.0" y="227.6" text-anchor="middle">23</text>
+<text class="tick" x="665.0" y="342" text-anchor="middle">가격</text>
+<g class="seg"><title>기타 · 부정 2개</title><rect x="773.3" y="313.7" width="70.0" height="5.3" rx="3" fill="#eb6834"/></g>
+<text class="seg-val side" x="847.3" y="320.3">2</text>
+<g class="seg"><title>기타 · 중립 3개</title><rect x="773.3" y="302.6" width="70.0" height="9.0" rx="3" fill="#a8a7a0"/></g>
+<text class="seg-val side" x="847.3" y="308.3">3</text>
+<g class="seg"><title>기타 · 긍정 10개</title><rect x="773.3" y="265.9" width="70.0" height="34.7" rx="3" fill="#2a78d6"/></g>
+<text class="seg-val" x="808.3" y="287.3" text-anchor="middle" fill="#ffffff">10</text>
+<text class="val" x="808.3" y="256.9" text-anchor="middle">15</text>
+<text class="tick" x="808.3" y="342" text-anchor="middle">기타</text>
+</svg>
+<table class="mini"><caption>주제별 리뷰 수(리뷰분류 시트)</caption><thead><tr><th scope="col">주제</th><th scope="col">긍정</th><th scope="col">부정</th><th scope="col">중립</th><th scope="col">합계</th></tr></thead><tbody>
+<tr><th scope="row">맛</th><td>57</td><td>17</td><td>5</td><td>79</td></tr>
+<tr><th scope="row">배달</th><td>13</td><td>23</td><td>2</td><td>38</td></tr>
+<tr><th scope="row">양</th><td>19</td><td>6</td><td>7</td><td>32</td></tr>
+<tr><th scope="row">포장</th><td>4</td><td>8</td><td>1</td><td>13</td></tr>
+<tr><th scope="row">가격</th><td>17</td><td>4</td><td>2</td><td>23</td></tr>
+<tr><th scope="row">기타</th><td>10</td><td>2</td><td>3</td><td>15</td></tr>
+<tr><th scope="row">합계</th><td>120</td><td>60</td><td>20</td><td>200</td></tr>
+</tbody></table></section>
+<footer>숫자 출처 analysis_summary.xlsx, 리뷰는 표본 200개를 분류한 결과</footer>
+</main>
+</body>
+</html>

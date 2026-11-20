@@ -19,7 +19,9 @@ ChatGPT 채팅·작업 모드로 데이터를 분석하는 10차시 과정의 �
 | `data/reviews_sample_200.csv` | 1~12주 | 200 | 4차시 리뷰 분류 표본(정제 파일에서 고정 규칙으로 뽑음, 열 5개) |
 | `data/dashboard_sketch.md` | - | - | 5차시 대시보드 배치 스케치(카드 4·차트 3). 차트 3은 실습 3에서 고칠 거리로 일부러 합계 막대 |
 | `skill/weekly-order-update/SKILL.md` | - | - | 8차시 주간 갱신 스킬 초안(절차 9단계, 정제 규칙 1~10). 스킬 메뉴가 없으면 `주간갱신_작업설명서.md`로 이름을 바꿔 작업 설명서로 씀 |
-| `skill/9차시_완성본/weekly-order-update/SKILL.md` | - | - | 9차시까지 마친 스킬(규칙 11, 나눠 분류·검토 단계, 처리 기록이 맨 뒤인 11단계). 강사 확인용 |
+| `skill/8차시_완성본/weekly-order-update/SKILL.md` | - | - | 8차시까지 마친 스킬(초안에 규칙 11 한 줄만 더함). 9차시 시작용으로 배포 |
+| `skill/9차시_완성본/weekly-order-update/SKILL.md` | - | - | 9차시까지 마친 스킬(규칙 11, 나눠 분류·검토 단계, 처리 기록이 맨 뒤인 11단계). 9차시 막히면·10차시 시작용으로 배포 |
+| `lesson_files/` | - | - | 차시별 실습 재료 파일(교안 토글의 재료)과 지난 시간을 못 따라온 학습자용 시작 파일. 차시별로 올릴 파일은 `lesson_files/README.md` |
 
 주차 파일에도 기본 파일과 같은 종류의 지저분함이 작은 비율로 들어 있어, 같은 정제 규칙이 그대로 통하는지 확인할 수 있습니다.
 
@@ -32,6 +34,7 @@ ChatGPT 채팅·작업 모드로 데이터를 분석하는 10차시 과정의 �
 | `_tools/make_data.py` · `_tools/review_bank.py` | 데이터 생성(시드 고정)과 리뷰 문장 재료 |
 | `_tools/check_data.py` | 의도한 특징이 실제로 나오는지 검사하고 `data_facts.md`를 다시 씀(import만 해도 다시 쓰므로, 정제 함수 `clean()`만 쓸 때는 복사해서 씀) |
 | `_tools/reviews_sample_200_answer.csv` · `_tools/make_review_sample.py` | 리뷰 표본 200개의 감성·주제 정답과, 표본을 다시 만드는 스크립트 |
+| `_tools/make_start_files.py` | `lesson_files/start/`의 시작 파일을 만들고 교안 숫자와 대조(openpyxl 필요) |
 
 ## 차시별로 쓰는 파일
 
