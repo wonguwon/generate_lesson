@@ -27,14 +27,14 @@ PRD.md를 만들 때 Claude Code에 읽히는 재료입니다. 이 파일에 적
 
 ## 연동 대상
 - Supabase: DB와 이메일·비밀번호 로그인, 프로젝트 sodam-sales
-- Claude API: AI 분석 리포트, 서버 쪽 코드(Route Handler)에서만 부름
+- Gemini API: AI 분석 리포트, 서버 쪽 코드(Route Handler)에서만 부름. 무료 등급이라 가상 샘플 데이터로만 씀
 - MCP 서버: Claude Code 같은 AI 도구가 부르는 /api/mcp, 읽기 전용 집계 도구만, 사용자별 MCP 연결 키로 누구인지 확인
 - 키는 .env.local에만 두고 저장소에 올리지 않는다.
 
 ## 권한
 - 로그인한 사람은 자기 매출·리포트만 보고 고친다(Supabase RLS).
 - 공유 링크로는 그 리포트 한 건만 로그인 없이 읽는다. 고치기와 다른 데이터 보기는 안 된다.
-- Claude API에는 월별·플랫폼별·상품별 합계 같은 집계값만 보내고, 주문자 이름과 매출 행은 보내지 않는다.
+- Gemini API에는 월별·플랫폼별·상품별 합계 같은 집계값만 보내고, 주문자 이름과 매출 행은 보내지 않는다.
 - MCP 연결 키로는 그 사람의 집계값만 읽는다. 주문자 이름·매출 행은 내보내지 않는다. 해제한 키는 막힌다.
 
 ## 완료 기준
@@ -52,7 +52,7 @@ PRD.md를 만들 때 Claude Code에 읽히는 재료입니다. 이 파일에 적
 - 엑셀 읽기: SheetJS, npm 공개 저장소의 xlsx가 아니라 SheetJS 공식 문서의 CDN 주소로 설치
 - 엑셀은 브라우저에서 읽어 미리보기로 보여 주고, 저장할 때 서버에서 값을 다시 검증
 - 차트: Recharts, 차트는 클라이언트 컴포넌트로
-- AI: Claude API, 서버 쪽 코드에서만
+- AI: Gemini API(공식 SDK @google/genai), 서버 쪽 코드에서만. 모델 ID는 Gemini API 공식 문서의 모델 목록에서 확인해 여기에 적음
 - MCP 서버: Vercel mcp-handler 공식 문서 방식으로 Route Handler에
 
 ## 구현 계획

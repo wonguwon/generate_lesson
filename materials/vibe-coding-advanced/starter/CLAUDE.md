@@ -46,8 +46,8 @@ Claude Code가 이 폴더에서 일할 때마다 먼저 읽는 규칙입니다.
 
 - 서비스: 소담상점 매출 분석 서비스 sodam-sales (1인 판매자의 매출 엑셀을 저장·분석)
 - 문서: 기획서.md · PRD.md · 구현계획.md는 폴더 맨 위에 둔다. 앱 코드도 하위 폴더 없이 이 폴더에 둔다.
-- 기술: Next.js(App Router) + TypeScript + Tailwind CSS, Supabase(@supabase/ssr), SheetJS(공식 CDN 주소로 설치), Recharts(클라이언트 컴포넌트), Claude API, mcp-handler
-- 키 이름: NEXT_PUBLIC_SUPABASE_URL · NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY · SUPABASE_SECRET_KEY · ANTHROPIC_API_KEY
+- 기술: Next.js(App Router) + TypeScript + Tailwind CSS, Supabase(@supabase/ssr), SheetJS(공식 CDN 주소로 설치), Recharts(클라이언트 컴포넌트), Gemini API(@google/genai), mcp-handler
+- 키 이름: NEXT_PUBLIC_SUPABASE_URL · NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY · SUPABASE_SECRET_KEY · GEMINI_API_KEY
 - SQL 파일: supabase/01_tables.sql → 02_rls.sql → 03_mcp_keys.sql, 바로잡는 SQL은 fix_…
 - 표 권한: GRANT는 authenticated·service_role에만, anon에는 주지 않는다. 모든 표에 사용자 칸(기본값 auth.uid())이 있고, 화면에서 사용자 번호를 보내지 않는다. 누구의 행인지는 RLS가 정하므로, 조회 코드에 사용자 조건을 따로 붙이지 않는다.
 - 플랫폼: 스마트스토어 · 쿠팡 · 자사몰 세 개
